@@ -83,7 +83,7 @@ const Header = ({ locale }: { locale: string }) => {
               }
             </div>
 
-            <div className='flex flex-col gap-[16px] md:gap-[20px]'>
+            <div className='flex flex-col gap-[16px] md:gap-[20px] fixed bottom-[40px]'>
                 <div className='flex flex-col text-[22px] font-bold'>
                   <p>Здоровье и отдых в </p>
                   <p>одном путешествии!</p>
