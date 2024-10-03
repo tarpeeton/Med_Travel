@@ -25,7 +25,7 @@ const MainBanner: FC = () => {
 
   const settings = {
     dots: false, // Removed dots
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -56,24 +56,24 @@ const MainBanner: FC = () => {
           <div key={banner.id} className="flex justify-between">
             <div className="flex w-full">
               {/* Main Banner */}
-              <div className="w-full relative slg:w-4/5">
+              <div className="w-full relative h-[500px] slg:w-4/5">
                 <img
                   src={banner.imageUrl}
                   alt={banner.title}
-                  className="w-full h-96 object-cover"
+                  className="w-full h-screen object-cover"
                 />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px]">
-                  <div className='flex flex-row gap-[8px] absolute'>
+                  <div className='flex flex-row gap-[8px] mb-[40px]'>
                     <button
                       onClick={handlePrev}
-                      className="border border-white rounded-full"
+                      className="border w-[60px] h-[60px] border-white rounded-full flex items-center justify-center"
                     >
                       <GrFormPrevious size={30} className=" text-white" />
                     </button>
 
                     <button
                       onClick={handleNext}
-                     className="border border-white rounded-full"
+                     className="border w-[60px] h-[60px] border-white rounded-full flex items-center justify-center"
                     >
                       <MdOutlineNavigateNext size={30} className=" text-white" />
                     </button>
