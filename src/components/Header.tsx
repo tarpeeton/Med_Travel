@@ -22,14 +22,14 @@ const Header = ({ locale }: { locale: string }) => {
   const toggleMobileService = () => setMobileService(!mobileService)
   return (
     <React.Fragment>
-      <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px]'>
+      <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
         <Link href='/' className='logo flex items-center'>
           <Image src='https://ucarecdn.com/45e7f638-36f8-4bd4-be6a-06401215d636/-/preview/65x65/' alt='Logo ' width={65} height={65} className='object-cover' />
         </Link>
 
 
         {/* SERVICES */}
-        <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px]'>
+        <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px] z-[9999999]'>
         <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
         Туры
         </Link>
@@ -44,7 +44,7 @@ const Header = ({ locale }: { locale: string }) => {
         </Link>
           </div>
 
-        <div className='hidden slg:flex slg:items-center  2xl:hidden '>
+        <div className='hidden slg:flex slg:items-center  2xl:hidden  z-[999]'>
           <button onClick={toggleServiceOpen} className='rounded-full border-[1.5px] border-[#1AB2A6] text-[#1AB2A6] flex flex-row items-center justify-center py-[10px] px-[16px] gap-[4px] text-[16px] font-semibold'>
             Услуги
             <MdKeyboardArrowDown size={24} />
@@ -64,7 +64,7 @@ const Header = ({ locale }: { locale: string }) => {
 
 {
   service && (<div>
-    <div className='flex flex-col'>
+    <div className='flex flex-col z-[9999999]'>
         <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
         Туры
           <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
@@ -87,7 +87,7 @@ const Header = ({ locale }: { locale: string }) => {
 
       {
         menu ? (
-          <div className='bg-white absolute top-0 right-0 z-50 w-[80%] slg:w-[50%] 2xl:w-[40%] '>
+          <div className='bg-white absolute top-0 right-0  w-[80%] slg:w-[50%] 2xl:w-[40%] z-[99999999] '>
             <div className='px-[20px] border-b border-[#E8E8E8]'>
               <div className='flex flex-row justify-between items-center h-[65px] '>
                 <LanguageSwitcher locale={locale} menu={true} />
@@ -127,7 +127,7 @@ const Header = ({ locale }: { locale: string }) => {
               }
             </div>
 
-            <div className='flex flex-col gap-[16px] md:gap-[20px] fixed bottom-[40px]'>
+            <div className='flex flex-col gap-[16px] md:gap-[20px] fixed bottom-[40px] z-[9999]'>
               <div className='flex flex-col text-[22px] font-bold slg:text-[28px] slg:font-semibold'>
                 <p>Здоровье и отдых в </p>
                 <p>одном путешествии!</p>

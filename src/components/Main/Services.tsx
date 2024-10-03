@@ -32,109 +32,118 @@ const Services: FC = () => {
 	}
 
 	return (
-		<div className='flex flex-col mt-[120px] mx-[16px]'>
+		<div className='flex flex-col mt-[120px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
 			<div className='flex flex-col'>
 				<p className='text-[25px] text-black mdl:text-[35px] 2xl:text-[40px] font-bold '>Услуги</p>
 
 				<Slider {...settings} ref={sliderRef}>
 					<div className='flex flex-col mt-[25px]'>
-						<Image
-							src='https://ucarecdn.com/fc24f313-aae2-4923-bf26-76021146aa8f/-/preview/710x644/'
-							width={300}
-							height={300}
-							alt='Туры по Узбекистану'
-							className='object-cover w-full'
-							loading="lazy"
-						/>
+						<div className='2xl:flex 2xl:flex-row 2xl:gap-[40px]'>
+							<Image
+								src='https://ucarecdn.com/fc24f313-aae2-4923-bf26-76021146aa8f/-/preview/710x644/'
+								width={300}
+								height={300}
+								alt='Туры по Узбекистану'
+								className='object-cover w-full 2xl:w-[50%] 2xl:rounded-[20px]'
+								loading="lazy"
+								quality={100}
+							/>
+							<div className='flex flex-col mt-[25px] mdl:mt-[30px] 2xl:w-[50%] 2xl:mt-0'>
+								<p className='text-[22px] font-semibold  2xl:text-[30px] mdl:w-[20%] 2xl:w-[30%] mdl:text-[30px]'>Туры по Узбекистану</p>
 
-						<div className='flex flex-col mt-[25px]'>
-							<p className='text-[22px] font-semibold '>Туры по Узбекистану</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Посетите исторические центры Самарканда, Бухары и Хивы, где каждое здание дышит многовековой историей
+								</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Насладитесь традиционной узбекской кухней и ощутите настоящее гостеприимство местных жителей
+								</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Совместите путешествие с оздоровительными процедурами в лучших санаториях и медицинских центрах
+								</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
+								</p>
+								<div className="flex flex-row items-center justify-between mt-[30px]">
+									<button className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway">
+										Найти тур
+									</button>
+									<div className="flex flex-row gap-[8px]">
+										<button
+											onClick={handlePrev}
+											className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center  mdl:w-[70px] mdl:h-[70px] 2xl:w-[78px] 2xl:h-[78px]"
+											aria-label="Previous slide"
+										>
+											<GrLinkPrevious size={20} className="text-black" />
+										</button>
 
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Посетите исторические центры Самарканда, Бухары и Хивы, где каждое здание дышит многовековой историей
-							</p>
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Насладитесь традиционной узбекской кухней и ощутите настоящее гостеприимство местных жителей
-							</p>
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Совместите путешествие с оздоровительными процедурами в лучших санаториях и медицинских центрах
-							</p>
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
-							</p>
-						</div>
-						<div className="flex flex-row items-center justify-between mt-[30px]">
-							<button className="w-[50%] mdl:w-[40%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[20%] rounded-[10px] font-bold font-raleway">
-								Найти тур
-							</button>
-							<div className="flex flex-row gap-[8px]">
-								<button
-									onClick={handlePrev}
-									className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center 2xl:w-[70px] 2xl:h-[70px]"
-									aria-label="Previous slide"
-								>
-									<GrLinkPrevious size={20} className="text-black" />
-								</button>
-
-								<button
-									onClick={handleNext}
-									className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center 2xl:w-[70px] 2xl:h-[70px]"
-									aria-label="Next slide"
-								>
-									<GrLinkNext size={20} className="text-black" />
-								</button>
+										<button
+											onClick={handleNext}
+											className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px]  2xl:w-[78px] 2xl:h-[78px]"
+											aria-label="Next slide"
+										>
+											<GrLinkNext size={20} className="text-black" />
+										</button>
+									</div>
+								</div>
 							</div>
+
 						</div>
+
 					</div>
 					<div className='flex flex-col mt-[25px]'>
-						<Image
-							src='https://ucarecdn.com/fc24f313-aae2-4923-bf26-76021146aa8f/-/preview/710x644/'
-							width={300}
-							height={300}
-							alt='Туры по Узбекистану'
-							className='object-cover w-full'
-							loading="lazy"
-						/>
+						<div className='2xl:flex 2xl:flex-row 2xl:gap-[40px]'>
+							<Image
+								src='https://ucarecdn.com/fc24f313-aae2-4923-bf26-76021146aa8f/-/preview/710x644/'
+								width={300}
+								height={300}
+								alt='Туры по Узбекистану'
+								className='object-cover w-full 2xl:w-[50%] 2xl:rounded-[20px]'
+								loading="lazy"
+								quality={100}
+							/>
+							<div className='flex flex-col mt-[25px] mdl:mt-[30px] 2xl:w-[50%] 2xl:mt-0'>
+								<p className='text-[22px] font-semibold  2xl:text-[30px] mdl:w-[20%] 2xl:w-[30%] mdl:text-[30px]'>Туры по Узбекистану</p>
 
-						<div className='flex flex-col mt-[25px]'>
-							<p className='text-[22px] font-semibold '>Туры по Узбекистану</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Посетите исторические центры Самарканда, Бухары и Хивы, где каждое здание дышит многовековой историей
+								</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Насладитесь традиционной узбекской кухней и ощутите настоящее гостеприимство местных жителей
+								</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Совместите путешествие с оздоровительными процедурами в лучших санаториях и медицинских центрах
+								</p>
+								<p className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
+									Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
+								</p>
+								<div className="flex flex-row items-center justify-between mt-[30px]">
+									<button className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway">
+										Найти тур
+									</button>
+									<div className="flex flex-row gap-[8px]">
+										<button
+											onClick={handlePrev}
+											className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center  mdl:w-[70px] mdl:h-[70px] 2xl:w-[78px] 2xl:h-[78px]"
+											aria-label="Previous slide"
+										>
+											<GrLinkPrevious size={20} className="text-black" />
+										</button>
 
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Посетите исторические центры Самарканда, Бухары и Хивы, где каждое здание дышит многовековой историей
-							</p>
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Насладитесь традиционной узбекской кухней и ощутите настоящее гостеприимство местных жителей
-							</p>
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Совместите путешествие с оздоровительными процедурами в лучших санаториях и медицинских центрах
-							</p>
-							<p className='text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8]'>
-								Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
-							</p>
-						</div>
-						<div className="flex flex-row items-center justify-between mt-[30px]">
-							<button className="w-[50%] mdl:w-[40%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[20%] rounded-[10px] font-bold font-raleway">
-								Найти тур
-							</button>
-							<div className="flex flex-row gap-[8px]">
-								<button
-									onClick={handlePrev}
-									className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center 2xl:w-[70px] 2xl:h-[70px]"
-									aria-label="Previous slide"
-								>
-									<GrLinkPrevious size={20} className="text-black" />
-								</button>
-
-								<button
-									onClick={handleNext}
-									className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center 2xl:w-[70px] 2xl:h-[70px]"
-									aria-label="Next slide"
-								>
-									<GrLinkNext size={20} className="text-black" />
-								</button>
+										<button
+											onClick={handleNext}
+											className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px]  2xl:w-[78px] 2xl:h-[78px]"
+											aria-label="Next slide"
+										>
+											<GrLinkNext size={20} className="text-black" />
+										</button>
+									</div>
+								</div>
 							</div>
+
 						</div>
+
 					</div>
+
 				</Slider>
 			</div>
 		</div>
