@@ -1,21 +1,27 @@
-"use client";
-import { FC, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
+"use client"
+import { FC, useRef, useState } from "react"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import { MdOutlineNavigateNext } from "react-icons/md"
+import { GrFormPrevious } from "react-icons/gr"
 
 const MainBanner: FC = () => {
+  const sliderRef = useRef<Slider | null>(null) // Reference for the slider
+
   const [banners] = useState([
     {
       id: 1,
       title: "Ваш путь к здоровью\n — с нашими турами!",
-      imageUrl: "https://ucarecdn.com/3d54a850-9fba-41e2-aebe-170de33b84ca/-/preview/1000x666/",
+      imageUrl:
+        "https://ucarecdn.com/3d54a850-9fba-41e2-aebe-170de33b84ca/-/preview/1000x666/",
     },
     {
       id: 2,
       title: "Ваш путь к здоровью — с нашими турами!",
-      imageUrl: "https://ucarecdn.com/6ffeffeb-d8a4-421b-8766-3507598779da/-/preview/1000x666/",
+      imageUrl:
+        "https://ucarecdn.com/6ffeffeb-d8a4-421b-8766-3507598779da/-/preview/1000x666/",
     },
-  ]);
+  ])
 
   const settings = {
     dots: false, // Removed dots
@@ -25,12 +31,27 @@ const MainBanner: FC = () => {
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 3000,
-    arrows: false,
-  };
+    arrows: false, // Disable default arrows
+  }
+
+  // Custom function for the previous slide
+  const handlePrev = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev()
+    }
+  }
+
+  // Custom function for the next slide
+  const handleNext = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext()
+    }
+  }
 
   return (
-    <div className="relative">
-      <Slider {...settings}>
+    <div className="relative h-screen">
+      {/* Slider instance */}
+      <Slider {...settings} ref={sliderRef}>
         {banners.map((banner) => (
           <div key={banner.id} className="flex justify-between">
             <div className="flex w-full">
@@ -41,14 +62,22 @@ const MainBanner: FC = () => {
                   alt={banner.title}
                   className="w-full h-96 object-cover"
                 />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #000000 0%, #00000073 45%, transparent 100%)",
-                  }}
-                />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px]">
+                  <div className='flex flex-row gap-[8px] absolute'>
+                    <button
+                      onClick={handlePrev}
+                      className="border border-white rounded-full"
+                    >
+                      <GrFormPrevious size={30} className=" text-white" />
+                    </button>
+
+                    <button
+                      onClick={handleNext}
+                     className="border border-white rounded-full"
+                    >
+                      <MdOutlineNavigateNext size={30} className=" text-white" />
+                    </button>
+                  </div>
                   <h2 className="text-[30px] font-bold ">
                     {banner.title.split("\n").map((line, index) => (
                       <span key={index}>
@@ -66,8 +95,12 @@ const MainBanner: FC = () => {
           </div>
         ))}
       </Slider>
-    </div>
-  );
-};
 
-export default MainBanner;
+      {/* Custom Previous and Next Buttons */}
+
+
+    </div>
+  )
+}
+
+export default MainBanner
