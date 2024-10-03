@@ -37,7 +37,7 @@ const Services: FC = () => {
 				<p className='text-[25px] text-black mdl:text-[35px] 2xl:text-[40px] font-bold '>Услуги</p>
 
 				<Slider {...settings} ref={sliderRef}>
-					<div className='flex flex-col mt-[25px]'>
+					<div className='flex flex-col mt-[25px] mdl:mt-[30px] 2xl:px-[2px]'>
 						<div className='2xl:flex 2xl:flex-row 2xl:gap-[40px]'>
 							<Image
 								src='https://ucarecdn.com/fc24f313-aae2-4923-bf26-76021146aa8f/-/preview/710x644/'
