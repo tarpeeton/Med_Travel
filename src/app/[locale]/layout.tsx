@@ -13,7 +13,7 @@ export default function LocaleLayout({
 			<body>
 				<Header locale={locale} />
 				{children}
-				<Footer />
+				{/* <Footer /> */}
 			</body>
 		</html>
 	)
