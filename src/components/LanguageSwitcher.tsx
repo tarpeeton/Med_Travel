@@ -7,7 +7,7 @@ import { useState } from "react"
 // Define the language type
 type Language = { code: string; name: string }
 
-const LanguageSwitcher = ({ locale }: { locale: string }) => {
+const LanguageSwitcher = ({ locale, menu }: { locale: string, menu: boolean }) => {
   const pathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -35,14 +35,15 @@ const LanguageSwitcher = ({ locale }: { locale: string }) => {
       {/* Button to toggle dropdown */}
       <button
         id="dropdownDefaultButton"
-        className="text-black rounded-lg text-[15px] text-center inline-flex items-center gap-[4px]"
+        className="text-black rounded-lg text-[15px] text-center inline-flex items-center gap-[4px] 2xl:gap-[8px]"
         type="button"
         onClick={toggleDropdown}
       >
-        <CiGlobe className="text-black" size={24} />
+        <CiGlobe className={`text-black ${menu ? '2xl:text-[#1AB2A6]' : 'text-black'}`} size={24} />
 
-        <p className='text-[15px] text-black font-medium '>
-        {locale === "ru" ? "Ру" : locale === "uz" ? "Oʻz" : "Eng"}
+        <p className={`text-[15px] md:text-[18px] text-black font-medium 
+        ${menu ? '2xl:text-[#1AB2A6]' : 'text-black'}`}>
+          {locale === "ru" ? "Ру" : locale === "uz" ? "Oʻz" : "Eng"}
         </p>
       </button>
 
@@ -54,7 +55,7 @@ const LanguageSwitcher = ({ locale }: { locale: string }) => {
         >
           <ul className="py-2">
             {languages.map((lang) => (
-              <li key={lang.code} className='text-[15px] font-medium text-black'>
+              <li key={lang.code} className='text-[15px] slg:text-[18px] font-medium text-black'>
                 <Link
                   href={generateLocalizedPath(lang.code)}
                   className="block px-4 py-2 hover:bg-gray-100  dark:hover:text-white"
