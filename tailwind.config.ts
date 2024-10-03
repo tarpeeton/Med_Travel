@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}", // "src" papkasidan keyin components qo'shilgan
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -24,9 +24,12 @@ const config: Config = {
     },
     extend: {
       colors: {
-        background: "var(--background)", // CSS o'zgaruvchisi asosida
-        foreground: "var(--foreground)", // CSS o'zgaruvchisi asosida
-        greenButton: '#1AB2A6', // Statik rang
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        greenButton: '#1AB2A6',
+      },
+      fontFamily: {
+        raleway: ['Raleway', 'sans-serif'], // Add Raleway to the fontFamily
       },
     },
   },

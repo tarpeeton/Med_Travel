@@ -29,17 +29,17 @@ const Header = ({ locale }: { locale: string }) => {
 
 
         {/* SERVICES */}
-        <div className='flex flex-row'>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+        <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px]'>
+        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
         Туры
         </Link>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
         Клиники
         </Link>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
         Санатории
         </Link>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
         Гостиницы
         </Link>
           </div>
@@ -52,7 +52,7 @@ const Header = ({ locale }: { locale: string }) => {
         </div>
 
         {/* SWITCHER AND HAMBURGER MENU */}
-        <div className='flex flex-row items-center gap-[16px]'>
+        <div className='flex flex-row items-center gap-[16px] 2xl:gap-[30px]'>
           <div className=''>
             <LanguageSwitcher locale={locale} menu={false} />
           </div>
