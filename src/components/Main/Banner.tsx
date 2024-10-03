@@ -56,7 +56,7 @@ const MainBanner: FC = () => {
           <div key={banner.id} className="flex justify-between">
             <div className="flex w-full">
               {/* Main Banner */}
-              <div className="w-full relative h-[500px] slg:w-4/5">
+              <div className="w-full relative h-screen slg:w-4/5">
                 <img
                   src={banner.imageUrl}
                   alt={banner.title}
