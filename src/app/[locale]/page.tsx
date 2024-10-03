@@ -1,6 +1,8 @@
-import { useTranslations } from 'next-intl';
-
+import MainContent from '@/components/Main'
 export default function Index() {
-  const t = useTranslations('Header');
-  return <h1>{t('service')}</h1>;
+  return (
+    <div>
+      <MainContent />
+    </div>
+  )
 }

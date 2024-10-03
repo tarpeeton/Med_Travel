@@ -5,6 +5,10 @@ const withNextIntl = createNextIntlPlugin();
 /**
  * @type {import('next').NextConfig}
  */
-const nextConfig = {};
+const nextConfig = {
+	images: {
+		domains: ['ucarecdn.com'], // Добавьте домен, откуда будут загружаться изображения
+	  },
+};
 
 export default withNextIntl(nextConfig);
