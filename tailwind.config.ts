@@ -27,6 +27,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         greenButton: '#1AB2A6',
+        titleDark: '#242424',
+        borderColor: '#E8E8E8',
+        green20: '#D1F0ED',
+        green100: '#1AB2A6'
       },
       fontFamily: {
         raleway: ['Raleway', 'sans-serif'], // Add Raleway to the fontFamily
