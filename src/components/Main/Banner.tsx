@@ -56,11 +56,11 @@ const MainBanner: FC = () => {
           <div key={banner.id} className="flex justify-between">
             <div className="flex w-full">
               {/* Main Banner */}
-              <div className="w-full relative h-screen slg:w-4/5">
+              <div className="w-full relative h-[500px] mdl:h-[600px] slg:w-4/5">
                 <img
                   src={banner.imageUrl}
                   alt={banner.title}
-                  className="w-full h-screen object-cover"
+                  className="w-full h-[500px] mdl:h-[600px] object-cover"
                 />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px]">
                   <div className='flex flex-row gap-[8px] mb-[40px]'>
