@@ -186,7 +186,7 @@ const Sanatoriums: FC = () => {
 					<p className="text-[25px] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px] font-raleway">
 						Туры и медицинские клиники Узбекистана
 					</p>
-					<div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px] mdl:w-[80%] 2xl:w-[60%]">
+					<div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px]  mdl:w-[80%] 2xl:w-[60%]">
 						<button
 							className={`font-semibold text-[15px] py-[12px] px-[20px] rounded-full ${activeTab === "clinics" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050] 2xl:text-[17px]"
 								}`}
@@ -195,7 +195,7 @@ const Sanatoriums: FC = () => {
 							Медицинские клиники
 						</button>
 						<button
-							className={`font-semibold text-[15px] py-[12px] px-[20px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050] 2xl:text-[17px]"
+							className={`font-semibold w-[40%] text-[15px] py-[12px] px-[20px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050] 2xl:text-[17px]"
 								}`}
 							onClick={() => setActiveTab("tours")}
 						>
