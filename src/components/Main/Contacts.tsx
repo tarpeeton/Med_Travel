@@ -7,45 +7,42 @@ import Link from 'next/link';
 const Contacts: FC = () => {
 	useEffect(() => {
 		const loadYandexMap = () => {
-		  if (window.ymaps) {
+		  if ((window as any).ymaps) { // Cast window to any
 			return; // Avoid reloading the map if already initialized
 		  }
-	
+	  
 		  const script = document.createElement('script');
 		  script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
 		  script.async = true;
 		  document.body.appendChild(script);
-	
+	  
 		  script.onload = () => {
-			window.ymaps.ready(() => {
-			  const map = new window.ymaps.Map('map', {
-				center: [41.351469, 69.289004], // Your specified coordinates
+			(window as any).ymaps.ready(() => { // Again cast window to any here
+			  const map = new (window as any).ymaps.Map('map', {
+				center: [41.351469, 69.289004],
 				zoom: 17,
-				controls: [], // This removes all default controls (zoom, search, etc.)
+				controls: [],
 			  });
-	
-			  // Optionally remove traffic and other unnecessary layers
-			  map.behaviors.disable('scrollZoom'); // Disables scroll zoom for a cleaner experience
-	
-			  const placemark = new window.ymaps.Placemark(
+	  
+			  const placemark = new (window as any).ymaps.Placemark(
 				[41.351469, 69.289004],
 				{
 				  hintContent: 'Ташкент',
 				  balloonContent: 'Чинобод 2, метро Шахристан',
 				},
 				{
-				  iconColor: '#1AB2A6', // Custom marker color
+				  iconColor: '#1AB2A6',
 				}
 			  );
-	
+	  
 			  map.geoObjects.add(placemark);
 			});
 		  };
 		};
-	
+	  
 		loadYandexMap();
 	  }, []);
-	
+	  
 
   return (
     <div>
