@@ -30,7 +30,8 @@ const config: Config = {
         titleDark: '#242424',
         borderColor: '#E8E8E8',
         green20: '#D1F0ED',
-        green100: '#1AB2A6'
+        green100: '#1AB2A6',
+        titleDark40: '#A7A7A7'
       },
       fontFamily: {
         raleway: ['Raleway', 'sans-serif'], // Add Raleway to the fontFamily

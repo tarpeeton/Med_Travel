@@ -108,8 +108,8 @@ const Reviews: FC = () => {
 					<div>
 						<Slider {...settings} ref={sliderRef}>
 							{reviews.map((review, index) => (
-								<div className='flex flex-row gap-[2%]'>
-									<div key={index} className='bg-white rounded-[20px] p-[20px] mt-[20px] mdl:w-[99%] 2xl:w-[99%]'>
+								<div className='flex flex-row gap-[2%]' key={index}>
+									<div  className='bg-white rounded-[20px] p-[20px] mt-[20px] mdl:w-[99%] 2xl:w-[99%]'>
 
 										<div className='flex flex-col'>
 											<div className='flex flex-row gap-[8px]'>
