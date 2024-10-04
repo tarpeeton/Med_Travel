@@ -24,7 +24,7 @@ const AboutBanner: FC = () => {
 					</div>
 					<div className='flex flex-row items-center mt-[30px] mdl:mt-[40px] 2xl:mt-[60px] mdl:w-[100%]'>
 						<button className='borderedButton font-bold mdl:w-[50%]'>Связаться с нами</button>
-						<Image className='ml-[10px] mdl:w-[30%] mdl:mb-[30px]' src='https://ucarecdn.com/7b50ed13-3675-4b18-93a1-c29d72d6a247/-/preview/145x46/' width={100} height={50} alt='Airplane' />
+						<Image className='ml-[10px] mdl:w-[30%] mdl:mb-[30px]' src='https://ucarecdn.com/7b50ed13-3675-4b18-93a1-c29d72d6a247/-/preview/145x46/' width={100} height={50} alt='Airplane' quality={100} />
 					</div>
 				</div>
 			</div>
