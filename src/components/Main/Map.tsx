@@ -39,11 +39,9 @@ const Sanatoriums: FC = () => {
 
   // Function to load Yandex Map script and initialize the map
   const loadYandexMap = () => {
-    // Check if the script is already loaded
-    if (!document.getElementById("yandex-map-script")) {
+    if (typeof window !== "undefined" && !document.getElementById("yandex-map-script")) {
       const script = document.createElement("script");
       script.id = "yandex-map-script";
-      // Replace 'YOUR_API_KEY' with your actual Yandex Maps API key
       script.src = `https://api-maps.yandex.ru/2.1/?apikey=5771415d-001f-4699-b102-0fb2f6af965a&lang=ru_RU`;
       script.async = true;
       document.body.appendChild(script);
@@ -51,7 +49,6 @@ const Sanatoriums: FC = () => {
       script.onload = () => {
         if (window.ymaps) {
           window.ymaps.ready(() => {
-            console.log("Yandex Maps API loaded");
             const map = new window.ymaps.Map("mapTUR", {
               center: [41.3112, 69.2797],
               zoom: 12,
@@ -65,18 +62,15 @@ const Sanatoriums: FC = () => {
       script.onerror = () => {
         console.error("Failed to load Yandex Maps API");
       };
-    } else {
-      console.log("Yandex Maps API is already loaded.");
-      if (window.ymaps && !mapInstance) {
-        window.ymaps.ready(() => {
-          const map = new window.ymaps.Map("mapTUR", {
-            center: [41.3112, 69.2797],
-            zoom: 12,
-            controls: [],
-          });
-          setMapInstance(map);
+    } else if (window.ymaps && !mapInstance) {
+      window.ymaps.ready(() => {
+        const map = new window.ymaps.Map("mapTUR", {
+          center: [41.3112, 69.2797],
+          zoom: 12,
+          controls: [],
         });
-      }
+        setMapInstance(map);
+      });
     }
   };
 
@@ -124,7 +118,6 @@ const Sanatoriums: FC = () => {
   // Update markers whenever the active tab or map instance changes
   useEffect(() => {
     if (mapInstance) {
-      console.log("Map instance is ready, updating markers...");
       updateMarkers(activeTab === "clinics" ? clinics : tours);
     }
   }, [mapInstance, activeTab]);
