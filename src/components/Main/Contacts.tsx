@@ -1,52 +1,57 @@
 "use client";
 
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 import Link from 'next/link';
 
 const Contacts: FC = () => {
-	useEffect(() => {
-		const loadYandexMap = () => {
-		  if ((window as any).ymaps) { // Cast window to any
-			return; // Avoid reloading the map if already initialized
-		  }
-	  
-		  const script = document.createElement('script');
-		  script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
-		  script.async = true;
-		  document.body.appendChild(script);
-	  
-		  script.onload = () => {
-			(window as any).ymaps.ready(() => { // Again cast window to any here
-			  const map = new (window as any).ymaps.Map('map', {
-				center: [41.351469, 69.289004],
-				zoom: 17,
-				controls: [],
-			  });
-	  
-			  const placemark = new (window as any).ymaps.Placemark(
-				[41.351469, 69.289004],
-				{
-				  hintContent: 'Ташкент',
-				  balloonContent: 'Чинобод 2, метро Шахристан',
-				},
-				{
-				  iconColor: '#1AB2A6',
-				}
-			  );
-	  
-			  map.geoObjects.add(placemark);
-			});
-		  };
-		};
-	  
-		loadYandexMap();
-	  }, []);
-	  
+  const [mapLoaded, setMapLoaded] = useState(false); // State to ensure the map is loaded once
+
+  useEffect(() => {
+    const loadYandexMap = () => {
+      if (window.ymaps && !mapLoaded) {
+        // Avoid reloading the map if already initialized
+        setMapLoaded(true);
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+      script.async = true;
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        window.ymaps.ready(() => {
+          const map = new window.ymaps.Map('map', {
+            center: [41.351469, 69.289004],
+            zoom: 17,
+            controls: [],
+          });
+
+          const placemark = new window.ymaps.Placemark(
+            [41.351469, 69.289004],
+            {
+              hintContent: 'Ташкент',
+              balloonContent: 'Чинобод 2, метро Шахристан',
+            },
+            {
+              iconColor: '#1AB2A6',
+            }
+          );
+
+          map.geoObjects.add(placemark);
+        });
+      };
+    };
+
+    if (!mapLoaded) {
+      loadYandexMap();
+    }
+  }, [mapLoaded]);
 
   return (
     <div>
-      <div className="flex flex-col mx-[16px]">
+      <div className="flex flex-col mx-[16px] 2xl:mx-[200px] 2xl:mt-[120px]">
         {/* Contact Details */}
         <div className="flex flex-col">
           <div>
@@ -54,10 +59,10 @@ const Contacts: FC = () => {
               Контакты
             </p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col 2xl:flex 2xl:flex-row 2xl:justify-between 2xl:mt-[30px]">
             {/* Address */}
-            <div className="py-[22px] border-b border-[#D3D3D3]">
-              <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold">
+            <div className="py-[22px] border-b border-[#D3D3D3] 2xl:w-[40%] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
+              <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold ">
                 Адрес
               </p>
               <p className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[4px]">
@@ -65,7 +70,7 @@ const Contacts: FC = () => {
               </p>
             </div>
             {/* Phone */}
-            <div className="py-[22px] border-b border-[#D3D3D3]">
+            <div className="py-[22px] border-b border-[#D3D3D3] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold">
                 Телефон
               </p>
@@ -74,7 +79,7 @@ const Contacts: FC = () => {
               </p>
             </div>
             {/* Social Links */}
-            <div className="py-[22px] border-b border-[#D3D3D3]">
+            <div className="py-[22px] border-b border-[#D3D3D3] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold cursor-pointer">
                 Соц.сети
               </p>
@@ -85,7 +90,7 @@ const Contacts: FC = () => {
                 Instagram
               </Link>
             </div>
-            <div className="py-[22px] border-b border-[#D3D3D3]">
+            <div className="py-[22px] border-b border-[#D3D3D3] 2xl:border-b-0 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold cursor-pointer">
                 Соц.сети
               </p>
@@ -100,8 +105,11 @@ const Contacts: FC = () => {
         </div>
 
         {/* Yandex Map */}
-        <div className="rounded-[30px] mt-[20px] overflow-hidden w-full ">
-          <div id="map" className="w-full h-[250px]" />
+        <div className="rounded-[30px] mt-[20px] overflow-hidden w-full mdl:mt-[40px]">
+			<div className='h-[300px] mdl:h-[400px] 2xl:h-[500px]'>
+			<div id="map" className="w-full  h-full" />
+
+			</div>
         </div>
       </div>
     </div>
