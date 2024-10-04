@@ -159,7 +159,7 @@ const Sanatoriums: FC = () => {
 		return locations.map((location) => (
 			<div
 				key={location.id}
-				className='rounded-[25px] bg-[#F3F7FB] py-[35px] px-[30px] flex flex-col mx-[12px] mb-[20px]'
+				className='rounded-[25px] bg-[#F3F7FB] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px]'
 				onClick={() => handleLocationClick(location.coords)} // Call the map center function on click
 				style={{ cursor: 'pointer' }} // Make the div look clickable
 			>
@@ -186,7 +186,7 @@ const Sanatoriums: FC = () => {
 					<p className="text-[25px] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px] font-raleway">
 						Туры и медицинские клиники Узбекистана
 					</p>
-					<div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px]  mdl:w-[80%] 2xl:w-[60%]">
+					<div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px]  mdl:w-[80%] 2xl:w-[70%]">
 						<button
 							className={`font-semibold text-[15px] py-[12px] px-[20px] rounded-full ${activeTab === "clinics" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050] 2xl:text-[17px]"
 								}`}
