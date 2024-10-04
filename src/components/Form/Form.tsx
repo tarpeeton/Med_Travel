@@ -16,7 +16,7 @@ const FloatingLabelInput: FC<IFormProps> = ({
       <input
         type={type}
         id={id}
-        className={`border-b-2 border-gray-300 w-full py-2 text-[15px] text-titleDark  font-medium font-raleway outline-none bg-transparent transition-all focus:border-teal-500  mb-[12px] ${
+        className={`border-b-2 border-gray-300 w-full py-2 text-[15px] text-titleDark  font-medium font-raleway outline-none bg-transparent transition-all focus:border-teal-500  mb-[15px] ${
           focused || value ? 'pt-6' : ''
         }`}
         onFocus={() => setFocused(true)}
