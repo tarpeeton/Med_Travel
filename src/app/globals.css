@@ -6,3 +6,11 @@
 
 
 
+
+
+.borderedButton {
+	background-color: #1AB2A6;
+	border-radius: 10px;
+	padding: 16px;
+	color: white;
+}
