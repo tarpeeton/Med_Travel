@@ -2,6 +2,7 @@
 import { FC, useState } from "react";
 import { IFormProps } from "@/interface/IForm";
 
+// FloatingLabelInput component
 const FloatingLabelInput: FC<IFormProps> = ({ label, type, id }) => {
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState("");
@@ -16,34 +17,41 @@ const FloatingLabelInput: FC<IFormProps> = ({ label, type, id }) => {
     }
   };
 
+  const handleFocus = () => setFocused(true);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    setIsInvalid(false); // Reset invalid state when user types
+  };
+
   return (
     <div className="relative mt-4">
       <input
         type={type}
         id={id}
-        className={`border-b-2 w-full py-2 text-[15px] text-titleDark font-medium font-raleway outline-none bg-transparent transition-all 2xl:text-[18px] mb-[15px] mdl:text-[15px] mdl:mb-[20px] ${
-          focused || value ? "pt-6" : ""
-        } ${isInvalid ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-teal-500"}`}
-        onFocus={() => setFocused(true)}
-        onBlur={handleBlur}
-        required={true}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        className={`block py-2.5 px-0 w-full text-sm mb-[20px] text-gray-900 bg-transparent border-0 border-b-[1px] ${
+          isInvalid ? "border-red-500" : "border-gray-300"
+        } appearance-none  dark:border-[#A7A7A7] dark:focus:border-[#1AB2A6] focus:outline-none focus:ring-0 focus:border-[#1AB2A6] peer text-[18px]`}
+        placeholder=" " // Placeholder is required for floating effect
       />
       <label
         htmlFor={id}
-        className={`absolute left-0 transition-all ${
-          focused || value
-            ? "text-[12px] text-teal-500 mdl:text-[14px] -top-3"
-            : "text-[#A7A7A7] top-2"
-        } ${isInvalid ? "text-red-500" : ""}`}
+        className={`absolute text-sm ${
+          isInvalid ? "text-red-500" : "text-[#A7A7A7]"
+        } dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-[#1AB2A6] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 2xl:text-[16px]`}
       >
         {label}
       </label>
+     
     </div>
   );
 };
 
+// Form component
 const Form: FC = () => {
   const [isFormValid, setIsFormValid] = useState(true);
 
@@ -69,7 +77,7 @@ const Form: FC = () => {
   };
 
   return (
-    <div className="mx-[16px] 2xl:mx-[200px] 2xl:mt-[120px]">
+    <div className="mx-[16px] 2xl:mx-[200px] mt-[120px]">
       <div
         className="rounded-[20px] py-[20px] px-[16px] flex flex-col bg-cover bg-center mdl:py-[40px] mdl:px-[30px] 2xl:flex-row 2xl:justify-between 2xl:py-[16px] 2xl:px-[16px]"
         style={{
@@ -84,7 +92,7 @@ const Form: FC = () => {
             Забронируйте свою консультацию уже сегодня!
           </p>
         </div>
-        <div className="bg-white mt-[20px] rounded-[20px] py-[24px] px-[20px]  mdl:px-[30px] mdl:py-[40px] 2xl:w-[50%] 2xl:mt-0 ">
+        <div className="bg-white mt-[20px] rounded-[20px] py-[24px] px-[20px] mdl:px-[30px] mdl:py-[40px] 2xl:w-[50%] 2xl:mt-0">
           <form className="flex flex-col w-full" onSubmit={handleSubmit}>
             <FloatingLabelInput label="ФИО" type="text" id="name" />
             <FloatingLabelInput label="Номер телефона" type="tel" id="phone" />
