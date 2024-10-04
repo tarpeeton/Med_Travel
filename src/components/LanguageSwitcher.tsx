@@ -58,7 +58,7 @@ const LanguageSwitcher = ({ locale, menu }: { locale: string, menu: boolean }) =
               <li key={lang.code} className='text-[15px] slg:text-[18px] font-medium text-black'>
                 <Link
                   href={generateLocalizedPath(lang.code)}
-                  className="block px-4 py-2 hover:bg-gray-100  dark:hover:text-white"
+                  className="block px-4 py-2 hover:bg-gray-400  dark:hover:text-white"
                   onClick={() => setDropdownOpen(false)}
                 >
                   {lang.name}

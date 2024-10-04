@@ -6,7 +6,7 @@ import { MdKeyboardArrowDown } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
 import Link from 'next/link'
 import { IoMdClose } from "react-icons/io"
-import { FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight } from 'react-icons/fa'
 
 
 
@@ -30,19 +30,19 @@ const Header = ({ locale }: { locale: string }) => {
 
         {/* SERVICES */}
         <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px] z-[9999999]'>
-        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-        Туры
-        </Link>
-        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-        Клиники
-        </Link>
-        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-        Санатории
-        </Link>
-        <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-        Гостиницы
-        </Link>
-          </div>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+            Туры
+          </Link>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+            Клиники
+          </Link>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+            Санатории
+          </Link>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+            Гостиницы
+          </Link>
+        </div>
 
         <div className='hidden slg:flex slg:items-center  2xl:hidden  z-[999]'>
           <button onClick={toggleServiceOpen} className='rounded-full border-[1.5px] border-[#1AB2A6] text-[#1AB2A6] flex flex-row items-center justify-center py-[10px] px-[16px] gap-[4px] text-[16px] font-semibold'>
@@ -62,32 +62,32 @@ const Header = ({ locale }: { locale: string }) => {
         </div>
       </div>
 
-{
-  service && (<div>
-    <div className='flex flex-col z-[9999999]'>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
-        Туры
-          <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-        </Link>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
-        Клиники
-          <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-        </Link>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
-        Санатории
-          <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-        </Link>
-        <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
-        Гостиницы
-          <FaChevronRight  className='text-[#242424] mt-[4px]' size={15}/>
-        </Link>
-    </div>
-  </div>)
-}
+      {
+        service && (<div>
+          <div className='flex flex-col z-[9999999] '>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+              Туры
+              <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
+            </Link>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+              Клиники
+              <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
+            </Link>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+              Санатории
+              <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
+            </Link>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+              Гостиницы
+              <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
+            </Link>
+          </div>
+        </div>)
+      }
 
       {
         menu ? (
-          <div className='bg-white absolute top-0 right-0  w-[80%] slg:w-[50%] 2xl:w-[40%] z-[99999999] '>
+          <div className='bg-white absolute top-0 right-0  w-[80%] slg:w-[50%] 2xl:w-[40%] z-[99999999]  h-screen '>
             <div className='px-[20px] border-b border-[#E8E8E8]'>
               <div className='flex flex-row justify-between items-center h-[65px] '>
                 <LanguageSwitcher locale={locale} menu={true} />
@@ -127,7 +127,7 @@ const Header = ({ locale }: { locale: string }) => {
               }
             </div>
 
-            <div className='flex flex-col gap-[16px] md:gap-[20px] fixed bottom-[40px] z-[9999]'>
+            <div className='flex flex-col gap-[16px] md:gap-[20px] absolute bottom-[40px] z-[9999] left-[20px]'>
               <div className='flex flex-col text-[22px] font-bold slg:text-[28px] slg:font-semibold'>
                 <p>Здоровье и отдых в </p>
                 <p>одном путешествии!</p>
