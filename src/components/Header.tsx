@@ -87,7 +87,7 @@ const Header = ({ locale }: { locale: string }) => {
 
       {
         menu ? (
-          <div className='bg-white absolute top-0 right-0  w-[80%] slg:w-[50%] 2xl:w-[40%] z-[99999999]  h-screen '>
+          <div className='bg-white absolute top-0 right-0  w-[80%] slg:w-[50%] 2xl:w-[40%] z-[99999999]  h-full '>
             <div className='px-[20px] border-b border-[#E8E8E8]'>
               <div className='flex flex-row justify-between items-center h-[65px] '>
                 <LanguageSwitcher locale={locale} menu={true} />
