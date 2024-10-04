@@ -84,8 +84,8 @@ const Contacts: FC = () => {
                 Соц.сети
               </p>
               <Link href="/instagram" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
-                <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center bg-[#F00073]">
-                  <FaInstagram className="text-white" />
+                <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center bg-[#F00073] 2xl:w-[35px] 2xl:h-[35px]">
+                  <FaInstagram className="text-white" size={20} />
                 </div>
                 Instagram
               </Link>
@@ -95,8 +95,8 @@ const Contacts: FC = () => {
                 Соц.сети
               </p>
               <Link href="/telegram" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
-                <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center bg-[#0088CC]">
-                  <FaTelegramPlane className="text-white" />
+                <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center bg-[#0088CC] 2xl:w-[35px] 2xl:h-[35px]">
+                  <FaTelegramPlane className="text-white"  size={20}/>
                 </div>
                 Telegram
               </Link>
@@ -108,7 +108,6 @@ const Contacts: FC = () => {
         <div className="rounded-[30px] mt-[20px] overflow-hidden w-full mdl:mt-[40px]">
 			<div className='h-[300px] mdl:h-[400px] 2xl:h-[500px]'>
 			<div id="map" className="w-full  h-full" />
-
 			</div>
         </div>
       </div>

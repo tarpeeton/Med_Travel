@@ -5,7 +5,7 @@ import Stock from './Stock'
 import Tours from './Tours'
 import HowWork from './HowWork';
 import Reviews from './Reviews'
-import Sanatoriums from './Sanatoriums';
+import Map from './Map';
 import Form from '../Form/Form';
 import Contacts from './Contacts';
 
@@ -16,10 +16,10 @@ const MainContent: FC = () => {
 		<Banner />
 		<Services />
 		<Stock />
-		<Tours />
+		<Map />
 		<HowWork />
 		<Reviews />
-		<Sanatoriums />
+		<Tours />
 		<Form />
 		<Contacts />
 	</div>
