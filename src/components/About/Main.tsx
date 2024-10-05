@@ -5,6 +5,7 @@ import Contacts from '../Main/Contacts'
 import Form from '../Form/Form'
 import Team from './Team'
 import Partners from './Partners'
+import Archivments from './Achievements'
 
 
 const AboutContent: FC = () => {
@@ -12,6 +13,7 @@ const AboutContent: FC = () => {
 		<div>
 			<AboutBanner />
 			<Mission />
+			<Archivments/>
 			<Team/>
 			<Partners />
 			<Form />
