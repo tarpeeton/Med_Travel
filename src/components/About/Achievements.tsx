@@ -61,10 +61,10 @@ const Archivments: FC = () => {
                     Достижения компании</p>
 
                 <Slider {...settings} ref={sliderRef}>
-                    <div className='flex flex-col relative mt-[20px] mdl:mt-[30px] 2xl:mt-[40px] Archivments'>
+                    <div className='flex flex-col relative mt-[20px] mdl:mt-[30px] 2xl:mt-[40px] Archivments cursor-pointer'>
                         <div className='relative py-[25px] px-[20px] 2xl:w-[45%] mdl:py-[40px] mdl:px-[30px]  border border-borderColor rounded-[20px] 2xl:h-[500px]'>
                             <div className=''>
-                                <p className='text-[20px] mdl:text-[25px] text-green100 font-raleway font-bold'>
+                                <p className='text-[20px] mdl:text-[25px] text-green100 font-raleway font-bold 2xl:w-[90%] 4xl:w-[65%]'>
                                     Партнерство с Intermed — топовая мировая лаборатория
                                 </p>
                                 <p className='text-[15px] text-[#505050] font-raleway mdl:text-[17px]   mt-[16px] mdl:mt-[20px] 2xl:mt-[30px] font-medium'>

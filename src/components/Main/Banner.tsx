@@ -16,13 +16,13 @@ const MainBanner: FC = () => {
       id: 1,
       title: "Ваш путь к здоровью\n — с нашими турами!",
       imageUrl:
-      banner,
+        banner,
     },
     {
       id: 2,
       title: "Ваш путь к здоровью\n — с нашими турами!",
       imageUrl:
-      bannerTWO
+        bannerTWO
     },
   ])
 
@@ -62,10 +62,10 @@ const MainBanner: FC = () => {
                   quality={100}
                   width={1500}
                   height={666}
-                  className="w-full h-[500px] mdl:h-[600px] "
+                  className="w-full h-[500px] mdl:h-[600px] object-cover"
                 />
 
-<div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30" />
+                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
                   <div className="flex flex-row gap-[8px] mb-[40px] mdl:hidden">
                     <button

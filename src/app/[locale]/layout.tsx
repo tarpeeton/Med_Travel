@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Med Travel',
   description: 'Med Travel - Sog\'liqni saqlash va sayohat bo\'yicha professional xizmatlar. Biz tibbiyot va sayohat sohasida yuqori sifatli xizmatlarni taqdim etamiz.',
   keywords: 'sayohat, sog\'liq, tibbiyot, Med Travel, sog\'liqni saqlash, sayohat xizmatlari',
-  authors: [{ name: 'Rustam Kidiraliyev + RESULT AGENCY', url: 'https://yourwebsite.com' }],
+  authors: [{ name: 'Rustam Kidiraliyev + RESULT AGENCY', url: 'https://my-works-ten.vercel.app/' }],
   icons: {
     icon: 'https://ucarecdn.com/42c864e6-2a67-4e47-b576-93b3cb92071b/-/preview/499x499/', // Favicon fayli yo'li
   },

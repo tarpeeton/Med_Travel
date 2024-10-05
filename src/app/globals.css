@@ -18,16 +18,17 @@
   flex-wrap: wrap !important;
 }
 
-.Archivments {
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-}
+
 
 @media (min-width: 1025px) {
   .gggg {
     flex-wrap: nowrap !important;
     align-items: center !important;
+  }
+  .Archivments {
+	width: 100% !important;
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: space-between !important;
   }
 }

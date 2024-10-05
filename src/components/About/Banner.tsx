@@ -6,7 +6,8 @@ const AboutBanner: FC = () => {
 	return (
 		<div className='py-[13px] px-[16px] 2xl:px-0'>
 			<div className='flex flex-col 2xl:flex-row 2xl:pl-[200px] 2xl:items-center 2xl:justify-between'>
-				<div className='flex flex-col mdl:relative mdl:h-[500px] 2xl:w-[55%]  2xl:h-[745px]'>
+
+				<div className='flex flex-col mdl:relative mdl:h-[500px] 2xl:w-[55%]  2xl:h-[745px] '>
 					<div className='mdl:w-[80%] mdl:h-full 2xl:w-full'>
 						<Image src={BannerImage} className='object-contain w-full rounded-[20px] mdl:h-full mdl:object-cover 2xl:rounded-[0px] 2xl:object-cover' width={820} height={820} alt='IMAGE' quality={100} />
 					</div>
