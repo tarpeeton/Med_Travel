@@ -50,8 +50,8 @@ const Team: FC = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 1800,
     arrows: false, // Disable arrows by default for smaller screens
     responsive: [
       {
@@ -82,12 +82,12 @@ const Team: FC = () => {
     <div className='flex flex-col mt-[120px] px-[16px] mdl:px-[20px] 2xl:px-[200px]'>
       <div className='flex flex-row justify-between items-center'>
         <p className='text-[25px] mdl:text-[35px] 2xl:text-[40px] font-raleway font-bold text-titleDark'>Наша команда</p>
-        <div className='hidden 2xl:flex'>
-          <button onClick={handlePrev} className='mr-2'>
-            <GrLinkPrevious size={30} />
+        <div className='hidden 2xl:flex gap-[8px]'>
+          <button onClick={handlePrev} className='rounded-full flex items-center justify-center border border-[#242424] w-[60px] h-[60px]'>
+            <GrLinkPrevious size={25} />
           </button>
-          <button onClick={handleNext}>
-            <GrLinkNext size={30} />
+          <button onClick={handleNext} className='rounded-full flex items-center justify-center border border-[#242424] w-[60px] h-[60px]'>
+            <GrLinkNext size={25} />
           </button>
         </div>
       </div>

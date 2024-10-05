@@ -14,3 +14,10 @@
 	padding: 16px;
 	color: white;
 }
+
+.gggg {
+	width: 100% !important;
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: wrap !important;
+}
