@@ -12,15 +12,14 @@ import { useTranslations } from 'next-intl'
 
 
 const Header = ({ locale }: { locale: string }) => {
+  const t = useTranslations('Header')
   const [menu, setMenu] = useState(false)
   const [service, setService] = useState(false)
   const [mobileService, setMobileService] = useState(true)
-  const t = useTranslations('Header')
   const toggleMenuOpen = () => setMenu(!menu)
   const toggleServiceOpen = () => setService(!service)
   const toggleMobileService = () => setMobileService(!mobileService)
 
-    console.log(t , "BU NIMA")
   return (
     <React.Fragment>
       <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>

@@ -2,9 +2,6 @@
 import { FC } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
-import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
-import Image from 'next/image'
-import { MdNavigateNext } from "react-icons/md"
 import Link from 'next/link'
 
 
