@@ -10,7 +10,7 @@ const Footer: FC = () => {
 			<div className='2xl:flex 2xl:flex-row 2xl:px-[200px]'>
 			<div className='flex flex-col border-b border-borderColor 2xl:border-b-0 '>
 				<div className='p-[16px] w-[80%]  mdl:flex mdl:flex-row mdl:w-[100%]  mdl:py-[30px] mdl:px-[20px]'>
-					<Image src='https://ucarecdn.com/750fd308-b607-448e-98ad-442db595ac82/-/preview/80x80/' alt='Logo' quality={100} width={80} height={80}  className='object-contain mdl:w-[90px]'/>
+					<Image src='https://ucarecdn.com/42c864e6-2a67-4e47-b576-93b3cb92071b/-/preview/499x499/' alt='Logo' quality={100} width={80} height={80}  className='object-contain mdl:w-[90px]'/>
 
 					<div className='mt-[16px] mdl:ml-[80px] mdl:w-[40%] 2xl:hidden'>
 						<p className='text-[22px] font-raleway text-titleDark font-bold mdl:text-[28px] '>Здоровье и отдых в одном путешествии!</p>
@@ -76,7 +76,7 @@ const Footer: FC = () => {
 				</div>
 				<div className='w-[45%] flex items-center justify-end'>
 					<Link href='https://result-me.uz'>
-					<Image src={LogoResult} alt='logo Result' width={100} height={56}  quality={100} className='object-contain mdl:w-[130px] mdl:h-[72px]'/>
+					<Image src='https://ucarecdn.com/e2c4cecc-45d3-41ad-a1dd-bd0b0059a025/-/preview/1000x553/' alt='logo Result' width={130} height={72}  quality={100} className='object-contain mdl:w-[130px] mdl:h-[72px]'/>
 					</Link>
 				</div>
 			</div>
