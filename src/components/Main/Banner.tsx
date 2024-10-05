@@ -29,11 +29,11 @@ const MainBanner: FC = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 700,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 1900,
     arrows: false,
   }
 

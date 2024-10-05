@@ -7,7 +7,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import {Link} from '@/i18n/routing';
 import { IoMdClose } from "react-icons/io"
 import { FaChevronRight } from 'react-icons/fa'
-
+import { useTranslations } from 'next-intl'
 
 
 
@@ -15,12 +15,12 @@ const Header = ({ locale }: { locale: string }) => {
   const [menu, setMenu] = useState(false)
   const [service, setService] = useState(false)
   const [mobileService, setMobileService] = useState(true)
-
+  const t = useTranslations('Header')
   const toggleMenuOpen = () => setMenu(!menu)
   const toggleServiceOpen = () => setService(!service)
   const toggleMobileService = () => setMobileService(!mobileService)
 
-  
+    console.log(t , "BU NIMA")
   return (
     <React.Fragment>
       <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
@@ -32,7 +32,7 @@ const Header = ({ locale }: { locale: string }) => {
         {/* SERVICES */}
         <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px] z-[9999999]'>
           <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-            Туры
+            {t('turs')}
           </Link>
           <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Клиники

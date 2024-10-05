@@ -2,23 +2,14 @@
 import Link from 'next/link'
 import { FC, useEffect, useState } from "react"
 import { MdNavigateNext } from "react-icons/md"
+import { Location } from '@/interface/location'
 
-interface Location {
-	id: number
-	coords: [number, number]
-	name: string
-	address?: string
-	description?: string
-	link: string
-	url: string
-}
 
 const Sanatoriums: FC = () => {
-	const [mapLoaded, setMapLoaded] = useState(false) // State to ensure the map is loaded once
-	const [mapInstance, setMapInstance] = useState<any>(null) // Store the map instance
-	const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics") // State for filtering clinics or tours
+	const [mapLoaded, setMapLoaded] = useState(false) 
+	const [mapInstance, setMapInstance] = useState<any>(null) 
+	const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics") 
 
-	// Sample array of locations for clinics
 	const clinics: Location[] = [
 		{
 			id: 1,
@@ -146,14 +137,14 @@ const Sanatoriums: FC = () => {
 
 			// Iterate through geoObjects to find the correct placemark and open its balloon
 			mapInstance.geoObjects.each((geoObject: any) => {
-				const placemarkCoords = geoObject.geometry.getCoordinates();
+				const placemarkCoords = geoObject.geometry.getCoordinates()
 				if (placemarkCoords.toString() === coords.toString()) {
-					geoObject.balloon.open(); // Open the balloon for the corresponding placemark
+					geoObject.balloon.open() // Open the balloon for the corresponding placemark
 				}
-			});
+			})
 		}
 	}
-	
+
 	const renderLocations = () => {
 		const locations = activeTab === "clinics" ? clinics : tours
 		return locations.map((location) => (
