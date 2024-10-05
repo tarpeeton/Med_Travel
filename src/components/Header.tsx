@@ -4,7 +4,6 @@ import LanguageSwitcher from './LanguageSwitcher' // Typo correction
 import Image from 'next/image'
 import { MdKeyboardArrowDown } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
-import Link from 'next/link'
 import { IoMdClose } from "react-icons/io"
 import { FaChevronRight } from 'react-icons/fa'
 
@@ -23,25 +22,25 @@ const Header = ({ locale }: { locale: string }) => {
   return (
     <React.Fragment>
       <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
-        <Link href='/' className='logo flex items-center'>
+        <a href='/' className='logo flex items-center'>
           <Image src='https://ucarecdn.com/45e7f638-36f8-4bd4-be6a-06401215d636/-/preview/65x65/' alt='Logo ' width={65} height={65} className='object-cover' />
-        </Link>
+        </a>
 
 
         {/* SERVICES */}
         <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px] z-[9999999]'>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          <a href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Туры
-          </Link>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          </a>
+          <a href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Клиники
-          </Link>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          </a>
+          <a href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Санатории
-          </Link>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          </a>
+          <a href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Гостиницы
-          </Link>
+          </a>
         </div>
 
         <div className='hidden slg:flex slg:items-center  2xl:hidden  z-[999]'>
@@ -65,22 +64,22 @@ const Header = ({ locale }: { locale: string }) => {
       {
         service && (<div>
           <div className='flex flex-col z-[9999999] '>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <a href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Туры
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </Link>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            </a>
+            <a href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Клиники
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </Link>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            </a>
+            <a href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Санатории
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </Link>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            </a>
+            <a href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Гостиницы
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </Link>
+            </a>
           </div>
         </div>)
       }
@@ -108,21 +107,21 @@ const Header = ({ locale }: { locale: string }) => {
 
               {
                 mobileService && (<div className='flex flex-col gap-[20px] text-[18px] font-medium mt-[20px] slg:text-[22px]'>
-                  <Link href='/about'>
+                  <a href={`${locale}/about`}>
                     О компании
-                  </Link>
-                  <Link href='/partners'>
+                  </a>
+                  <a href='/partners'>
                     Партнеры
-                  </Link>
-                  <Link href='/question'>
+                  </a>
+                  <a href='/question'>
                     Задать вопрос
-                  </Link>
-                  <Link href='/blog'>
+                  </a>
+                  <a href='/blog'>
                     Блог
-                  </Link>
-                  <Link href='/contacts'>
+                  </a>
+                  <a href='/contacts'>
                     Контакты
-                  </Link>
+                  </a>
                 </div>)
               }
             </div>
@@ -133,9 +132,9 @@ const Header = ({ locale }: { locale: string }) => {
                 <p>одном путешествии!</p>
               </div>
               <div className='w-full mt-[16px]'>
-                <Link href='/' className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
+                <a href='/' className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
                   Начать путешествие
-                </Link>
+                </a>
               </div>
             </div>
           </div>

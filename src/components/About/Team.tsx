@@ -16,6 +16,16 @@ const teamMembers = [
     role: "Технический директор",
     imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
   },
+  {
+    name: "Петров Петр",
+    role: "Технический директор",
+    imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
+  },
+  {
+    name: "Петров Петр",
+    role: "Технический директор",
+    imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
+  },
   // Add more team members here
 ];
 
@@ -38,7 +48,7 @@ const Team: FC = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 3000,
@@ -84,7 +94,7 @@ const Team: FC = () => {
       <div className='mt-[20px]'>
         <Slider ref={sliderRef} {...settings}>
           {teamMembers.map((member, index) => (
-            <div key={index} className='flex flex-col 2xl:w-[30%] w-full items-center'>
+            <div key={index} className='flex flex-col 2xl:w-[30%] w-full items-center mdl:w-[25%] px-[2px]'>
               <Image
                 src={member.imageUrl}
                 width={300}
@@ -93,7 +103,7 @@ const Team: FC = () => {
                 quality={100}
                 className='object-contain rounded-[20px] w-full'
               />
-              <div className='flex flex-col mt-[20px] '>
+              <div className='flex flex-col mt-[20px]  w-full'>
                 <p className='text-[20px] mdl:text-[25px] font-semibold text-titleDark'>{member.name}</p>
                 <p className='text-[14px] mdl:text-[17px] font-raleway font-medium text-[#7C7C7C]'>{member.role}</p>
               </div>
