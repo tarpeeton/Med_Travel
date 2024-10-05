@@ -11,14 +11,6 @@ import imagePartner4 from './partners/f.png'
 import imagePartner5 from './partners/t.png'
 import imagePartner6 from './partners/u.png'
 
-const partnersImages = [
-    imagePartner1,
-    imagePartner2,
-    imagePartner3,
-    imagePartner4,
-    imagePartner5,
-    imagePartner6,
-]
 
 const Partners: FC = () => {
     const sliderRef = useRef<Slider | null>(null)
@@ -37,7 +29,7 @@ const Partners: FC = () => {
 
     const settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 1,  // Show one slide (a row of images) at a time
         slidesToScroll: 1,
@@ -48,7 +40,7 @@ const Partners: FC = () => {
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 0,
                 },
             },
             {
@@ -81,26 +73,86 @@ const Partners: FC = () => {
             </div>
             <div className='mt-[20px]'>
                 <Slider ref={sliderRef} {...settings} className='flex flex-col'>
-                    {partnersImages.map((image, index) => (
-                       <div className="flex flex-row gggg flex-wrap justify-between" style={{ width: '100%' }}>
-                       {partnersImages.map((img, index) => (
-                           <div className="flex  items-center justify-center w-[50%] p-[4px]  " key={index}>
-                               <Image
-                                   src={img}
-                                   width={300}
-                                   height={370}
-                                   alt={`Photo ${index + 1}`}
-                                   quality={100}
-                                   className="object-contain w-full "
-                               />
-                          {index % 2 === 0 && index < partnersImages.length - 1 && ( // 0, 2, 4 indekslarida div qo'shish
-                                    <div className='bg-borderColor h-[40px] w-[3px]' />
-                                )}
+                    <div className='flex flex-col'>
+                        <div className="flex flex-row gggg flex-wrap justify-between mdl:flex-row mdl:flex-nowrap" style={{ width: '100%' }}>
+                            <div className="flex  items-center justify-center w-[50%] p-[4px] mdl:w-[33%] 2xl:w-[30%] " >
+                                <Image
+                                    src={imagePartner1}
+                                    width={300}
+                                    height={370}
+                                    alt={``}
+                                    quality={100}
+                                    className="object-contain w-full "
+                                />
+                                <div className='bg-borderColor h-[40px] w-[2px] 2xl:hidden' />
+                            </div>
+                            <div className='bg-borderColor h-[40px] w-[2px] hidden 2xl:flex' />
+                            <div className="flex  items-center justify-center w-[50%] p-[4px] mdl:w-[33%] 2xl:w-[30%] " >
+                                <Image
+                                    src={imagePartner2}
+                                    width={300}
+                                    height={370}
+                                    alt={``}
+                                    quality={100}
+                                    className="object-contain w-full "
+                                />
+                                <div className='hidden mdl:flex bg-borderColor h-[40px] w-[2px]' />
 
-                           </div>
-                       ))}
-                   </div>
-                    ))}
+                            </div>
+                            <div className='bg-borderColor h-[40px] w-[2px] hidden 2xl:flex' />
+
+                            <div className="flex  items-center justify-center w-[50%] p-[4px] mdl:w-[33%] 2xl:w-[30%] " >
+                                <Image
+                                    src={imagePartner3}
+                                    width={300}
+                                    height={370}
+                                    alt={``}
+                                    quality={100}
+                                    className="object-contain w-full "
+                                />
+                                <div className='bg-borderColor h-[40px] w-[2px] mdl:hidden' />
+                            </div>
+                            <div className='bg-borderColor h-[40px] w-[2px] hidden 2xl:flex' />
+
+                            <div className="flex  items-center justify-center w-[50%] p-[4px] mdl:w-[33%] 2xl:w-[30%] " >
+                                <Image
+                                    src={imagePartner4}
+                                    width={300}
+                                    height={370}
+                                    alt={``}
+                                    quality={100}
+                                    className="object-contain w-full "
+                                />
+                                <div className='bg-borderColor h-[40px] w-[2px] hidden mdl:flex' />
+
+                            </div>
+                            <div className='bg-borderColor h-[40px] w-[2px] hidden 2xl:flex' />
+                            <div className="flex  items-center justify-center w-[50%] p-[4px] mdl:w-[33%] 2xl:w-[30%] " >
+                                <Image
+                                    src={imagePartner5}
+                                    width={300}
+                                    height={370}
+                                    alt={``}
+                                    quality={100}
+                                    className="object-contain w-full "
+                                />
+                                <div className='bg-borderColor h-[40px] w-[2px] ' />
+                            </div>
+                            <div className='bg-borderColor h-[40px] w-[2px] hidden 2xl:flex' />
+                            <div className="flex  items-center justify-center w-[50%] p-[4px] mdl:w-[33%] 2xl:w-[30%] " >
+                                <Image
+                                    src={imagePartner6}
+                                    width={300}
+                                    height={370}
+                                    alt={``}
+                                    quality={100}
+                                    className="object-contain w-full "
+                                />
+
+                            </div>
+                        </div>
+                    </div>
+
                 </Slider>
             </div>
         </div>

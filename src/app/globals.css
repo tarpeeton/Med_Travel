@@ -21,3 +21,10 @@
 	flex-direction: row !important;
 	flex-wrap: wrap !important;
 }
+
+@media (min-width:1025px) {
+	.gggg {
+		flex-wrap: nowrap !important;
+		align-items: center !important;;
+	}
+}
