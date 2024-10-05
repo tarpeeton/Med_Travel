@@ -4,6 +4,9 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import { GrLinkNext } from "react-icons/gr"
 import { GrLinkPrevious } from "react-icons/gr"
+import Image from 'next/image'
+import banner from '@/public/banner.jpg'
+import bannerTWO from '@/public/bannnerTWO.jpg'
 
 const MainBanner: FC = () => {
   const sliderRef = useRef<Slider | null>(null) // Reference for the slider
@@ -13,13 +16,13 @@ const MainBanner: FC = () => {
       id: 1,
       title: "Ваш путь к здоровью\n — с нашими турами!",
       imageUrl:
-        "https://ucarecdn.com/3d54a850-9fba-41e2-aebe-170de33b84ca/-/preview/1000x666/",
+      banner,
     },
     {
       id: 2,
       title: "Ваш путь к здоровью\n — с нашими турами!",
       imageUrl:
-        "https://ucarecdn.com/6ffeffeb-d8a4-421b-8766-3507598779da/-/preview/1000x666/",
+      bannerTWO
     },
   ])
 
@@ -53,13 +56,16 @@ const MainBanner: FC = () => {
           <div key={banner.id} className="flex justify-between">
             <div className="flex w-full cursor-pointer">
               <div className="w-full relative h-[500px] mdl:h-[600px] ">
-                <img
+                <Image
                   src={banner.imageUrl}
                   alt={banner.title}
-                  className="w-full h-[500px] mdl:h-[600px] object-cover"
+                  quality={100}
+                  width={1500}
+                  height={666}
+                  className="w-full h-[500px] mdl:h-[600px] "
                 />
 
-
+<div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
                   <div className="flex flex-row gap-[8px] mb-[40px] mdl:hidden">
                     <button

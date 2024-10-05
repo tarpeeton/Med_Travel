@@ -4,48 +4,45 @@ import LanguageSwitcher from './LanguageSwitcher' // Typo correction
 import Image from 'next/image'
 import { MdKeyboardArrowDown } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
+import {Link} from '@/i18n/routing';
 import { IoMdClose } from "react-icons/io"
 import { FaChevronRight } from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
+
+
+
 
 const Header = ({ locale }: { locale: string }) => {
   const [menu, setMenu] = useState(false)
   const [service, setService] = useState(false)
   const [mobileService, setMobileService] = useState(true)
-  const router = useRouter()
 
   const toggleMenuOpen = () => setMenu(!menu)
   const toggleServiceOpen = () => setService(!service)
   const toggleMobileService = () => setMobileService(!mobileService)
 
-  // REPLACE LINKS
-  const navigateTo = (path: string) => {
-    router.push(`/${locale}${path}`);
-  };
-
-
+  
   return (
-    <div>
+    <React.Fragment>
       <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
-        <button onClick={ () => navigateTo('/')} className='logo flex items-center w-[65px] h-[65px]'>
-          <Image src={'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'} alt='Logo ' width={80} height={80} quality={100} className='object-cover' />
-        </button>
+        <Link href='/' className='logo flex items-center'>
+        <Image src={'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'} alt='Logo ' width={80} height={80} quality={100} className='object-cover' />
+        </Link>
 
 
         {/* SERVICES */}
         <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px] z-[9999999]'>
-          <button onClick={ () => navigateTo('/k')}className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Туры
-          </button>
-          <button onClick={ () => navigateTo('/k')} className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          </Link>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Клиники
-          </button>
-          <button onClick={ () => navigateTo('/k')} className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          </Link>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Санатории
-          </button>
-          <button onClick={ () => navigateTo('/k')} className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          </Link>
+          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Гостиницы
-          </button>
+          </Link>
         </div>
 
         <div className='hidden slg:flex slg:items-center  2xl:hidden  z-[999]'>
@@ -69,22 +66,22 @@ const Header = ({ locale }: { locale: string }) => {
       {
         service && (<div>
           <div className='flex flex-col z-[9999999] '>
-            <button onClick={ () => navigateTo('/turs')} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Туры
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </button>
-            <button onClick={ () => navigateTo('/turs')} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            </Link>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Клиники
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </button>
-            <button onClick={ () => navigateTo('/turs')} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            </Link>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Санатории
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </button>
-            <button onClick={ () => navigateTo('/turs')} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            </Link>
+            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Гостиницы
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
-            </button>
+            </Link>
           </div>
         </div>)
       }
@@ -112,21 +109,21 @@ const Header = ({ locale }: { locale: string }) => {
 
               {
                 mobileService && (<div className='flex flex-col gap-[20px] text-[18px] font-medium mt-[20px] slg:text-[22px]'>
-                  <button onClick={ () => navigateTo('/about')} className='text-left'>
+                  <Link href='/about' onClick={toggleMenuOpen}>
                     О компании
-                  </button>
-                  <button onClick={ () => navigateTo('/blog')} className='text-left'>
+                  </Link>
+                  <Link href='/partners' onClick={toggleMenuOpen}>
                     Партнеры
-                  </button>
-                  <button onClick={ () => navigateTo('/blog')} className='text-left'>
+                  </Link>
+                  <Link href='/question' onClick={toggleMenuOpen}>
                     Задать вопрос
-                  </button>
-                  <button onClick={ () => navigateTo('/blog')} className='text-left'>
+                  </Link>
+                  <Link href='/blog' onClick={toggleMenuOpen}>
                     Блог
-                  </button>
-                  <button onClick={ () => navigateTo('/blog')} className='text-left'>
+                  </Link>
+                  <Link href='/contacts' onClick={toggleMenuOpen}>
                     Контакты
-                  </button>
+                  </Link>
                 </div>)
               }
             </div>
@@ -137,15 +134,15 @@ const Header = ({ locale }: { locale: string }) => {
                 <p>одном путешествии!</p>
               </div>
               <div className='w-full mt-[16px]'>
-                <button onClick={ () => navigateTo('/')} className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
+                <Link href='/' className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
                   Начать путешествие
-                </button>
+                </Link>
               </div>
             </div>
           </div>
         ) : null
       }
-    </div>
+    </React.Fragment>
 
   )
 }

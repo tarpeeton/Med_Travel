@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
-import LogoResult from '../app/public/a.png'
 
 
 const Footer: FC = () => {
