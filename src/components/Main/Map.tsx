@@ -166,10 +166,10 @@ const Sanatoriums: FC = () => {
 				<div>
 					<p className='text-[25px] font-raleway font-semibold text-titleDark'>{location.name}</p>
 				</div>
-				<div className='mt-[12px]'>
+				<div className='mt-[5px]'>
 					<p className='text-[17px] text-[#7C7C7C] font-raleway'>{location.address || location.description}</p>
 				</div>
-				<div className='mt-[20px]'>
+				<div className='mt-[5px]'>
 					<Link href={location.url} className='flex items-center text-[#168CE6] font-semibold font-raleway'>
 						<p className='text-[18px]'>{location.link}</p>
 						<MdNavigateNext size={20} />
