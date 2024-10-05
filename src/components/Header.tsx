@@ -6,7 +6,7 @@ import { MdKeyboardArrowDown } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
 import { IoMdClose } from "react-icons/io"
 import { FaChevronRight } from 'react-icons/fa'
-
+import Logo from './images/Logo.png'
 
 
 
@@ -22,8 +22,8 @@ const Header = ({ locale }: { locale: string }) => {
   return (
     <React.Fragment>
       <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
-        <a href='/' className='logo flex items-center'>
-          <Image src='https://ucarecdn.com/45e7f638-36f8-4bd4-be6a-06401215d636/-/preview/65x65/' alt='Logo ' width={65} height={65} className='object-cover' />
+        <a href='/' className='logo flex items-center w-[65px] h-[65px]'>
+          <Image src={'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'} alt='Logo ' width={80} height={80} quality={100} className='object-cover' />
         </a>
 
 

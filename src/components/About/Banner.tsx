@@ -1,16 +1,17 @@
 import { FC } from 'react'
 import Image from 'next/image'
+import BannerImage from './partners/Banner.jpg'
 
 const AboutBanner: FC = () => {
 	return (
-		<div className='py-[13px] px-[16px]'>
+		<div className='py-[13px] px-[16px] 2xl:px-0'>
 			<div className='flex flex-col 2xl:flex-row 2xl:pl-[200px] 2xl:items-center 2xl:justify-between'>
 				<div className='flex flex-col mdl:relative mdl:h-[500px] 2xl:w-[55%]  2xl:h-[745px]'>
 					<div className='mdl:w-[80%] mdl:h-full 2xl:w-full'>
-						<Image src='https://ucarecdn.com/505b522f-42e9-4ced-91fc-957d8d0c8f1d/-/preview/1000x666/' className='object-contain w-full rounded-[20px] mdl:h-full mdl:object-cover 2xl:rounded-[0px]' width={300} height={300} alt='IMAGE' quality={100} />
+						<Image src={BannerImage} className='object-contain w-full rounded-[20px] mdl:h-full mdl:object-cover 2xl:rounded-[0px] 2xl:object-cover' width={820} height={820} alt='IMAGE' quality={100} />
 					</div>
 					<div className='mt-[12px] h-[144px] mdl:absolute mdl:bottom-[20px] mdl:right-[40px] 2xl:left-[-80px] mdl:h-[375px] mdl:w-[320px] 2xl:border-[5px] border-white 2xl:rounded-[20px] 2xl:overflow-hidden'>
-						<Image src='https://ucarecdn.com/73776fae-6181-4804-9e43-a42ef60311cc/-/preview/1000x561/' className='object-cover w-full h-full rounded-[20px] mdl:object-cover mdl:h-full 2xl:rounded-[0px]' width={300} height={410} alt='IMAGE' quality={100} />
+						<Image src='https://ucarecdn.com/73776fae-6181-4804-9e43-a42ef60311cc/-/preview/1000x561/' className='object-cover w-full h-full rounded-[20px] mdl:object-cover mdl:h-full 2xl:rounded-[0px]' width={400} height={410} alt='IMAGE' quality={100} />
 					</div>
 				</div>
 				{/* TEXT */}

@@ -4,27 +4,30 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
 
-
-
-
-
 .borderedButton {
-	background-color: #1AB2A6;
-	border-radius: 10px;
-	padding: 16px;
-	color: white;
+  background-color: #1ab2a6;
+  border-radius: 10px;
+  padding: 16px;
+  color: white;
 }
 
 .gggg {
-	width: 100% !important;
-	display: flex !important;
-	flex-direction: row !important;
-	flex-wrap: wrap !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
 }
 
-@media (min-width:1025px) {
-	.gggg {
-		flex-wrap: nowrap !important;
-		align-items: center !important;;
-	}
+.Archivments {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+}
+
+@media (min-width: 1025px) {
+  .gggg {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+  }
 }
