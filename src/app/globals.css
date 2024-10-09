@@ -18,6 +18,12 @@
   flex-wrap: wrap !important;
 }
 
+.slick-track {
+  width: 100% !important;
+}
+
+
+
 
 
 @media (min-width: 1025px) {
