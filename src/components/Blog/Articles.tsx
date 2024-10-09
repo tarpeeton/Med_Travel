@@ -3,17 +3,18 @@ import { FC } from 'react'
 import Title from '../ui/title'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/swiper-bundle.css' // Import Swiper styles
-
-// Optional: Swiper's module styles (depending on what features you use)
+import 'swiper/swiper-bundle.css' 
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+
+
+
 
 const Articles: FC = () => {
 
 
     return (
-        <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] mt-[120px]'>
+        <div className='flex flex-col  mt-[120px]'>
             <div>
                 <Title title='Статьи' />
             </div>
@@ -52,7 +53,6 @@ const Articles: FC = () => {
                     </SwiperSlide>
                 </Swiper>
             </div>
-
             {/* Desktop View */}
             <div className='hidden mdl:block'>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
@@ -61,6 +61,7 @@ const Articles: FC = () => {
                     <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor  rounded-full font-raleway text-[15px]'>Туризм</button>
                 </div>
             </div>
+
         </div>
     )
 }

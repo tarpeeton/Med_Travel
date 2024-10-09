@@ -1,14 +1,15 @@
 import { FC } from 'react'
 import Title from '../ui/title'
 import Image from 'next/image'
-import Link from 'next/link'
 import { MdNavigateNext } from "react-icons/md"
 import blogone from '../../public/blogone.jpg'
+import {Link} from '@/i18n/routing';
 
 
 const Latests: FC = () => {
+
     return (
-        <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] mt-[20px] mdl:mt-[60px]'>
+        <div className='flex flex-col  mt-[20px] mdl:mt-[60px]'>
             <div>
                 <Title title='Свежие новости' />
             </div>
