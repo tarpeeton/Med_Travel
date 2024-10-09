@@ -6,18 +6,22 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/swiper-bundle.css' 
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-
-
+import { RiSearchLine } from "react-icons/ri";
 
 
 const Articles: FC = () => {
 
 
     return (
-        <div className='flex flex-col  mt-[120px]'>
+        <div className='flex flex-col  mt-[120px] mdl:w-[35%]'>
             <div>
                 <Title title='Статьи' />
             </div>
+
+            <div className='input_search w-[100%] bg-[#F3F7FB] rounded-[10px]  py-[13px] mdl:py-[16px] px-[20px] flex flex-row items-center justify-between'>
+                <input className='w-full outline-none border-none bg-inherit'  placeholder='Dtst'  />
+                <RiSearchLine  size={22} className='text-titleDark font-bold'/>
+                </div>
 
             {/* Mobile View */}
             <div className='mdl:hidden mt-[16px]'>
