@@ -1,5 +1,5 @@
 'use client'
-import { FC  } from 'react'
+import { FC } from 'react'
 import Title from '../ui/title'
 import { BLOGS } from '@/constants/Blogs'
 import { useParams } from 'next/navigation'
@@ -12,7 +12,7 @@ import { MdNavigateNext } from "react-icons/md"
 const OtherBlogs: FC = () => {
   const { locale } = useParams()
   const allowedLocales: Locale[] = ['ru', 'uz', 'en']
-  
+
   // Validate and assign currentLocale as Locale type
   const currentLocale: Locale = (typeof locale === "string" && allowedLocales.includes(locale as Locale))
     ? locale as Locale
@@ -48,13 +48,13 @@ const OtherBlogs: FC = () => {
 
         ))}
       </div>
-                    <Link  href='/blogs' className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
-                        <button
-                            className='bg-green100 text-white font-semibold w-[60%] mdl:w-[30%] 3xl:w-[20%] text-[14px] mdl:text-[16px] py-[15px] px-[20px] rounded-[10px]'
-                        >
-                          Все статьи
-                        </button>
-                    </Link>
+      <Link href='/blogs' className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
+        <button
+          className='bg-green100 text-white font-semibold w-[60%] mdl:w-[30%] 3xl:w-[20%] text-[14px] mdl:text-[16px] py-[15px] px-[20px] rounded-[10px]'
+        >
+          Все статьи
+        </button>
+      </Link>
     </div>
   )
 }

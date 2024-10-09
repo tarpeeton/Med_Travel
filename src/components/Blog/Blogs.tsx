@@ -53,7 +53,6 @@ const Blogs: FC = () => {
 
                 ))}
 
-
                 {visibleCount < BLOGS.length && (
                     <div className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
                         <button
