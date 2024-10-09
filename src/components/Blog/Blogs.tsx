@@ -6,7 +6,7 @@ import { MdNavigateNext } from "react-icons/md"
 import blogone from '../../public/blogone.jpg'
 import { BLOGS } from '@/constants/Blogs'
 import { useParams } from 'next/navigation'
-
+import { Locale } from '@/types/Locale'
 
 
 
@@ -19,6 +19,12 @@ const Blogs: FC = () => {
     const SetVisibleCount = () => {
         setVisibleCount(prevcount => prevcount + 12)
     }
+    const allowedLocales: Locale[] = ['ru', 'uz', 'en']
+
+    // Validate and assign currentLocale as Locale type
+    const currentLocale: Locale = (typeof locale === "string" && allowedLocales.includes(locale as Locale))
+        ? locale as Locale
+        : 'ru' // Fallback to 'ru' if invalid
     return (
         <div className='mt-[20px] mdl:mt-[30px]'>
             <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between'>
@@ -32,12 +38,12 @@ const Blogs: FC = () => {
                         <div className='px-[16px] mt-[20px] mdl:px-[20px] flex flex-col  mdl:justify-center'>
                             <div>
                                 <p className='text-[20px] mdl:text-[22px]  2xl:text-[25px] font-semibold text-titleDark'>
-                                    {item.title[locale]}
+                                    {item.title[currentLocale]}
                                 </p>
                             </div>
                             <div className='mt-[8px]'>
                                 <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px]  font-medium text-[#7C7C7C]'>
-                                    {item.description[locale]}
+                                    {item.description[currentLocale]}
                                 </p>
                             </div>
                             <div className='mt-[16px] mdl:mt-[25px] 2xl:mt-[30px] mdl:absolute  mdl:bottom-[40px]'>
