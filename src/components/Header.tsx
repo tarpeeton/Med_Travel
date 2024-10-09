@@ -8,7 +8,7 @@ import {Link} from '@/i18n/routing';
 import { IoMdClose } from "react-icons/io"
 import { FaChevronRight } from 'react-icons/fa'
 import { useTranslations } from 'next-intl'
-
+import QuestionModal from './Modal/Question'
 
 
 const Header = ({ locale }: { locale: string }) => {
@@ -16,6 +16,11 @@ const Header = ({ locale }: { locale: string }) => {
   const [menu, setMenu] = useState(false)
   const [service, setService] = useState(false)
   const [mobileService, setMobileService] = useState(true)
+  const [question , setQuestion] = useState(false)
+
+  const toggleOpenQuestion = () => {setQuestion(!question)
+    toggleMenuOpen()
+  }
   const toggleMenuOpen = () => setMenu(!menu)
   const toggleServiceOpen = () => setService(!service)
   const toggleMobileService = () => setMobileService(!mobileService)
@@ -84,6 +89,7 @@ const Header = ({ locale }: { locale: string }) => {
           </div>
         </div>)
       }
+      <QuestionModal  visible={question} close={toggleOpenQuestion}/>
 
       {
         menu ? (
@@ -114,9 +120,9 @@ const Header = ({ locale }: { locale: string }) => {
                   <Link href='/partners' onClick={toggleMenuOpen}>
                     Партнеры
                   </Link>
-                  <Link href='/question' onClick={toggleMenuOpen}>
+                  <button className='text-left'  onClick={() => toggleOpenQuestion()}>
                     Задать вопрос
-                  </Link>
+                  </button>
                   <Link href='/blog' onClick={toggleMenuOpen}>
                     Блог
                   </Link>
