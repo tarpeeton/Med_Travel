@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 import { Link } from '@/i18n/routing'
 import Image from 'next/image'
 import { MdNavigateNext } from "react-icons/md"
-import blogone from '../../public/blogone.jpg'
 import { BLOGS } from '@/constants/Blogs'
 import { useParams } from 'next/navigation'
 import { Locale } from '@/types/Locale'
