@@ -2,7 +2,7 @@ import {FC} from 'react';
 import BlogWithSlug from './Blog'
 import Share from './Share'
 import Comments from './Comments'
-import SimilarNews from './Similar'
+import OtherBlogs from './Other'
 
 
 const MainBlogWithSlug: FC = () => {
@@ -11,7 +11,7 @@ const MainBlogWithSlug: FC = () => {
         <BlogWithSlug/>
         <Share />
         <Comments />
-        <SimilarNews />
+        <OtherBlogs />
     </div>
   );
 };
