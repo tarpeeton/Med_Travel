@@ -65,7 +65,7 @@ const Banner: FC = () => {
           Незабываемые туры по Узбекистану
         </p>
       </div>
-      <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px]">
+      <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px] shadow-[0px_4px_15px_rgba(0,0,0,0.1)]">
         <div className="flex flex-col gap-[16px] 2xl:gap-[20px] 2xl:flex-row  2xl:flex-wrap 2xl:items-center">
           <div className="flex flex-row gap-[1%] 2xl:w-[32%]">
             <Select placeholder="Откуда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>

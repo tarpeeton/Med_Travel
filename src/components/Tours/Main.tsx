@@ -10,12 +10,12 @@ const MainTours: FC = () => {
     return (
         <div className='relative'>
             <Banner />
-            {/* <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] relative'>
+            <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] relative mt-[420px] mdl:mt-[370px] 2xl:mt-[180px]'>
                 <Available />
                 <Gallery />
-                <Map />
+                {/* <Map /> */}
                 <Faq />
-            </div> */}
+            </div>
 
         </div>
     )
