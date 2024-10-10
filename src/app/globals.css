@@ -47,4 +47,11 @@
 	flex-direction: row !important;
 	justify-content: space-between !important;
   }
+  .ant-select-selector {
+    padding: 17px 20px !important;
+  }
+  .ant-picker {
+    padding: 6px 20px !important;
+
+  }
 }

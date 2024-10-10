@@ -59,39 +59,39 @@ const Banner: FC = () => {
         zIndex: 10, // Make sure the overlay stays behind the content
       }}
     ></div>
-      <div className="py-[40px] px-[16px] relative z-[99]">
+      <div className="py-[40px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
         <TursTitle title="Туры по Узбекистану" />
         <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-semibold font-raleway mt-[8px] mdl:mt-[10px]">
           Незабываемые туры по Узбекистану
         </p>
       </div>
-      <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]">
-        <div className="flex flex-col gap-[16px] 2xl:gap-[20px]">
-          <div className="flex flex-row gap-[1%]">
-            <Select placeholder="Откуда" className="w-[49%] custom-select" suffixIcon={null}>
+      <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px]">
+        <div className="flex flex-col gap-[16px] 2xl:gap-[20px] 2xl:flex-row  2xl:flex-wrap 2xl:items-center">
+          <div className="flex flex-row gap-[1%] 2xl:w-[32%]">
+            <Select placeholder="Откуда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>
               <Option value="tashkent">Ташкент</Option>
               <Option value="samarkand">Самарканд</Option>
             </Select>
-            <Select placeholder="Куда" className="w-[49%] custom-select" suffixIcon={null}>
+            <Select placeholder="Куда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>
               <Option value="bukhara">Бухара</Option>
               <Option value="khiva">Хива</Option>
             </Select>
           </div>
-          <div className="flex flex-row gap-[1%]">
+          <div className="flex flex-row gap-[1%] 2xl:w-[32%] 2xl:mt-[2px]">
             <DatePicker
-              className="w-[49%]"
+              className="w-[49%] 2xl:w-full"
               placeholder="От"
               onOpenChange={(open) => handleOpenChange(open, "from")}
             />
             <DatePicker
-              className="w-[49%]"
+              className="w-[49%] 2xl:w-full"
               placeholder="До"
               onOpenChange={(open) => handleOpenChange(open, "to")}
             />
           </div>
           <Select
             value={`${totalPeople} человек`} // Dynamic value based on adults + children
-            className="w-full custom-select"
+            className="w-full custom-select 2xl:w-[32%]"
             dropdownRender={(menu) => (
               <div>
                 <div className="flex justify-between items-center px-4 py-2">
@@ -144,14 +144,14 @@ const Banner: FC = () => {
             </Option>
           </Select>
           {/* Other Select elements remain unchanged */}
-          <div className="flex flex-row gap-[1%]">
-            <Select placeholder="Цена от" className="w-[49%] custom-select" suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}>
+          <div className="flex flex-row gap-[1%]  2xl:w-[32%]">
+            <Select placeholder="Цена от" className="w-[49%]  2xl:w-full custom-select" suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}>
               <Option value="100">100$</Option>
               <Option value="200">200$</Option>
             </Select>
             <Select
               placeholder="Цена до"
-              className="w-[49%] custom-select"
+              className="w-[49%] 2xl:w-full  custom-select"
               suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}
               dropdownStyle={{ backgroundColor: "##1AB2A6", color: "#fff" }}
             >
@@ -159,13 +159,13 @@ const Banner: FC = () => {
               <Option value="1000">1000$</Option>
             </Select>
           </div>
-          <Select placeholder="Тип тура" className="w-full custom-select">
+          <Select placeholder="Тип тура" className="w-full custom-select 2xl:w-[32%]">
             <Option value="medical">Медицинский</Option>
             <Option value="default">Обычный</Option>
           </Select>
-          <div className="flex flex-col">
-            <button className="greenButton font-bold p-[16px]">Поиск</button>
-            <button className="mt-[8px] border border-borderColor text-titleDark font-bold p-[16px] font-raleway rounded-[10px]">
+          <div className="flex flex-col mdl:flex-row mdl:w-[62%] gap-[1%]">
+            <button className="greenButton font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px]">Поиск</button>
+            <button className="mt-[8px] border border-borderColor mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] text-titleDark font-bold p-[16px] font-raleway rounded-[10px] mdl:mt-0">
               Очистить всё
             </button>
           </div>
