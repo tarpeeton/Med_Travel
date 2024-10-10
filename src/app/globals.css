@@ -30,12 +30,11 @@
   width: 120px !important;
   
 }
-.antd-select-focused {
-  background-color: #1ab2a6 !important;
+
+
+:where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+  border-color: #1AB2A6 !important;
 }
-
-
-
 
 @media (min-width: 1025px) {
   .gggg {
