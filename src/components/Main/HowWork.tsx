@@ -6,7 +6,7 @@ import { PiAirplaneTiltLight } from "react-icons/pi"
 
 const HowWork: FC = () => {
 	return (
-		<div className=' mx-[16px] mt-[120px] 2xl:mx-[200px]'>
+		<div >
 			<div className='flex flex-col'>
 				<div>
 					<p className='text-[25px] font-bold text-titleDark mdl:text-[35px]  2xl:text-[40px] '>Как мы работаем</p>

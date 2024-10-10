@@ -17,11 +17,16 @@ const MainContent: FC = () => {
 		<Services />
 		<Stock />
 		<Map />
+		<div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
 		<HowWork />
+		</div>
 		<Reviews />
 		<Tours />
+		<div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
 		<Form />
 		<Contacts />
+
+		</div>
 	</div>
   );
 };

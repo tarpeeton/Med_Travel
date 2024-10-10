@@ -51,7 +51,7 @@ const Faq: React.FC = () => {
   }
 
   return (
-    <div className="w-full mt-[120px] mdl:mt-[180px] 2xl:mt-[200px]">
+    <div className="w-full ">
       <Title title='Часто задаваемые вопросы' />
       <div className='mt-[30px] mdl:mt-[40px] 2xl:mt-[50px]'>
         {faqData.map((item, index) => (

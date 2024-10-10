@@ -77,7 +77,7 @@ const Form: FC = () => {
   };
 
   return (
-    <div className="mx-[16px] 2xl:mx-[200px] mt-[120px]">
+    <div>
       <div
         className="rounded-[20px] py-[20px] px-[16px] flex flex-col bg-cover bg-center mdl:py-[40px] mdl:px-[30px] 2xl:flex-row 2xl:justify-between 2xl:py-[16px] 2xl:px-[16px]"
         style={{
