@@ -30,7 +30,9 @@
   width: 120px !important;
   
 }
-
+.antd-select-focused {
+  background-color: #1ab2a6 !important;
+}
 
 
 
