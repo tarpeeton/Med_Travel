@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import { FC, useRef, useState } from "react"
+import { FC, useRef, useState, useEffect } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
@@ -10,7 +10,7 @@ import Stock3 from '@/public/aksi8.jpg'
 import Stock4 from '@/public/aksiaThre.jpg'
 import Stock5 from '@/public/aksiaTwo.jpg'
 import Stories from 'react-insta-stories'
-
+import { IoClose } from "react-icons/io5";
 const StockData = [
   {
     title: 'Раннее бронирование скидка 20%',
@@ -43,6 +43,7 @@ const Stock: FC = () => {
   const sliderRef = useRef<Slider | null>(null)
   const [storiesVisible, setStoriesVisible] = useState(false)
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0)
+  const storyModalRef = useRef<HTMLDivElement | null>(null) // Ref for the story modal
 
   const handlePrev = () => {
     sliderRef.current?.slickPrev()
@@ -128,6 +129,20 @@ const Stock: FC = () => {
     }
   }))
 
+  // Close the story when clicking outside of the modal
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (storiesVisible && storyModalRef.current && !storyModalRef.current.contains(event.target as Node)) {
+        handleStoryClose()
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [storiesVisible])
+
   return (
     <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:ml-[200px] mt-[120px] relative cursor-pointer'>
       <p className='w-[50%] font-bold text-[25px] text-[#242424] mdl:text-[35px] 2xl:text-[40px] mdl:w-full'>Акции и спецпредложения</p>
@@ -157,7 +172,7 @@ const Stock: FC = () => {
       </Slider>
 
       {storiesVisible && (
-        <div className='fixed top-0 z-[99999999] left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-75'>
+        <div ref={storyModalRef} className='fixed top-0 z-[99999999] left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-75'>
           <div className='relative'>
             <Stories
               stories={[stories[currentStoryIndex]]}
@@ -165,10 +180,13 @@ const Stock: FC = () => {
               onStoryEnd={handleStoryNext}
               storyContainerStyles={{ backgroundColor: "black" }} // Optional styles for the story container
             />
-            <div className='absolute top-[50%] left-[-60px] bg-white  w-[40px] h-[40px] flex items-center justify-center rounded-full transform -translate-y-1/2 cursor-pointer' onClick={handleStoryPrev}>
+            <button onClick={handleStoryClose} className='absolute top-[-40px] mdl:top-[-25px]  mdl:right-[-50px]'>
+              <IoClose  className='text-white' size={30}/>
+              </button>
+            <div className='absolute top-[50%] hidden mdl:left-[-60px] bg-white  w-[40px] h-[40px] mdl:flex items-center justify-center rounded-full transform -translate-y-1/2 cursor-pointer' onClick={handleStoryPrev}>
               <GrLinkPrevious size={19} className="text-titleDark" />
             </div>
-            <div className='absolute top-[50%] right-[-60px] transform bg-white w-[40px] h-[40px] flex items-center justify-center  rounded-full -translate-y-1/2 cursor-pointer' onClick={handleStoryNext}>
+            <div className='absolute top-[50%] hidden mdl:right-[-60px] transform bg-white w-[40px] h-[40px] mdl:flex items-center justify-center  rounded-full -translate-y-1/2 cursor-pointer' onClick={handleStoryNext}>
               <GrLinkNext size={19} className="text-titleDark" />
             </div>
           </div>
