@@ -144,8 +144,6 @@ const Stock: FC = () => {
           <div className=''>
             <Stories
               stories={stories}
-              width={320} // Set width of story viewer
-              height={768} // Set height of story viewer
               defaultInterval={5000}
               onStoryEnd={() => console.log("Story ended")}
               onAllStoriesEnd={() => console.log("All stories ended")}
