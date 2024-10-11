@@ -1,34 +1,33 @@
 "use client"
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Link } from '@/i18n/routing'
 import Image from 'next/image'
 import { MdNavigateNext } from "react-icons/md"
 import { BLOGS } from '@/constants/Blogs'
 import { useParams } from 'next/navigation'
 import { Locale } from '@/types/Locale'
-
-
+import LeanMoreButton from '../ui/more'
+import useSlice from '@/hooks/useSlice'
 
 
 
 const Blogs: FC = () => {
     const { locale } = useParams()
-    const [visibleCount, setVisibleCount] = useState(12)
+    const { sliceNumber, handleSliceNumber } = useSlice(12)
 
-    const SetVisibleCount = () => {
-        setVisibleCount(prevcount => prevcount + 12)
-    }
     const allowedLocales: Locale[] = ['ru', 'uz', 'en']
 
     // Validate and assign currentLocale as Locale type
     const currentLocale: Locale = (typeof locale === "string" && allowedLocales.includes(locale as Locale))
         ? locale as Locale
         : 'ru' // Fallback to 'ru' if invalid
+
+        
     return (
         <div className='mt-[20px] mdl:mt-[30px]'>
             <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between'>
 
-                {BLOGS.slice(0, visibleCount).map((item, index) => (
+                {BLOGS.slice(0, sliceNumber).map((item, index) => (
                     <div key={index} className='rounded-[20px] overflow-hidden border border-borderColor pb-[20px] mdl:w-[48%]  relative  mdl:pb-[80px] mb-[20px] 3xl:w-[31%]'>
                         <div className=' mdl:order-[2]'>
                             <Image quality={100} alt='blog Image' src={item.photo?.url} width={1000} height={600} className='object-cover w-full h-full' />
@@ -52,19 +51,9 @@ const Blogs: FC = () => {
                     </div>
 
                 ))}
-
-                {visibleCount < BLOGS.length && (
-                    <div className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
-                        <button
-                            onClick={SetVisibleCount}
-                            className='bg-green100 text-white font-semibold w-[60%] mdl:w-[30%] 3xl:w-[20%] text-[14px] mdl:text-[16px] py-[15px] px-[20px] rounded-[10px]'
-                        >
-                            Загрузить еще
-                        </button>
-                    </div>
+                {sliceNumber < BLOGS.length && (
+                    <LeanMoreButton sliceCounterUp={handleSliceNumber} />
                 )}
-
-
             </div>
         </div>
     )

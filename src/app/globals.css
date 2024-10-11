@@ -32,10 +32,11 @@
 }
 
 
+
 :where(.css-dev-only-do-not-override-vryruh).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
   border-color: #1AB2A6 !important;
 }
-
+option:hover{background-color:red;}
 @media (min-width: 1025px) {
   .gggg {
     flex-wrap: nowrap !important;

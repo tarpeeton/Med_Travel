@@ -1,14 +1,15 @@
-"use client";
-import Image from 'next/image';
-import { FC, useRef } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
-import Stock1 from '@/public/aksia.jpg';
-import Stock2 from '@/public/aksi5.jpg';
-import Stock3 from '@/public/aksi8.jpg';
-import Stock4 from '@/public/aksiaThre.jpg';
-import Stock5 from '@/public/aksiaTwo.jpg';
+"use client"
+import Image from 'next/image'
+import { FC, useRef, useState } from "react"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
+import Stock1 from '@/public/aksia.jpg'
+import Stock2 from '@/public/aksi5.jpg'
+import Stock3 from '@/public/aksi8.jpg'
+import Stock4 from '@/public/aksiaThre.jpg'
+import Stock5 from '@/public/aksiaTwo.jpg'
+import Stories from 'react-insta-stories'
 
 const StockData = [
   {
@@ -36,18 +37,19 @@ const StockData = [
     date: '19 августа 2024',
     url: Stock5,
   },
-];
+]
 
 const Stock: FC = () => {
-  const sliderRef = useRef<Slider | null>(null);
+  const sliderRef = useRef<Slider | null>(null)
+  const [storiesVisible, setStoriesVisible] = useState(false)
 
   const handlePrev = () => {
-    sliderRef.current?.slickPrev();
-  };
+    sliderRef.current?.slickPrev()
+  }
 
   const handleNext = () => {
-    sliderRef.current?.slickNext();
-  };
+    sliderRef.current?.slickNext()
+  }
 
   const settings = {
     dots: false,
@@ -88,7 +90,22 @@ const Stock: FC = () => {
         },
       },
     ],
-  };
+  }
+
+  const handleStoryOpen = (index: number) => {
+    setStoriesVisible(true)
+  }
+
+  const handleStoryClose = () => {
+    setStoriesVisible(false)
+  }
+
+  // Prepare stories data by converting StaticImageData to string URLs
+  const stories = StockData.map(stock => ({
+    title: stock.title,
+    url: stock.url.src, // Use the src property for the URL
+    duration: 3000 // You can set the duration for each story
+  }))
 
   return (
     <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:ml-[200px] mt-[120px] relative cursor-pointer'>
@@ -104,7 +121,7 @@ const Stock: FC = () => {
 
       <Slider {...settings} ref={sliderRef} className='mt-[20px] mdl:mt-[30px] 2xl:mt-[40px]'>
         {StockData.map((stock, index) => (
-          <div className='w-[40%]' key={index}>
+          <div className='w-[40%]' key={index} onClick={() => handleStoryOpen(index)}>
             <div className='flex flex-col w-[98%]'>
               <div className='h-[150px] mdl:h-[200px] 2xl:h-[300px]'>
                 <Image src={stock.url} width={1000} height={700} alt={`Акция: ${stock.title}`} className='rounded-[20px] mdl:w-[100%] w-full h-full object-cover' />
@@ -117,8 +134,22 @@ const Stock: FC = () => {
           </div>
         ))}
       </Slider>
-    </div>
-  );
-};
 
-export default Stock;
+      {storiesVisible && (
+        <div className='fixed top-0 z-[99999999] left-0 w-full h-full flex flex-row items-center justify-center bg-black bg-opacity-75' onClick={handleStoryClose}>
+          <Stories
+            stories={stories}
+            width={432} // Set width of story viewer
+            height={768} // Set height of story viewer
+            defaultInterval={5000}
+            onStoryEnd={() => console.log("Story ended")}
+            onAllStoriesEnd={() => console.log("All stories ended")}
+            storyContainerStyles={{ backgroundColor: "black" }} // Optional styles for the story container
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default Stock

@@ -1,12 +1,12 @@
 'use client'
 import { FC } from 'react'
-import Title from '../ui/title'
-import { BLOGS } from '@/constants/Blogs'
 import { useParams } from 'next/navigation'
 import { Locale } from '@/types/Locale'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { MdNavigateNext } from "react-icons/md"
+import Title from '../ui/title'
+import { BLOGS } from '@/constants/Blogs'
 
 
 const OtherBlogs: FC = () => {
@@ -48,7 +48,7 @@ const OtherBlogs: FC = () => {
 
         ))}
       </div>
-      <Link href='/blogs' className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
+      <Link href='/blog' className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
         <button
           className='bg-green100 text-white font-semibold w-[60%] mdl:w-[30%] 3xl:w-[20%] text-[14px] mdl:text-[16px] py-[15px] px-[20px] rounded-[10px]'
         >

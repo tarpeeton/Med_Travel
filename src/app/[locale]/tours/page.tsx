@@ -3,10 +3,10 @@ import type { Metadata  } from 'next'
 
 
 export const metadata: Metadata = {
-  title: 'Bloglar',
-  description: 'Eng yangi Xabarlar',
-  keywords: 'Med Travel, Songi Xabarlar',
-}
+  title: 'Туры',
+  description: 'Откройте для себя лучшие туры и направления для отдыха.',
+  keywords: 'Med Travel, Туры, Отдых, Направления для путешествий',
+};
 
 export default function Index() {
   return (

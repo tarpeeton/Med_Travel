@@ -1,16 +1,13 @@
 "use client"
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import Image from 'next/image'
 import { ToursData } from '@/constants/Tours'
-
+import useSlice from "@/hooks/useSlice";
+import LeanMoreButton from '../ui/more'
 
 const Tours: FC = () => {
-    const [sliceNumber, setSliceData] = useState(9)
-
-
-    const setSlice = () => {
-        setSliceData((prev) => prev + 9)
-    }
+ const { sliceNumber, handleSliceNumber } = useSlice(9);
+   
 
     return (
         <div >
@@ -39,13 +36,7 @@ const Tours: FC = () => {
             </div>
 
             {sliceNumber < ToursData.length && (
-                <div className='w-full text-center mt-[40px] mdl:mt-[60px]'>
-                    <button  onClick={setSlice} className="bg-greenButton p-[16px] rounded-[10px] text-[18px] font-bold w-[50%] mx-auto 2xl:w-[20%] ">
-                        <span className='text-[16px] font-bold text-white'>
-                            Загрузить еще
-                        </span>
-                    </button>
-                </div>
+                <LeanMoreButton  sliceCounterUp={handleSliceNumber}/>
             )}
 
         </div>
