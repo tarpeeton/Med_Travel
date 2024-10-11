@@ -102,45 +102,15 @@ const Stock: FC = () => {
 
   // Prepare stories data by converting StaticImageData to string URLs
   const stories = StockData.map(stock => ({
+    title: stock.title,
     url: stock.url.src,
     duration: 5000,
-   content: () => (
-  <div style={{ position: 'relative', height: '768px', width: '432px'  , borderRadius: '10px'}}> {/* Match dimensions */}
-    <img
-      src={stock.url.src}
-      alt={stock.title}
-      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5))', // Gradient overlay
-      }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        bottom: '20px', // Matn pastda bo'lishi uchun
-        left: '20px',
-        right: '20px',
-        color: 'white',
-        fontSize: '18px',
-        padding: '10px',
-        borderRadius: '10px',
-      }}
-    >
-      <div className='w-[80%]'>
-        <h3 className='text-white font-semibold text-[25px] font-raleway'>{stock.title}</h3>
-        <p className='text-[16px] font-medium text-white font-raleway mt-[6px]'>{stock.date}</p>
-      </div>
-    </div>
-  </div>
-)
-  }));
+    header: {
+      heading: stock.title, // Story uchun sarlavha
+      subheading: stock.date, // Sana yoki boshqa qo'shimcha matn
+      profileImage: 'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/' // Agar kerak bo'lsa, profil rasmi qo'shishingiz mumkin
+    }
+  }))
   return (
     <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:ml-[200px] mt-[120px] relative cursor-pointer'>
       <p className='w-[50%] font-bold text-[25px] text-[#242424] mdl:text-[35px] 2xl:text-[40px] mdl:w-full'>Акции и спецпредложения</p>
@@ -170,18 +140,18 @@ const Stock: FC = () => {
       </Slider>
 
       {storiesVisible && (
-        <div className='fixed top-0 z-[99999999] left-0 w-[80%] 2xl:w-full h-full flex flex-row items-center justify-center bg-black bg-opacity-75' onClick={handleStoryClose}>
-          <Stories
-            stories={stories}
-            width={432} // Set width of story viewer
-            height={768} // Set height of story viewer
-            defaultInterval={5000}
-            onStoryEnd={() => console.log("Story ended")}
-            onAllStoriesEnd={handleStoryClose}
-            storyContainerStyles={{
-              backgroundColor: "black", // Optional styles for the story container
-            }}
-          />
+        <div className='fixed top-0 z-[99999999] left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-75'>
+          <div className=''>
+            <Stories
+              stories={stories}
+              width={432} // Set width of story viewer
+              height={768} // Set height of story viewer
+              defaultInterval={5000}
+              onStoryEnd={() => console.log("Story ended")}
+              onAllStoriesEnd={() => console.log("All stories ended")}
+              storyContainerStyles={{ backgroundColor: "black" }} // Optional styles for the story container
+            />
+          </div>
         </div>
       )}
     </div>
