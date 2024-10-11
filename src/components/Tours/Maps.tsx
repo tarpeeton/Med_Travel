@@ -155,10 +155,10 @@ const Map: FC = () => {
             Туры и медицинские клиники Узбекистана
           </p>
           <div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px] mdl:w-[80%] 2xl:w-[70%]">
-            <button className={`font-semibold text-[15px] py-[12px] px-[20px] rounded-full ${activeTab === "clinics" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("clinics")}>
+            <button className={`font-semibold text-[14px] py-[12px] px-[20px] rounded-full ${activeTab === "clinics" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("clinics")}>
               Медицинские клиники
             </button>
-            <button className={`font-semibold w-[40%] text-[15px] py-[12px] px-[20px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("tours")}>
+            <button className={`font-semibold w-[40%] text-[14px] py-[12px] px-[18px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("tours")}>
               Туры
             </button>
           </div>
@@ -170,7 +170,7 @@ const Map: FC = () => {
           </div>
 
           <div className="rounded-[30px] overflow-hidden w-full 2xl:w-[70%]">
-            <div className="w-full h-[250px] mdl:h-[400px] 2xl:h-[600px]">
+            <div className="w-full h-[350px] mdl:h-[400px] 2xl:h-[600px]">
               <div id="mapTUR" className="w-full h-full rounded-[20px]" />
             </div>
           </div>
