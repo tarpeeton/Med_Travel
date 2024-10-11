@@ -1,32 +1,10 @@
 "use client"
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
 import { IoIosArrowUp } from "react-icons/io"
 import { IoIosArrowDown } from "react-icons/io"
 import Title from '../ui/title'
+import { faqData } from '@/constants/Faq'
 
-const faqData = [
-  {
-    question: "Какие достопримечательности включены в туры по Узбекистану?",
-    answer: "В туры по Узбекистану обычно включены ключевые достопримечательности, такие как древний Самарканд с его знаменитым Регистаном и мавзолеем Гур-Эмир, историческая Бухара с крепостью Арк и медресе Мири-Араб, а также живописная Хива с её уникальным старым городом Ичан-Кала. Также туристы могут посетить современный Ташкент с его старинными мечетями и базарами, а также родину Амира Тимура — Шахрисабз, где находится дворец Ак-Сарай и другие памятники великого завоевателя"
-  },
-  {
-    question: "Какие документы необходимы для въезда в Узбекистан?",
-    answer: "faq_answer_2"
-  },
-  {
-    question: "Какое время года лучше всего подходит для путешествия по Узбекистану?",
-    answer: "faq_answer_3"
-  },
-  {
-    question: "Предусмотрены ли туры с гидом на русском/английском языке?",
-    answer: "faq_answer_4"
-  },
-  {
-    question: "Включена ли стоимость авиабилетов в цену тура?",
-    answer: "faq_answer_4"
-  }
-]
 
 interface ArrowProps {
   isOpen: boolean
@@ -43,7 +21,6 @@ const Arrow: React.FC<ArrowProps> = ({ isOpen }) => (
 )
 
 const Faq: React.FC = () => {
-  const t = useTranslations('investmentsDubai.PopularReviews')
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const toggleFAQ = (index: number) => {

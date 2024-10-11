@@ -51,7 +51,7 @@ const LanguageSwitcher = ({ locale, menu }: { locale: string, menu: boolean }) =
       {dropdownOpen && (
         <div
           id="dropdown"
-          className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-24 "
+          className="absolute  bg-white divide-y divide-gray-100 rounded-lg shadow w-24  z-[9999]"
         >
           <ul className="py-2">
             {languages.map((lang) => (

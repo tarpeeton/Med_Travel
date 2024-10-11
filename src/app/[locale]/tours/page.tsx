@@ -1,5 +1,6 @@
 import MainTours from '@/components/Tours/Main'
-import type { Metadata } from 'next'
+import type { Metadata  } from 'next'
+
 
 export const metadata: Metadata = {
   title: 'Bloglar',
@@ -11,6 +12,7 @@ export default function Index() {
   return (
     <div>
       <MainTours />
+      
     </div>
   )
 }
