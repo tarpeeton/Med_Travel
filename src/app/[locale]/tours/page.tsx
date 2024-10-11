@@ -1,4 +1,4 @@
-import MainGalley from '@/components/Gallery/Main'
+import MainTours from '@/components/Tours/Main'
 import type { Metadata  } from 'next'
 
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Index() {
   return (
     <div>
-      <MainGalley />
+      <MainTours />
     </div>
   )
 }

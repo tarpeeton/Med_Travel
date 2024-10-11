@@ -3,9 +3,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { CiGlobe } from "react-icons/ci"
 import { useState } from "react"
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 // Define the language type
-type Language = { code: string; name: string }
+type Language = { code: string; name: string , icon: string }
 
 const LanguageSwitcher = ({ locale, menu }: { locale: string, menu: boolean }) => {
   const pathname = usePathname()
@@ -13,9 +14,9 @@ const LanguageSwitcher = ({ locale, menu }: { locale: string, menu: boolean }) =
 
   // Define available languages
   const languages: Language[] = [
-    { code: "ru", name: "Ру" },
-    { code: "uz", name: "Oʻz" },
-    { code: "en", name: "Eng" },
+    { code: "ru", name: "Ру"  , icon: 'fi fi-ru' },
+    { code: "uz", name: "Oʻz" , icon: 'fi fi-uz'  },
+    { code: "en", name: "Eng" , icon: 'fi fi-gb'  },
   ]
 
   // Create a function to generate a new URL with the selected locale
@@ -58,10 +59,10 @@ const LanguageSwitcher = ({ locale, menu }: { locale: string, menu: boolean }) =
               <li key={lang.code} className='text-[15px] slg:text-[18px] font-medium text-black'>
                 <Link
                   href={generateLocalizedPath(lang.code)}
-                  className="block px-4 py-2 hover:bg-gray-400  dark:hover:text-white"
+                  className=" px-[8px] py-2 hover:bg-gray-400 flex flex-row gap-[5px] items-center  dark:hover:text-white"
                   onClick={() => setDropdownOpen(false)}
                 >
-                  {lang.name}
+                  <span className={`fi ${lang.icon} w-4 h-4`} /> {lang.name} 
                 </Link>
               </li>
             ))}
