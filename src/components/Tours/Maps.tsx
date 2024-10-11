@@ -72,9 +72,22 @@ const Map: FC = () => {
       // Remove any existing routes
       routes.forEach(route => map.geoObjects.remove(route))
       setRoutes([])
-
+  
+      // Define specific colors for each route
+      const routeColors = [
+        "#1AB2A6", // Samarkand to Tashkent
+        "#FF9F81", // Samarkand to Bukhara
+        "#87CEEB", // Samarkand to Khiva
+        "#FF8C00", // Samarkand to Andijan
+        "#32CD32",  // Samarkand to Navoi
+        "#168CE6",  // Samarkand to Navoi
+        "#9281FF",  // Samarkand to Navoi
+      ]
+  
       // Create and add new routes for each location
-      const newRoutes = locations.map(location => {
+      const newRoutes = locations.map((location, index) => {
+        const color = routeColors[index % routeColors.length] // Assign a color based on the index
+  
         const multiRoute = new window.ymaps.multiRouter.MultiRoute({
           referencePoints: [
             fromLocationCoords,
@@ -84,16 +97,17 @@ const Map: FC = () => {
         }, {
           boundsAutoApply: true,
           routeActiveStrokeWidth: 4,
+          routeActiveStrokeColor: color, // Set the route color
         })
-
+  
         map.geoObjects.add(multiRoute)
         return multiRoute
       })
-
+  
       setRoutes(newRoutes)
     }
   }
-
+  
   useEffect(() => {
     if (!mapLoaded) {
       loadYandexMap()
