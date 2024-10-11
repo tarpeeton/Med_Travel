@@ -70,7 +70,7 @@ const Contacts: FC = () => {
 
   return (
     <div>
-      <div className="flex flex-col  mt-[120px] ">
+      <div className="flex flex-col">
         {/* Contact Details */}
         <div className="flex flex-col">
           <div>
