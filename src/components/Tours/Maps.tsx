@@ -6,8 +6,8 @@ import { MdNavigateNext } from "react-icons/md"
 import { Location } from '@/interface/location'
 
 const Map: FC = () => {
-  const [mapLoaded, setMapLoaded] = useState(false) 
-  const [mapInstance, setMapInstance] = useState<any>(null) 
+  const [mapLoaded, setMapLoaded] = useState(false)
+  const [mapInstance, setMapInstance] = useState<any>(null)
   const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics")
   const [routes, setRoutes] = useState<any[]>([])
 
@@ -20,7 +20,7 @@ const Map: FC = () => {
     { id: 4, name: "Медицинский тур в Ташкент", desciption: "Ташкент, Узбекистан", coords: [41.2995, 69.2401], url: "/tours/tashkent", link: "Подробнее" },  // Tashkent
     { id: 5, name: "Медицинский тур в Андижон", desciption: "Андижон, Узбекистан", coords: [40.7821, 72.3442], url: "/tours/andijan", link: "Подробнее" }  // Andijan
   ]
-  
+
   const tours: Location[] = [
     { id: 1, name: "Ташкент - Самарканд", desciption: "550$ - 19.08.2024 — 31.08.2024", coords: [39.6542, 66.9597], url: "/tours/samarkand", link: "Подробнее" },  // Samarkand
     { id: 2, name: "Бухара - Ташкент", desciption: "650$ - 19.08.2024 — 31.08.2024", coords: [41.2995, 69.2401], url: "/tours/tashkent", link: "Подробнее" },  // Tashkent
@@ -29,7 +29,7 @@ const Map: FC = () => {
     { id: 5, name: "Намаган - Тошкент", desciption: "500$ - 19.08.2024 — 31.08.2024", coords: [41.0053, 71.6726], url: "/tours/tashkent", link: "Подробнее" },  // Namangan to Tashkent
     { id: 6, name: "Фарғона - Самарканд", desciption: "620$ - 19.08.2024 — 31.08.2024", coords: [40.3894, 71.7843], url: "/tours/samarkand", link: "Подробнее" },  // Fergana to Samarkand
   ]
-  
+
 
   const currentLocations = activeTab === "clinics" ? medicalTours : tours
 
@@ -45,9 +45,9 @@ const Map: FC = () => {
         if (window.ymaps) {
           window.ymaps.ready(() => {
             const map = new window.ymaps.Map("mapTUR", {
-              center: fromLocationCoords, 
-              zoom: 7,
-              controls: ['zoomControl', 'searchControl'], 
+              center: fromLocationCoords,
+              zoom: 6,
+              controls: ['typeSelector', 'fullscreenControl'],
             })
             setMapInstance(map)
             createRoutes(currentLocations, map)
@@ -58,8 +58,8 @@ const Map: FC = () => {
       window.ymaps.ready(() => {
         const map = new window.ymaps.Map("mapTUR", {
           center: fromLocationCoords,
-          zoom: 7,
-          controls: ['zoomControl', 'searchControl'],
+          zoom: 6,
+          controls: ['typeSelector', 'fullscreenControl'],
         })
         setMapInstance(map)
         createRoutes(currentLocations, map)
@@ -72,7 +72,7 @@ const Map: FC = () => {
       // Remove any existing routes
       routes.forEach(route => map.geoObjects.remove(route))
       setRoutes([])
-  
+
       // Define specific colors for each route
       const routeColors = [
         "#1AB2A6", // Samarkand to Tashkent
@@ -83,11 +83,11 @@ const Map: FC = () => {
         "#168CE6",  // Samarkand to Navoi
         "#9281FF",  // Samarkand to Navoi
       ]
-  
+
       // Create and add new routes for each location
       const newRoutes = locations.map((location, index) => {
         const color = routeColors[index % routeColors.length] // Assign a color based on the index
-  
+
         const multiRoute = new window.ymaps.multiRouter.MultiRoute({
           referencePoints: [
             fromLocationCoords,
@@ -99,15 +99,15 @@ const Map: FC = () => {
           routeActiveStrokeWidth: 4,
           routeActiveStrokeColor: color, // Set the route color
         })
-  
+
         map.geoObjects.add(multiRoute)
         return multiRoute
       })
-  
+
       setRoutes(newRoutes)
     }
   }
-  
+
   useEffect(() => {
     if (!mapLoaded) {
       loadYandexMap()
