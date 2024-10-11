@@ -3,7 +3,7 @@ export interface Location {
 	coords: [number, number]
 	name: string
 	address?: string
-	desciption?: string
+	description?: string // Correct the typo here
 	link: string
 	url: string
 }
