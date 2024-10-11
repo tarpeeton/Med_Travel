@@ -42,13 +42,10 @@ const StockData = [
 const Stock: FC = () => {
   const sliderRef = useRef<Slider | null>(null)
   const [storiesVisible, setStoriesVisible] = useState(false)
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0)
 
   const handlePrev = () => {
     sliderRef.current?.slickPrev()
-  }
-
-  const handleNext = () => {
-    sliderRef.current?.slickNext()
   }
 
   const settings = {
@@ -92,12 +89,31 @@ const Stock: FC = () => {
     ],
   }
 
+  const handleNext = () => {
+    sliderRef.current?.slickNext()
+  }
+
   const handleStoryOpen = (index: number) => {
+    setCurrentStoryIndex(index)
     setStoriesVisible(true)
   }
 
   const handleStoryClose = () => {
     setStoriesVisible(false)
+  }
+
+  const handleStoryNext = () => {
+    if (currentStoryIndex < StockData.length - 1) {
+      setCurrentStoryIndex(currentStoryIndex + 1)
+    } else {
+      setStoriesVisible(false) // Optionally close when reaching the end
+    }
+  }
+
+  const handleStoryPrev = () => {
+    if (currentStoryIndex > 0) {
+      setCurrentStoryIndex(currentStoryIndex - 1)
+    }
   }
 
   // Prepare stories data by converting StaticImageData to string URLs
@@ -106,11 +122,12 @@ const Stock: FC = () => {
     url: stock.url.src,
     duration: 5000,
     header: {
-      heading: stock.title, // Story uchun sarlavha
-      subheading: stock.date, // Sana yoki boshqa qo'shimcha matn
-      profileImage: 'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/' // Agar kerak bo'lsa, profil rasmi qo'shishingiz mumkin
+      heading: stock.title,
+      subheading: stock.date,
+      profileImage: 'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'
     }
   }))
+
   return (
     <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:ml-[200px] mt-[120px] relative cursor-pointer'>
       <p className='w-[50%] font-bold text-[25px] text-[#242424] mdl:text-[35px] 2xl:text-[40px] mdl:w-full'>Акции и спецпредложения</p>
@@ -141,14 +158,19 @@ const Stock: FC = () => {
 
       {storiesVisible && (
         <div className='fixed top-0 z-[99999999] left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-75'>
-          <div className=''>
+          <div className='relative'>
             <Stories
-              stories={stories}
+              stories={[stories[currentStoryIndex]]}
               defaultInterval={5000}
-              onStoryEnd={() => console.log("Story ended")}
-              onAllStoriesEnd={() => console.log("All stories ended")}
+              onStoryEnd={handleStoryNext}
               storyContainerStyles={{ backgroundColor: "black" }} // Optional styles for the story container
             />
+            <div className='absolute top-[50%] left-[-60px] bg-white  w-[40px] h-[40px] flex items-center justify-center rounded-full transform -translate-y-1/2 cursor-pointer' onClick={handleStoryPrev}>
+              <GrLinkPrevious size={19} className="text-titleDark" />
+            </div>
+            <div className='absolute top-[50%] right-[-60px] transform bg-white w-[40px] h-[40px] flex items-center justify-center  rounded-full -translate-y-1/2 cursor-pointer' onClick={handleStoryNext}>
+              <GrLinkNext size={19} className="text-titleDark" />
+            </div>
           </div>
         </div>
       )}
