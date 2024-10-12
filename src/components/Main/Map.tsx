@@ -11,6 +11,25 @@ const Sanatoriums: FC = () => {
 	const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics") 
 
 
+
+
+	useEffect(() => {
+		const handleScroll = () => {
+		  const mapElement = document.getElementById('mapTUR');
+		  if (mapElement && mapElement.getBoundingClientRect().top < window.innerHeight) {
+			if (!mapLoaded) {
+			  loadYandexMap();
+			  setMapLoaded(true);
+			}
+			window.removeEventListener('scroll', handleScroll); // Remove listener after loading
+		  }
+		};
+	  
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	  }, [mapLoaded]);
+
+	  
 	// Function to load Yandex Map script and initialize the map
 	const loadYandexMap = () => {
 		if (typeof window !== "undefined" && !document.getElementById("yandex-map-script")) {

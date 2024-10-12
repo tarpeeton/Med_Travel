@@ -23,6 +23,7 @@ const Contacts: FC = () => {
       const script = document.createElement('script');
       script.src = `https://api-maps.yandex.ru/2.1/?apikey=5771415d-001f-4699-b102-0fb2f6af965a&lang=ru_RU`;
       script.async = true;
+      script.defer = true
       script.onload = () => {
         window.ymaps.ready(() => {
           initializeMap();
