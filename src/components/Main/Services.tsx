@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css"
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
 import Image from 'next/image'
 import ServiceImage from '@/public/serviceBanner.jpg'
+import { GiCommercialAirplane } from "react-icons/gi"
 
 const Services: FC = () => {
 	const sliderRef = useRef<Slider | null>(null)
@@ -34,7 +35,7 @@ const Services: FC = () => {
 
 	return (
 		<div className='flex flex-col mt-[120px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
-			<div className='flex flex-col'>
+			<div className='flex flex-col relative'>
 				<p className='text-[25px] text-black mdl:text-[35px] 2xl:text-[40px] font-bold '>Услуги</p>
 
 				<Slider {...settings} ref={sliderRef}>
@@ -65,26 +66,10 @@ const Services: FC = () => {
 									Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
 								</p>
 								<div className="flex flex-row items-center justify-between mt-[30px]">
-									<button className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway">
-										Найти тур
+									<button className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway flex flex-row  justify-center gap-[8px]">
+										Найти тур <GiCommercialAirplane />
 									</button>
-									<div className="flex flex-row gap-[8px]">
-										<button
-											onClick={handlePrev}
-											className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center  mdl:w-[70px] mdl:h-[70px] 2xl:w-[78px] 2xl:h-[78px]"
-											aria-label="Previous slide"
-										>
-											<GrLinkPrevious size={20} className="text-black" />
-										</button>
 
-										<button
-											onClick={handleNext}
-											className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px]  2xl:w-[78px] 2xl:h-[78px]"
-											aria-label="Next slide"
-										>
-											<GrLinkNext size={20} className="text-black" />
-										</button>
-									</div>
 								</div>
 							</div>
 
@@ -93,6 +78,23 @@ const Services: FC = () => {
 					</div>
 
 				</Slider>
+				<div className="flex flex-row gap-[8px] absolute bottom-0 right-[16px]">
+					<button
+						onClick={handlePrev}
+						className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center  mdl:w-[70px] mdl:h-[70px] 2xl:w-[78px] 2xl:h-[78px]"
+						aria-label="Previous slide"
+					>
+						<GrLinkPrevious size={20} className="text-black" />
+					</button>
+
+					<button
+						onClick={handleNext}
+						className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px]  2xl:w-[78px] 2xl:h-[78px]"
+						aria-label="Next slide"
+					>
+						<GrLinkNext size={20} className="text-black" />
+					</button>
+				</div>
 			</div>
 		</div>
 	)
