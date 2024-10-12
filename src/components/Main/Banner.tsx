@@ -67,21 +67,7 @@ const MainBanner: FC = () => {
 
                 <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
-                  <div className="flex flex-row gap-[8px] mb-[40px] mdl:hidden">
-                    <button
-                      onClick={handlePrev}
-                      className="border w-[60px] h-[60px] border-white rounded-full flex items-center justify-center"
-                    >
-                      <GrLinkPrevious size={30} className="text-white" />
-                    </button>
-
-                    <button
-                      onClick={handleNext}
-                      className="border w-[60px] h-[60px] border-white rounded-full flex items-center justify-center"
-                    >
-                      <GrLinkNext size={30} className="text-white" />
-                    </button>
-                  </div>
+                
                   <h2 className="text-[30px] font-bold mdl:text-[45px] 2xl:text-[50px]">
                     {banner.title.split("\n").map((line, index) => (
                       <span key={index}>
@@ -94,21 +80,7 @@ const MainBanner: FC = () => {
                     <button className="mt-6 w-[60%] mdl:w-[40%] bg-[#1AB2A6] text-white py-[16px] px-[20px] 2xl:w-[20%] rounded-[10px] font-bold">
                       Найти тур
                     </button>
-                    <div className="flex flex-row gap-[8px]">
-                      <button
-                        onClick={handlePrev}
-                        className="hidden border w-[60px] h-[60px] border-white rounded-full mdl:flex items-center justify-center 2xl:w-[70px] 2xl:h-[70px]"
-                      >
-                        <GrLinkPrevious size={30} className="text-white" />
-                      </button>
-
-                      <button
-                        onClick={handleNext}
-                        className="hidden mdl:flex border w-[60px] h-[60px] 2xl:w-[70px] 2xl:h-[70px] border-white rounded-full items-center justify-center"
-                      >
-                        <GrLinkNext size={30} className="text-white" />
-                      </button>
-                    </div>
+                   
                   </div>
                 </div>
               </div>
@@ -116,6 +88,21 @@ const MainBanner: FC = () => {
           </div>
         ))}
       </Slider>
+      <div className="flex absolute top-[40%] left-[20px] flex-row gap-[8px] mb-[40px] mdl:left-auto mdl:right-[20px] mdl:bottom-[0px] mdl:top-auto 2xl:bottom-[40px] 2xl:right-[200px] 2xl:gap-[10px]">
+                    <button
+                      onClick={handlePrev}
+                      className="border w-[60px] h-[60px] 2xl:w-[70px] 2xl:h-[70px] border-white rounded-full flex items-center justify-center"
+                    >
+                      <GrLinkPrevious size={30} className="text-white" />
+                    </button>
+
+                    <button
+                      onClick={handleNext}
+                      className="border w-[60px] h-[60px] 2xl:w-[70px] 2xl:h-[70px] border-white rounded-full flex items-center justify-center"
+                    >
+                      <GrLinkNext size={30} className="text-white" />
+                    </button>
+                  </div>
     </div>
   )
 }
