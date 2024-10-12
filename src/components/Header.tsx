@@ -35,7 +35,7 @@ const Header = ({ locale }: { locale: string }) => {
 
         {/* SERVICES */}
         <div className='hidden 2xl:flex 2xl:flex-row 2xl:gap-[70px] z-[9999999]'>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          <Link href='/tours' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             {t('turs')}
           </Link>
           <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
@@ -70,7 +70,7 @@ const Header = ({ locale }: { locale: string }) => {
       {
         service && (<div>
           <div className='flex flex-col z-[9999999] '>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/tours' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Туры
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
