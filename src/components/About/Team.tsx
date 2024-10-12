@@ -47,7 +47,7 @@ const Team: FC = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 610,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,

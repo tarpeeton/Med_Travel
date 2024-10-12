@@ -3,7 +3,7 @@ import { MdOutlineNavigateNext } from "react-icons/md"
 
 const FormBlog: FC = () => {
   return (
-    <div className='mt-[120px]'>
+    <div className='mt-[120px] mx-[16px]'>
       <div className='flex flex-col pt-[30px] pb-[30px] px-[20px] mdl:py-[60px] 2xl:py-[90px] bg-green100 rounded-[20px] justify-center  items-center'>
         <div className='w-[70%] mdl:w-[60%] 2xl:w-[100%]'>
           <div className='text-center'>

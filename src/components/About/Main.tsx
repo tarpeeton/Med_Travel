@@ -16,8 +16,11 @@ const AboutContent: FC = () => {
 			<Archivments/>
 			<Team/>
 			<Partners />
+			<div className='flex flex-col gap-[120px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] mt-[120px]'>
 			<Form />
 			<Contacts />
+			</div>
+			
 		</div>
 	)
 }

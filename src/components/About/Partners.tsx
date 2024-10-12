@@ -62,7 +62,7 @@ const Partners: FC = () => {
         <div className='flex flex-col mt-[120px] px-[16px] mdl:px-[20px] 2xl:px-[200px]'>
             <div className='flex flex-row justify-between items-center'>
                 <p className='text-[25px] mdl:text-[35px] 2xl:text-[40px] font-raleway font-bold text-titleDark'>Наши партнеры</p>
-                <div className='flex gap-[8px]'>
+                <div className='flex gap-[15px]'>
                     <button onClick={handlePrev}>
                         <GrLinkPrevious size={25} />
                     </button>
@@ -71,7 +71,7 @@ const Partners: FC = () => {
                     </button>
                 </div>
             </div>
-            <div className='mt-[20px]'>
+            <div className='mt-[40px]'>
                 <Slider ref={sliderRef} {...settings} className='flex flex-col'>
                     <div className='flex flex-col'>
                         <div className="flex flex-row gggg flex-wrap justify-between mdl:flex-row mdl:flex-nowrap" style={{ width: '100%' }}>
