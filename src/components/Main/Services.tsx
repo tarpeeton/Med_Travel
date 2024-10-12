@@ -13,11 +13,11 @@ const Services: FC = () => {
 	const settings = {
 		dots: false,
 		infinite: false,
-		speed: 500,
+		speed: 600,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		autoplay: false,
-		autoplaySpeed: 3000,
+		autoplay: true,
+		autoplaySpeed: 2700,
 		arrows: false,
 	}
 
@@ -76,7 +76,6 @@ const Services: FC = () => {
 						</div>
 
 					</div>
-
 				</Slider>
 				<div className="flex flex-row gap-[8px] absolute bottom-0 right-[16px]">
 					<button

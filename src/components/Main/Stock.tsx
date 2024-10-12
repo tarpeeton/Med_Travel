@@ -52,7 +52,7 @@ const Stock: FC = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 620,
     slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: false,
@@ -129,7 +129,6 @@ const Stock: FC = () => {
     }
   }))
 
-  // Close the story when clicking outside of the modal
   
 
   return (
