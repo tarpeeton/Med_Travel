@@ -32,7 +32,7 @@ const Map: FC = () => {
       script.onload = () => {
         if (window.ymaps) {
           window.ymaps.ready(() => {
-            const map = new window.ymaps.Map("mapTUR", {
+            const map = new window.ymaps.Map("yandexMap", {
               center: fromLocationCoords,
               zoom: 6,
               controls: ['typeSelector', 'fullscreenControl'],
@@ -44,7 +44,7 @@ const Map: FC = () => {
       }
     } else if (window.ymaps && !mapInstance) {
       window.ymaps.ready(() => {
-        const map = new window.ymaps.Map("mapTUR", {
+        const map = new window.ymaps.Map("yandexMap", {
           center: fromLocationCoords,
           zoom: 6,
           controls: ['typeSelector', 'fullscreenControl'],
@@ -159,7 +159,7 @@ const Map: FC = () => {
 
           <div className="rounded-[30px] overflow-hidden w-full 2xl:w-[70%]">
             <div className="w-full h-[350px] mdl:h-[400px] 2xl:h-[600px]">
-              <div id="mapTUR" className="w-full h-full rounded-[20px]" />
+              <div id="yandexMap" className="w-full h-full rounded-[20px]" />
             </div>
           </div>
         </div>
