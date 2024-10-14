@@ -7,7 +7,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import messages_en from '@/translation/en.json';
 import messages_ru from '@/translation/ru.json';
 import messages_uz from '@/translation/uz.json';
-
+import { LoaderProvider } from '@/context/LoaderContext';
 export const metadata: Metadata = {
   title: 'Med Travel',
   description: 'Med Travel - Sog\'liqni saqlash va sayohat bo\'yicha professional xizmatlar. Biz tibbiyot va sayohat sohasida yuqori sifatli xizmatlarni taqdim etamiz.',
@@ -61,11 +61,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
+        <LoaderProvider>
         <NextIntlClientProvider  locale={locale} messages={messages}>
           <Header locale={locale} />
           {children}
           <Footer />
         </NextIntlClientProvider>
+        </LoaderProvider>
       </body>
     </html>
   );

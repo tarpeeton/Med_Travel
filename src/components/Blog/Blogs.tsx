@@ -8,12 +8,13 @@ import { useParams } from 'next/navigation'
 import { Locale } from '@/types/Locale'
 import LeanMoreButton from '../ui/more'
 import useSlice from '@/hooks/useSlice'
-
-
-
+import { useLoader } from '@/context/LoaderContext'
+import Spinner from '../Spinner'
 const Blogs: FC = () => {
     const { locale } = useParams()
     const { sliceNumber, handleSliceNumber } = useSlice(12)
+    const {isLoading , setIsLoading} = useLoader()
+        // setIsLoading(true)
 
     const allowedLocales: Locale[] = ['ru', 'uz', 'en']
 
@@ -22,7 +23,9 @@ const Blogs: FC = () => {
         ? locale as Locale
         : 'ru' // Fallback to 'ru' if invalid
 
-        
+          if (isLoading) {
+        return <Spinner />; // Show spinner while loading
+    }
     return (
         <div className='mt-[20px] mdl:mt-[30px]'>
             <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between'>
