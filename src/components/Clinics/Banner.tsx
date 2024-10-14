@@ -110,7 +110,7 @@ const Banner: FC = () => {
             ></div>
             <div className="py-[40px] 2xl:py-[80px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
                 <TursTitle title="Клинки доступные в медицинских турах" />
-                <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-semibold font-raleway mt-[8px] mdl:mt-[10px]">
+                <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-medium font-raleway mt-[8px] mdl:mt-[10px]">
                     Ваш путь к здоровью через медицинский туризм
                 </p>
             </div>
