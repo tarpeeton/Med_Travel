@@ -7,12 +7,19 @@ import { DataClinick } from '@/constants/Clinika/Clinika';
 import SpinnerGif from '@/public/loader.gif';
 import Image from 'next/image';
 
+
+
+interface Clinic {
+  name: string;
+  location: string;
+  services: string[];
+}
 const Content: FC = () => {
   const { sliceNumber, handleSliceNumber } = useSlice(10);
 
   // Loading state
   const [loading, setLoading] = useState(true);
-  const [filteredClinics, setFilteredClinics] = useState([]);
+  const [filteredClinics, setFilteredClinics] = useState<Clinic[]>([]);
 
   useEffect(() => {
     // Simulate data fetching
