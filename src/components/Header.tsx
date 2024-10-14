@@ -38,13 +38,13 @@ const Header = ({ locale }: { locale: string }) => {
           <Link href='/tours' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             {t('turs')}
           </Link>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          <Link href='/clinics' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Клиники
           </Link>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          <Link href='/sanatoriums' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Санатории
           </Link>
-          <Link href='/turs' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
+          <Link href='/hotels' className=' flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
             Гостиницы
           </Link>
         </div>
@@ -74,15 +74,15 @@ const Header = ({ locale }: { locale: string }) => {
               Туры
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/clinics' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Клиники
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/sanatoriums' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Санатории
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/turs' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/hotels' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center  border-t border-[#E8E8E8] text-[20px] font-medium'>
               Гостиницы
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
