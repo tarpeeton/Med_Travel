@@ -65,7 +65,6 @@ export const allClinick = async (acceptLanguage: string = 'en', name?: string, s
             params, // Dynamically created params
         });
 
-        console.log("Fetched clinic data:", response.data);
         return response.data;
     } catch (error) {
         console.error("Error fetching clinics:", error);

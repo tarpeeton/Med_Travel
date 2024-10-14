@@ -1,12 +1,18 @@
 'use client';
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, useState, useEffect, useRef , Dispatch , SetStateAction } from 'react';
 import TursTitle from '../ui/tursTitle';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import BannerImage from '@/public/klinika/banner.png';
 import { allClinick, AllService } from '@/lib/api';
 import { useParams } from 'next/navigation';
 
-const Banner: FC = () => {
+interface BannerProps {
+    clinics: any[];
+    setClinics: Dispatch<SetStateAction<any[]>>;
+}
+
+const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
+
     const { locale } = useParams<{ locale: string | string[] }>();
     const currentLocale = Array.isArray(locale) ? locale[0] : locale || 'en'; // Default to 'en' if locale is undefined
     const [inputValue, setInputValue] = useState('');
@@ -14,7 +20,7 @@ const Banner: FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([]); // State for categories
-    const [clinics, setClinics] = useState<any[]>([]);
+    
     const [categories, setCategories] = useState<{ id: string; name: string }[]>([]); // Update to hold objects with id and name
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
