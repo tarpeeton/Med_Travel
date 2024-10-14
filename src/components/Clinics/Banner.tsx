@@ -1,92 +1,122 @@
-'use client'
-import { FC, useState, useEffect, useRef } from 'react'
-import TursTitle from '../ui/tursTitle'
-import { MdOutlineKeyboardArrowDown } from "react-icons/md"
-import BannerImage from '@/public/klinika/banner.png'
-
-const suggestions = [
-    "Interlab",
-    "Intermed",
-    "Isebarg",
-    "i jem",
-    "I leem",
-]
-
-const Category = [
-    "Анализы",
-    "УЗИ-обследование",
-    "ЭЭГ",
-    "ЭКГ",
-    "Консультации специлаистов",
-    "Все услуги",
-]
+'use client';
+import { FC, useState, useEffect, useRef } from 'react';
+import TursTitle from '../ui/tursTitle';
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import BannerImage from '@/public/klinika/banner.png';
+import { allClinick, AllService } from '@/lib/api';
+import { useParams } from 'next/navigation';
 
 const Banner: FC = () => {
-    const [inputValue, setInputValue] = useState('') // input qiymatini state'da saqlash
-    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]) // input orqali filter qilingan tavsiyalar
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false) // kategoriyalar uchun dropdown ochiqmi yoki yo'q
-    const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false) // tavsiyalar uchun dropdown ochiqmi yoki yo'q
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]) // tanlangan kategoriyalar
+    const { locale } = useParams<{ locale: string | string[] }>();
+    const currentLocale = Array.isArray(locale) ? locale[0] : locale || 'en'; // Default to 'en' if locale is undefined
+    const [inputValue, setInputValue] = useState('');
+    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false);
+    const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([]); // State for categories
+    const [clinics, setClinics] = useState<any[]>([]);
+    const [categories, setCategories] = useState<{ id: string; name: string }[]>([]); // Update to hold objects with id and name
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-    const dropdownRef = useRef<HTMLDivElement | null>(null) // dropdown tashqarisida klik qilishni tekshirish uchun
+
+
+
+    useEffect(() => {
+        const fetchClinics = async () => {
+            try {
+                const clinicsData = await allClinick(currentLocale);
+                setClinics(clinicsData?.data || []);
+            } catch (error) {
+                console.error("Error fetching clinics:", error);
+            }
+        };
+        fetchClinics();
+    }, [currentLocale]); // Use currentLocale for dependency
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const categoriesData = await AllService(currentLocale);
+                setCategories(categoriesData.data || []);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+        fetchCategories();
+    }, [currentLocale]);
 
     useEffect(() => {
         const handler = setTimeout(() => {
             if (inputValue) {
-                const filtered = suggestions.filter(suggestion =>
-                    suggestion.toLowerCase().includes(inputValue.toLowerCase())
-                )
-                setFilteredSuggestions(filtered)
-                setIsSuggestionDropdownOpen(true) // tavsiyalarni ochish
-                setIsDropdownOpen(false) // kategoriyalarni dropdown yopish
+                const filtered = clinics
+                    .map(clinic => clinic.name)
+                    .filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
+                setFilteredSuggestions(filtered);
+                setIsSuggestionDropdownOpen(true);
             } else {
-                setFilteredSuggestions([])
-                setIsSuggestionDropdownOpen(false)
+                setFilteredSuggestions([]);
+                setIsSuggestionDropdownOpen(false);
             }
-        }, 300)
+        }, 400);
 
-        return () => clearTimeout(handler)
-    }, [inputValue])
+        return () => clearTimeout(handler);
+    }, [inputValue, clinics]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value) // input qiymatini yangilash
-    }
+        setInputValue(e.target.value);
+    };
 
     const handleSuggestionClick = (suggestion: string) => {
-        setInputValue(suggestion) // tanlangan tavsiyani inputga kiritish
-        setIsSuggestionDropdownOpen(false) // tavsiyalar dropdownini yopish
-    }
+        setInputValue(suggestion);
+        setIsSuggestionDropdownOpen(false);
+    };
 
-    const handleCategorySelect = (category: string) => {
+    const handleCategorySelect = (category: { id: string; name: string }) => {
         setSelectedCategories((prevSelected) => {
-            if (prevSelected.includes(category)) {
-                // agar kategoriya allaqachon tanlangan bo'lsa, uni o'chirish
-                return prevSelected.filter(item => item !== category)
+            const isSelected = prevSelected.find(item => item.id === category.id);
+            if (isSelected) {
+                return prevSelected.filter(item => item.id !== category.id);
             } else {
-                // kategoriya tanlash
-                return [...prevSelected, category]
+                return [...prevSelected, category];
             }
-        })
-    }
+        });
+    };
 
     const toggleCategoryDropdown = () => {
-        setIsDropdownOpen(prev => !prev) // kategoriyalar dropdownini ochish yoki yopish
-        setIsSuggestionDropdownOpen(false) // tavsiyalarni yopish
-    }
+        setIsDropdownOpen(prev => !prev);
+        setIsSuggestionDropdownOpen(false);
+    };
 
-    // Dropdown tashqarisida klik bo'lsa, dropdownni yopish
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsDropdownOpen(false)
+                setIsDropdownOpen(false);
             }
-        }
-        document.addEventListener('mousedown', handleClickOutside)
+        };
+        document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [dropdownRef])
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [dropdownRef]);
 
+    const SearchData = async () => {
+        try {
+            // Create a comma-separated string of selected service IDs
+            const serviceIds = selectedCategories.map(category => category.id).join(',');
+    
+            // Use inputValue for name or undefined if empty
+            const name = inputValue || undefined; 
+    
+            // Call allClinick with the current locale, name, and serviceIds
+            const clinicsData = await allClinick(currentLocale, name, serviceIds);
+            
+            // Set the clinics state to display in the UI
+            setClinics(clinicsData?.data || []);
+        } catch (error) {
+            console.error("Error searching clinics:", error);
+        }
+    }
+    
     return (
         <div
             style={{
@@ -122,40 +152,37 @@ const Banner: FC = () => {
                         onChange={handleInputChange}
                         className='border 2xl:w-[42%] outline-none w-full focus:border-green100 border-borderColor rounded-[10px] py-[13.5px] px-[16px]'
                     />
-
-                    {/* FILTER UCHUN DROPWON */}
                     <div className="relative w-full 2xl:w-[40%] mt-[16px] 2xl:mt-0" ref={dropdownRef}>
                         <div
                             onClick={toggleCategoryDropdown}
                             className={`border w-full outline-none flex flex-row items-center justify-between focus:border-green100 border-borderColor rounded-[10px] py-[13.5px] px-[16px] cursor-pointer ${selectedCategories.length === 0 ? 'text-[#A0AEC0]' : 'text-[#1AB2A6]'}`}
                         >
-                            {selectedCategories.length > 0 ? selectedCategories.join(', ') : 'Цель поездки'}
+                            {selectedCategories.length > 0 ? selectedCategories.map(cat => cat.name).join(', ') : 'Цель поездки'}
                             <MdOutlineKeyboardArrowDown size={22} className='text-[#7C7C7C]' />
                         </div>
                         {isDropdownOpen && (
                             <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-[20px] mt-1 max-h-60 overflow-auto">
-                                {Category.map((category, index) => (
+                                {categories?.map((category) => (
                                     <div
-                                        key={index}
-                                        className="flex items-center py-[15px] px-[12px]  cursor-pointer hover:bg-[#E8F7F6] border-b border-borderColor"
+                                        key={category.id}
+                                        className="flex items-center py-[15px] px-[12px] cursor-pointer hover:bg-[#E8F7F6] border-b border-borderColor"
                                         onClick={() => handleCategorySelect(category)}
                                     >
                                         <input
                                             type="checkbox"
-                                            checked={selectedCategories.includes(category)}
+                                            checked={selectedCategories.some(item => item.id === category.id)}
                                             onChange={() => handleCategorySelect(category)}
-                                            className="form-checkbox h-4 w-4  accent-[#05a397]  border-gray-300 rounded-[8px] focus:ring-0 mr-2"
+                                            className="form-checkbox h-4 w-4 accent-[#05a397] border-gray-300 rounded-[8px] focus:ring-0 mr-2"
                                         />
-                                        <span className="text-titleDark font-raleway text-[15px] mdl:text-[17px]">{category}</span>
+                                        <span className="text-titleDark font-raleway text-[15px] mdl:text-[17px]">{category.name}</span>
                                     </div>
                                 ))}
                             </div>
                         )}
                     </div>
 
-                    {/* KIRITILIYOTKAN MALUMOT BORMI YOQMI TEKSHIRUVCHI */}
                     {isSuggestionDropdownOpen && filteredSuggestions.length > 0 && (
-                        <div className="absolute z-10 w-[88%] top-[80px] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto  2xl:w-[40%]">
+                        <div className="absolute z-10 w-[88%] top-[80px] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:w-[40%]">
                             {filteredSuggestions.map((suggestion, index) => (
                                 <div
                                     key={index}
@@ -168,11 +195,11 @@ const Banner: FC = () => {
                         </div>
                     )}
 
-                    <button className="greenButton 2xl:py-[13.5px] 2xl:w-[17%] w-full 2xl:mt-0 font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] mt-[25px]">Поиск</button>
+                    <button type='button' onClick={SearchData} className="greenButton 2xl:py-[13.5px] 2xl:w-[17%] w-full 2xl:mt-0 font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] mt-[25px]">Поиск</button>
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
-export default Banner
+export default Banner;

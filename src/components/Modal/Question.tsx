@@ -4,7 +4,7 @@ import { Modal } from 'antd'
 import { IoClose } from "react-icons/io5"
 import Title from '../ui/title'
 import SuccessModal from './SuccesModal'
-
+import { question } from '@/lib/api'
 
 interface IShareModal {
     visible: boolean  // 'visible' as a boolean
@@ -12,20 +12,27 @@ interface IShareModal {
 }
 
 const QuestionModal: FC<IShareModal> = ({ visible, close }) => {
-    const [isSuccessVisible, setIsSuccessVisible] = useState(false); // Success modal state
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [userQuestion, setUserQuestion] = useState('')
+    const [isSuccessVisible, setIsSuccessVisible] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        close(); // Close the question modal
-        setIsSuccessVisible(true); // Open the success modal
-    };
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        try {
+            await question(name, phone, email, userQuestion) // Call the API with form data
+            close() // Close the question modal
+            setIsSuccessVisible(true) // Show success modal
+        } catch (error) {
+            console.error("Error submitting the question:", error)
+        }
+    }
 
     const closeSuccessModal = () => {
-        setIsSuccessVisible(false); // Close the success modal
-    };
-
-
+        setIsSuccessVisible(false) // Close the success modal
+    }
     return (
         <div>
             <Modal
@@ -43,11 +50,11 @@ const QuestionModal: FC<IShareModal> = ({ visible, close }) => {
                     </p>
                     <div>
                         <form className='flex flex-col'>
-                            <input placeholder='ФИО *' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor focus:border-green100 font-raleway text-titleDark" />
-                            <input placeholder='Номер телефона *' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor focus:border-green100 font-raleway text-titleDark" />
-                            <input placeholder='E-mail' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none   border border-borderColor focus:border-green100 font-raleway text-titleDark" />
-                            <input placeholder='Ваш вопрос' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor  focus:border-green100 font-raleway text-titleDark" />
-                            <button type='button' onClick={handleSubmit} className='greenButton mt-[30px] font-bold font-raleway text-white greenButton p-[16px]'>Отправить</button>
+                            <input placeholder='ФИО *' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor focus:border-green100 font-raleway text-titleDark" onChange={(e) => setName(e.target.value)} />
+                            <input placeholder='Номер телефона *' onChange={(e) =>  setPhone(e.target.value)} className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor focus:border-green100 font-raleway text-titleDark" />
+                            <input placeholder='E-mail' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none   border border-borderColor focus:border-green100 font-raleway text-titleDark"  onChange={(e) => setEmail(e.target.value)} />
+                            <input placeholder='Ваш вопрос' onChange={(e) => setUserQuestion(e.target.value)} className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor  focus:border-green100 font-raleway text-titleDark" />
+                            <button type='button' onClick={handleSubmit}  className='greenButton mt-[30px] font-bold font-raleway text-white greenButton p-[16px]'>Отправить</button>
                         </form>
                     </div>
                 </div>
