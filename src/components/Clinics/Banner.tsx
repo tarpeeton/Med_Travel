@@ -167,7 +167,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                             <MdOutlineKeyboardArrowDown size={22} className='text-[#7C7C7C]' />
                         </div>
                         {isDropdownOpen && (
-                            <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-[20px] mt-1 max-h-60 overflow-auto">
+                            <div className="absolute  z-10 w-full bg-white border border-gray-300 rounded-[20px] mt-1 max-h-60 overflow-auto">
                                 {categories?.map((category) => (
                                     <div
                                         key={category.id}
@@ -188,7 +188,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                     </div>
 
                     {isSuggestionDropdownOpen && filteredSuggestions.length > 0 && (
-                        <div className="absolute z-10 w-[88%] top-[80px] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:w-[40%]">
+                        <div className="absolute z-10 w-[88%] top-[80px] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:w-[40%] 2xl:top-[90px]">
                             {filteredSuggestions.map((suggestion, index) => (
                                 <div
                                     key={index}
