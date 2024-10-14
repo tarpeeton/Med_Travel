@@ -7,7 +7,10 @@ const MainHotels: FC = () => {
   return (
     <div>
         <Banner />
+
+        <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
         <Hotels />
+        </div>
     </div>
   );
 };
