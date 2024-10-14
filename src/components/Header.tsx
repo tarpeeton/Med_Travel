@@ -4,7 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher' // Typo correction
 import Image from 'next/image'
 import { MdKeyboardArrowDown } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
-import {Link} from '@/i18n/routing';
+import { Link } from '@/i18n/routing'
 import { IoMdClose } from "react-icons/io"
 import { FaChevronRight } from 'react-icons/fa'
 import { useTranslations } from 'next-intl'
@@ -16,10 +16,12 @@ const Header = ({ locale }: { locale: string }) => {
   const [menu, setMenu] = useState(false)
   const [service, setService] = useState(false)
   const [mobileService, setMobileService] = useState(true)
-  const [question , setQuestion] = useState(false)
+  const [question, setQuestion] = useState(false)
 
-  const toggleOpenQuestion = () => {setQuestion(!question)
+  const toggleOpenQuestion = () => {
+    setQuestion(!question)
     toggleMenuOpen()
+    setMenu(false)
   }
   const toggleMenuOpen = () => setMenu(!menu)
   const toggleServiceOpen = () => setService(!service)
@@ -29,7 +31,7 @@ const Header = ({ locale }: { locale: string }) => {
     <React.Fragment>
       <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
         <Link href='/' className='logo flex items-center'>
-        <Image src={'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'} alt='Logo ' width={80} height={80} quality={100} className='object-cover' />
+          <Image src={'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'} alt='Logo ' width={80} height={80} quality={100} className='object-cover' />
         </Link>
 
 
@@ -89,7 +91,7 @@ const Header = ({ locale }: { locale: string }) => {
           </div>
         </div>)
       }
-      <QuestionModal  visible={question} close={toggleOpenQuestion}/>
+      <QuestionModal visible={question} close={toggleOpenQuestion} />
 
       {
         menu ? (
@@ -120,7 +122,7 @@ const Header = ({ locale }: { locale: string }) => {
                   <Link href='/partners' onClick={toggleMenuOpen}>
                     Партнеры
                   </Link>
-                  <button className='text-left'  onClick={() => toggleOpenQuestion()}>
+                  <button className='text-left' onClick={() => toggleOpenQuestion()}>
                     Задать вопрос
                   </button>
                   <Link href='/blog' onClick={toggleMenuOpen}>

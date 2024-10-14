@@ -48,7 +48,7 @@ const Banner: FC = () => {
       backgroundPosition: "center",
       position: "relative", // Ensure relative positioning for the overlay
     }}
-    className="h-[180px] mdl:h-[240px] 2xl:h-[300px]"
+    className="h-[180px] mdl:h-[240px] 2xl:h-[300px] shadow-inner"
   >
     {/* Overlay to darken the background */}
     <div
@@ -64,7 +64,7 @@ const Banner: FC = () => {
     ></div>
       <div className="py-[40px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
         <TursTitle title="Гостиницы и отели Узбекистана" />
-        <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-semibold font-raleway mt-[8px] mdl:mt-[10px]">
+        <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-medium font-raleway mt-[8px] mdl:mt-[10px]">
         
         Ваш идеальный отель ждет вас
         </p>

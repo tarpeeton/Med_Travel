@@ -3,6 +3,8 @@ import { FC, useState } from 'react'
 import { Modal } from 'antd'
 import { IoClose } from "react-icons/io5"
 import Title from '../ui/title'
+import SuccessModal from './SuccesModal'
+
 
 interface IShareModal {
     visible: boolean  // 'visible' as a boolean
@@ -10,6 +12,19 @@ interface IShareModal {
 }
 
 const QuestionModal: FC<IShareModal> = ({ visible, close }) => {
+    const [isSuccessVisible, setIsSuccessVisible] = useState(false); // Success modal state
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Handle form submission logic here
+        close(); // Close the question modal
+        setIsSuccessVisible(true); // Open the success modal
+    };
+
+    const closeSuccessModal = () => {
+        setIsSuccessVisible(false); // Close the success modal
+    };
+
 
     return (
         <div>
@@ -32,12 +47,12 @@ const QuestionModal: FC<IShareModal> = ({ visible, close }) => {
                             <input placeholder='Номер телефона *' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor focus:border-green100 font-raleway text-titleDark" />
                             <input placeholder='E-mail' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none   border border-borderColor focus:border-green100 font-raleway text-titleDark" />
                             <input placeholder='Ваш вопрос' className="rounded-[10px] py-[13.5px] px-[20px] mdl:py-[16px]  mt-[12px] mdl:mt-[16px] 2xl:mt-[20px] outline-none  border border-borderColor  focus:border-green100 font-raleway text-titleDark" />
-                            <button className='greenButton mt-[30px] font-bold font-raleway text-white greenButton p-[16px]'>Отправить</button>
+                            <button type='button' onClick={handleSubmit} className='greenButton mt-[30px] font-bold font-raleway text-white greenButton p-[16px]'>Отправить</button>
                         </form>
                     </div>
                 </div>
             </Modal>
-
+            <SuccessModal visible={isSuccessVisible} close={closeSuccessModal} />
         </div>
     )
 }
