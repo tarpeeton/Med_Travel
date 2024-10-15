@@ -24,6 +24,23 @@ export const question = async (name: string, phone: string, email: string, quest
     throw error;
   }
 };
+export const consultation = async (name: string, phone: string, email: string) => {
+  try {
+    // Send POST request with the form data
+    const response = await axios.post(`${BASE_URL}/api/application/consultation`, {
+      name,
+      phone,
+      email,
+    });
+
+    // Optionally, return response data or handle it further
+    return response.data;
+  } catch (error) {
+    console.error("Error sending question:", error);
+    // Optionally, throw the error or handle it in some other way
+    throw error;
+  }
+};
 
 export const AllService = async (acceptLanguage: string = 'ru') => {
     try {
@@ -41,9 +58,6 @@ export const AllService = async (acceptLanguage: string = 'ru') => {
         throw error;
     }
 };
-
-
-
 
 export const allClinick = async (acceptLanguage: string = 'en', name?: string, serviceId?: string) => {
     try {

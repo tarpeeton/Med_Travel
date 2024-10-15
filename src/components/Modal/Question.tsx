@@ -8,7 +8,8 @@ import { question } from '@/lib/api'
 
 interface IShareModal {
     visible: boolean  // 'visible' as a boolean
-    close: () => void // 'close' as a function to close the modal
+    close: () => void
+     // 'close' as a function to close the modal
 }
 
 const QuestionModal: FC<IShareModal> = ({ visible, close }) => {

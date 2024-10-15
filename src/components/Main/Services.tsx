@@ -6,6 +6,7 @@ import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
 import Image from 'next/image'
 import ServiceImage from '@/public/serviceBanner.jpg'
 import { GiCommercialAirplane } from "react-icons/gi"
+import { Link } from '@/i18n/routing'
 
 const Services: FC = () => {
 	const sliderRef = useRef<Slider | null>(null)
@@ -39,7 +40,7 @@ const Services: FC = () => {
 				<p className='text-[25px] text-black mdl:text-[35px] 2xl:text-[40px] font-bold '>Услуги</p>
 
 				<Slider {...settings} ref={sliderRef}>
-					<div className='flex flex-col mt-[25px] mdl:mt-[30px] px-[5px]'>
+					<div className='flex flex-col mt-[25px] mdl:mt-[30px] px-[5px] 2xl:mt-[50px] cursor-pointer'>
 						<div className='2xl:flex 2xl:flex-row 2xl:gap-[40px]'>
 							<Image
 								src={ServiceImage}
@@ -66,9 +67,9 @@ const Services: FC = () => {
 									Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
 								</p>
 								<div className="flex flex-row items-center justify-between mt-[30px]">
-									<button className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway flex flex-row  justify-center gap-[8px]">
+									<Link href='/tours' className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway flex flex-row  justify-center gap-[8px]">
 										Найти тур <GiCommercialAirplane />
-									</button>
+									</Link>
 
 								</div>
 							</div>

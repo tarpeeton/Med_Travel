@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState, useEffect, useRef , Dispatch , SetStateAction } from 'react';
+import { FC, useState, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 import TursTitle from '../ui/tursTitle';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import BannerImage from '@/public/klinika/banner.png';
@@ -12,21 +12,23 @@ interface BannerProps {
 }
 
 const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
-
     const { locale } = useParams<{ locale: string | string[] }>();
     const currentLocale = Array.isArray(locale) ? locale[0] : locale || 'en'; // Default to 'en' if locale is undefined
     const [inputValue, setInputValue] = useState('');
     const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([]); // State for categories
-    
-    const [categories, setCategories] = useState<{ id: string; name: string }[]>([]); // Update to hold objects with id and name
+    const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([]);
+    const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+    const handleSuggestionClick = (suggestion: string) => {
+        setInputValue(suggestion);
+        setIsSuggestionDropdownOpen(false);
+        setIsDropdownOpen(false);
+    };
 
-
-
+    // Fetch clinics based on the locale
     useEffect(() => {
         const fetchClinics = async () => {
             try {
@@ -37,8 +39,9 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
             }
         };
         fetchClinics();
-    }, [currentLocale]); // Use currentLocale for dependency
+    }, [currentLocale]);
 
+    // Fetch categories based on the locale
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -51,40 +54,29 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
         fetchCategories();
     }, [currentLocale]);
 
+    // Optimize input change handling and filtering suggestions
     useEffect(() => {
-        const handler = setTimeout(() => {
-            if (inputValue) {
-                const filtered = clinics
-                    .map(clinic => clinic.name)
-                    .filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
-                setFilteredSuggestions(filtered);
-                setIsSuggestionDropdownOpen(true);
-            } else {
-                setFilteredSuggestions([]);
-                setIsSuggestionDropdownOpen(false);
-            }
-        }, 400);
+        if (inputValue) {
+            const filtered = clinics
+                .map(clinic => clinic.name)
+                .filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
 
-        return () => clearTimeout(handler);
+            setFilteredSuggestions(filtered);
+            setIsSuggestionDropdownOpen(filtered.length > 0);
+        } else {
+            setFilteredSuggestions([]);
+            setIsSuggestionDropdownOpen(false);
+        }
     }, [inputValue, clinics]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
 
-    const handleSuggestionClick = (suggestion: string) => {
-        setInputValue(suggestion);
-        setIsSuggestionDropdownOpen(false);
-    };
-
     const handleCategorySelect = (category: { id: string; name: string }) => {
-        setSelectedCategories((prevSelected) => {
-            const isSelected = prevSelected.find(item => item.id === category.id);
-            if (isSelected) {
-                return prevSelected.filter(item => item.id !== category.id);
-            } else {
-                return [...prevSelected, category];
-            }
+        setSelectedCategories(prevSelected => {
+            const isSelected = prevSelected.some(item => item.id === category.id);
+            return isSelected ? prevSelected.filter(item => item.id !== category.id) : [...prevSelected, category];
         });
     };
 
@@ -107,22 +99,15 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
 
     const SearchData = async () => {
         try {
-            // Create a comma-separated string of selected service IDs
             const serviceIds = selectedCategories.map(category => category.id).join(',');
-    
-            // Use inputValue for name or undefined if empty
-            const name = inputValue || undefined; 
-    
-            // Call allClinick with the current locale, name, and serviceIds
+            const name = inputValue || undefined;
             const clinicsData = await allClinick(currentLocale, name, serviceIds);
-            
-            // Set the clinics state to display in the UI
             setClinics(clinicsData?.data || []);
         } catch (error) {
             console.error("Error searching clinics:", error);
         }
-    }
-    
+    };
+
     return (
         <div
             style={{
@@ -145,7 +130,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                 }}
             ></div>
             <div className="py-[40px] 2xl:py-[80px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
-                <TursTitle title="Клинки доступные в медицинских турах" />
+                <TursTitle title="Клиники доступные в медицинских турах" />
                 <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-medium font-raleway mt-[8px] mdl:mt-[10px]">
                     Ваш путь к здоровью через медицинский туризм
                 </p>
@@ -167,8 +152,8 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                             <MdOutlineKeyboardArrowDown size={22} className='text-[#7C7C7C]' />
                         </div>
                         {isDropdownOpen && (
-                            <div className="absolute  z-10 w-full bg-white border border-gray-300 rounded-[20px] mt-1 max-h-60 overflow-auto">
-                                {categories?.map((category) => (
+                            <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-[20px] mt-1 max-h-60 overflow-auto mdl:rounded-[15px]">
+                                {categories.map(category => (
                                     <div
                                         key={category.id}
                                         className="flex items-center py-[15px] px-[12px] cursor-pointer hover:bg-[#E8F7F6] border-b border-borderColor"
@@ -206,6 +191,6 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Banner;

@@ -10,7 +10,6 @@ import Contacts from '../Main/Contacts'
 const MainClinics: FC = () => {
     const [clinics, setClinics] = useState<any[]>([]);
 
-    console.log(clinics)
     return (
         <div>
             <Banner  clinics={clinics}  setClinics={setClinics}/>

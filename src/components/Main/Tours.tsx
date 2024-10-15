@@ -2,7 +2,7 @@
 import { FC } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 
 
 
@@ -87,7 +87,7 @@ const Tours: FC = () => {
 
 				</div>
 				<div className='w-full flex items-center justify-center mt-[40px] 2xl:mt-[50px] 2xl:justify-around'>
-					<Link href='/turs' className='w-[70%] mdl:w-[40%] 2xl:w-[15%] bg-green100 text-white text-[14px] font-bold font-raleway text-center rounded-[10px] p-[16px] 2xl:ml-[80px]'>
+					<Link href='/tours' className='w-[70%] mdl:w-[40%] 2xl:w-[15%] bg-green100 text-white text-[14px] font-bold font-raleway text-center rounded-[10px] p-[16px] 2xl:ml-[80px]'>
 						Все туры
 					</Link>
 					<div />
