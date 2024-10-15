@@ -113,7 +113,7 @@ const Form: FC = () => {
               value={formValues.phone}
               onChange={handleChange}
             />
-            
+
             <FloatingLabelInput
               label="E-mail"
               type="email"

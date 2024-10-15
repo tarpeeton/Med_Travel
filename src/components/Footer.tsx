@@ -23,10 +23,10 @@ const Footer: FC = () => {
 						<span className='text-[16px] font-semibold text-titleDark mdl:text-[18px]'>Услуги</span>
 						<div className='flex flex-col mt-[8px] gap-[4px] mdl:gap-[6px]'>
 							<Link href='/tours' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Туры</Link>
-							<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Клиники</Link>
+							<Link href='/clinics' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Клиники</Link>
 							<Link href='/sanatoriums' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Санатории</Link>
 
-							<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Гостиницы</Link>
+							<Link href='/hotels' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Гостиницы</Link>
 
 						</div>
 					</div>
