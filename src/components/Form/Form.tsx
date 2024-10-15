@@ -3,7 +3,6 @@ import { FC, useState } from "react"
 import ConsultationModal from '../Modal/ConsultationSuccess'
 import { IFormProps } from "@/interface/IForm"
 import { consultation } from "@/lib/api" // Correct import for consultation function
-import InputMask from "ts-input-mask"
 // FloatingLabelInput component
 const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange }) => {
   const [focused, setFocused] = useState(false)
@@ -107,22 +106,14 @@ const Form: FC = () => {
               value={formValues.name}
               onChange={handleChange}
             />
-          <InputMask
-              mask="+999 (99) 999-99-99"
+            <FloatingLabelInput
+              label="Номер телефона"
+              type="tel"
+              id="phone"
               value={formValues.phone}
               onChange={handleChange}
-            >
-              {(inputProps: any) => (
-                <FloatingLabelInput
-                  label="Номер телефона"
-                  type="tel"
-                  id="phone"
-                  value={formValues.phone}
-                  onChange={handleChange}
-                  {...inputProps}
-                />
-              )}
-            </InputMask>
+            />
+            
             <FloatingLabelInput
               label="E-mail"
               type="email"
