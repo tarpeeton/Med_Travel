@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {  ApiResponse  , TourQueryOptions} from '@/interface/Tour';
 
 const BASE_URL = 'https://med-travel.mrjtrade.uz';
 
@@ -95,6 +95,68 @@ export const allClinick = async (acceptLanguage: string = 'en', name?: string, s
             params, // Dynamically created params
         });
 
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+};
+
+
+
+
+export const AllTours = async (acceptLanguage: string = 'en', options: TourQueryOptions = {}): Promise<ApiResponse> => {
+    try {
+        // Destructure and set default values for parameters
+        const {
+            fromAddress,
+            toAddress,
+            toDate,
+            adultSize,
+            childrenSize,
+            priceFrom,
+            priceTo,
+            typeId,
+            fromDate
+        } = options;
+
+        // Initialize params object, adding properties conditionally
+        const params: Record<string, any> = {};
+
+        if (fromAddress) params.fromAddress = fromAddress;
+        if (toAddress) params.toAddress = toAddress;
+        if (toDate) params.toDate = toDate;
+        if (adultSize) params.adultSize = adultSize;
+        if (childrenSize) params.childrenSize = childrenSize;
+        if (priceFrom) params.priceFrom = priceFrom;
+        if (priceTo) params.priceTo = priceTo;
+        if (typeId) params.typeId = typeId;
+        if (fromDate) params.fromDate = fromDate;
+
+        // Make the API call with optional language header and query parameters
+        const response = await axios.get<ApiResponse>(`${BASE_URL}/api/tour`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+            params,
+        });
+
+        return response.data; // Return the API response data
+    } catch (error) {
+        console.error('Error fetching tours:', error);
+        throw error; // Re-throw the error for external handling
+    }
+};
+export const AllTypes = async (acceptLanguage: string = 'ru') => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}/api/tour/type`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+        });
+
+        // Return the clinic data
         return response.data;
     } catch (error) {
         console.error("Error fetching clinics:", error);
