@@ -111,7 +111,7 @@ const Reviews: FC = () => {
                                     <SwiperSlide key={index}>
                                         <div className='flex flex-row gap-[2%] cursor-pointer'>
                                             <div className='bg-white rounded-[20px] p-[20px] mt-[20px] mdl:w-[99%] 2xl:w-[99%] 2xl:h-[350px]'>
-                                                <div className='flex flex-col'>
+                                                <div className='flex flex-col h-[320px]'>
                                                     <div className='flex flex-row gap-[8px]'>
                                                         <Image
                                                             src={review?.photo?.url || 'https://ucarecdn.com/30077089-1dac-4769-b282-fba533147b26/-/preview/65x65/'}
@@ -131,13 +131,13 @@ const Reviews: FC = () => {
                                                         </p>
                                                     </div>
                                                     {review.text.length > 215 && (
-                                                        <div className='mt-[20px]'>
+                                                        <div className='mt-[20px] slg:absolute slg:bottom-[30px]'>
                                                             <button
                                                                 onClick={() => handleReadMore(review)}
-                                                                className='text-green100 flex flex-row items-center text-[18px] font-semibold'
+                                                                className='text-green100 flex flex-row items-center text-[18px] font-semibold group transition-all duration-400'
                                                             >
                                                                 Читать полностью
-                                                                <MdNavigateNext size={25} />
+                                                                <MdNavigateNext size={25} className=' mt-[3px] transition-transform duration-300 group-hover:translate-x-[5px]' />
                                                             </button>
                                                         </div>
                                                     )}
@@ -150,7 +150,7 @@ const Reviews: FC = () => {
                         </Swiper>
                     </div>
 
-                    {reviews?.length > 0 && (
+                    {reviews?.length > 1 && (
                         <div className='flex justify-end relative items-center mt-[30px]'>
                             <div className="flex flex-row gap-[8px]">
                                 <button
