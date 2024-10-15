@@ -4,7 +4,7 @@ import ConsultationModal from '../Modal/ConsultationSuccess'
 import { IFormProps } from "@/interface/IForm"
 import { consultation } from "@/lib/api" // Correct import for consultation function
 // FloatingLabelInput component
-const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange }) => {
+const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange, pattern, inputMode, placeholder }) => {
   const [focused, setFocused] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
 
@@ -28,9 +28,11 @@ const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange }
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        inputMode={inputMode}
+        pattern={pattern}
         className={`block py-2.5 px-0 w-full text-sm mb-[20px] text-gray-900 bg-transparent border-0 border-b-[1px] ${isInvalid ? "border-red-500" : "border-gray-300"
           } appearance-none  dark:border-[#A7A7A7] dark:focus:border-[#1AB2A6] focus:outline-none focus:ring-0 focus:border-[#1AB2A6] peer text-[18px]`}
-        placeholder=" " // Placeholder is required for floating effect
+        placeholder={focused ? placeholder : ""} // Placeholder is required for floating effect
       />
       <label
         htmlFor={id}
@@ -105,6 +107,7 @@ const Form: FC = () => {
               id="name"
               value={formValues.name}
               onChange={handleChange}
+              placeholder='например: Rustam'
             />
             <FloatingLabelInput
               label="Номер телефона"
@@ -112,6 +115,9 @@ const Form: FC = () => {
               id="phone"
               value={formValues.phone}
               onChange={handleChange}
+              inputMode="numeric"  // Ensures numeric keypad on mobile devices
+              pattern="[0-9]*"     // Only allows numbers
+              placeholder='например: +99899 000-00-00'
             />
 
             <FloatingLabelInput
@@ -120,6 +126,7 @@ const Form: FC = () => {
               id="email"
               value={formValues.email}
               onChange={handleChange}
+              placeholder='например: example@gmail.com'
             />
 
             {!isFormValid && (
