@@ -38,11 +38,15 @@ const Reviews: FC = () => {
                         <Swiper
                             modules={[Navigation]}
                             navigation={false} // Disable default navigation
-                            slidesPerView={2}
+                            slidesPerView={1}
                             spaceBetween={20}
+                            speed={800}
                             breakpoints={{
                                 1024: {
                                     slidesPerView: 2,
+                                },
+                                800: {
+                                    slidesPerView: 1.7,
                                 },
                                 700: {
                                     slidesPerView: 1,
@@ -100,7 +104,7 @@ const Reviews: FC = () => {
                                 className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px] 2xl:w-[78px] bg-white 2xl:h-[78px]"
                                 aria-label="Previous slide"
                             >
-                                <GrLinkPrevious size={20} className="text-black" />
+                                <GrLinkPrevious  className="text-black w-[20px] h-[20px] 2xl:w-[25px] 2xl:h-[25px]" />
                             </button>
 
                             <button
@@ -108,7 +112,7 @@ const Reviews: FC = () => {
                                 className="flex border bg-white border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px] 2xl:w-[78px] 2xl:h-[78px]"
                                 aria-label="Next slide"
                             >
-                                <GrLinkNext size={20} className="text-black" />
+                                <GrLinkNext  className="text-black w-[20px] h-[20px] 2xl:w-[25px] 2xl:h-[25px]" />
                             </button>
                         </div>
                     </div>
