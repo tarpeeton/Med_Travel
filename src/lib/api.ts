@@ -58,6 +58,22 @@ export const AllService = async (acceptLanguage: string = 'ru') => {
         throw error;
     }
 };
+export const AllReviews = async (acceptLanguage: string = 'ru') => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}/api/client-review`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+        });
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+};
 
 export const allClinick = async (acceptLanguage: string = 'en', name?: string, serviceId?: string) => {
     try {
