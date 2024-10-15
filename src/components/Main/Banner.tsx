@@ -8,7 +8,7 @@ import Image from 'next/image'
 import banner from '@/public/banner.jpg'
 import bannerTWO from '@/public/bannnerTWO.jpg'
 import { GiCommercialAirplane } from "react-icons/gi";
-
+import { Link } from '@/i18n/routing'
 
 const MainBanner: FC = () => {
   const sliderRef = useRef<Slider | null>(null) // Reference for the slider
@@ -67,7 +67,7 @@ const MainBanner: FC = () => {
                   className="w-full h-[500px] mdl:h-[600px] object-cover"
                 />
 
-                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30" />
+                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-35" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
 
                   <h2 className="text-[30px] font-bold mdl:text-[45px] 2xl:text-[50px]">
@@ -79,10 +79,9 @@ const MainBanner: FC = () => {
                     ))}
                   </h2>
                   <div className="flex flex-row items-center justify-between">
-                    <button className="mt-6 w-[60%] mdl:w-[40%] bg-[#1AB2A6] text-white py-[16px] px-[20px] 2xl:w-[20%] rounded-[10px] font-bold flex flex-row justify-center gap-[8px]">
+                    <Link href='/tours' className="mt-6 w-[60%] mdl:w-[40%] bg-[#1AB2A6] text-white py-[16px] px-[20px] 2xl:w-[20%] rounded-[10px] font-bold flex flex-row justify-center gap-[8px]">
                       Найти тур <GiCommercialAirplane />
-                    </button>
-
+                    </Link>
                   </div>
                 </div>
               </div>

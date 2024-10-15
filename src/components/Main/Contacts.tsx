@@ -94,9 +94,9 @@ const Contacts: FC = () => {
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold">
                 Телефон
               </p>
-              <p className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[4px]">
+              <Link href='tel:+998938019101' className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[4px]">
                 +998 (93) 801 91 01
-              </p>
+              </Link>
             </div>
             {/* Social Links */}
             <div className="py-[22px] border-b border-[#D3D3D3] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
