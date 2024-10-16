@@ -1,20 +1,16 @@
-'use client'
-import { FC, useState, useEffect } from 'react'
-import Image from 'next/image'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/swiper-bundle.css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import { IoIosStar } from "react-icons/io"
-import { ISanathoryData } from '@/interface/Sanathory'
-
-
-import useSlice from "@/hooks/useSlice"
-import LeanMoreButton from '../ui/more'
-import Title from '../ui/title'
-
-
+'use client';
+import { FC, useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/swiper-bundle.css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { IoIosStar } from 'react-icons/io';
+import { ISanathoryData } from '@/interface/Sanathory';
+import useSlice from '@/hooks/useSlice';
+import LeanMoreButton from '../ui/more';
+import Title from '../ui/title';
 
 
 
@@ -58,6 +54,7 @@ const Sanathory: FC<ISanathoryData> = ({ data, cotegory }) => {
             </button>
           ))}
         </div>
+       
         <div className='mdl:hidden mt-[20px]'>
           <Swiper
             spaceBetween={10}

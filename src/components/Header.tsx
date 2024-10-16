@@ -87,19 +87,19 @@ const Header = ({ locale }: { locale: string }) => {
       {service && (
         <div>
           <div className='flex flex-col z-[9999999]'>
-            <Link href='/tours' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/tours' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Туры
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/clinics' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/clinics' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Клиники
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/sanatoriums' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/sanatoriums' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Санатории
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/hotels' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium'>
+            <Link href='/hotels' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Гостиницы
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
@@ -132,19 +132,19 @@ const Header = ({ locale }: { locale: string }) => {
 
               {mobileService && (
                 <div className='flex flex-col gap-[20px] text-[18px] font-medium mt-[20px] slg:text-[22px]'>
-                  <Link href='/about' onClick={toggleMenuOpen}>
+                  <Link href='/about' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
                     О компании
                   </Link>
-                  <Link href='/partners' onClick={toggleMenuOpen}>
+                  <Link href='/partners' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
                     Партнеры
                   </Link>
-                  <button className='text-left' onClick={toggleOpenQuestion}>
+                  <button  onClick={toggleOpenQuestion} className='text-left hover:text-green100 duration-300'>
                     Задать вопрос
                   </button>
-                  <Link href='/blog' onClick={toggleMenuOpen}>
+                  <Link href='/blog' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
                     Блог
                   </Link>
-                  <Link href='/contacts' onClick={toggleMenuOpen}>
+                  <Link href='/contacts' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
                     Контакты
                   </Link>
                 </div>
