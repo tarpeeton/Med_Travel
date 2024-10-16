@@ -13,22 +13,14 @@ import useLocale from '@/hooks/useLocale';
 import { AllTours, AllTypes } from '@/lib/api';
 import { Tour, ApiResponse } from '@/interface/Tour';
 import Spinner from '../Spinner';
+import { Filters } from '@/interface/ToursFilter';
+
 
 interface ITypes {
     id: number;
     name: string;
 }
-interface Filters {
-    fromAddress: string;
-    toAddress: string;
-    fromDate?: string;
-    toDate?: string;
-    adultSize: number;
-    childrenSize: number;
-    priceFrom?: number;
-    priceTo?: number;
-    typeId: number
-}
+
 
 const MainTours: FC = () => {
     const locale = useLocale();
@@ -38,7 +30,7 @@ const MainTours: FC = () => {
     const [types, setTypes] = useState<ITypes[]>([]);
     const [typeId, setTypeID] = useState(0);
     const [isRefresh , setIsRefresh] = useState(false)
-    
+
     const [filters, setFilters] = useState<Filters>({
         fromAddress: '',
         toAddress: '',
@@ -70,7 +62,7 @@ const MainTours: FC = () => {
         }
 
         fetchTours();
-    }, [locale, filters , setIsRefresh]);
+    }, [locale, filters , isRefresh]);
 
     return (
         <div className='relative'>
