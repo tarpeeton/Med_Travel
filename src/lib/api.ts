@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {  ApiResponse  , TourQueryOptions} from '@/interface/Tour';
-import { IGallery } from '@/interface/Gallery';
 const BASE_URL = 'https://med-travel.mrjtrade.uz';
 
 
@@ -179,3 +178,59 @@ export const RandomGallery = async (size: number) => {
     }
 };
 
+
+
+// SANATHORIUMS
+
+export const AllSanathoriumGoal = async (acceptLanguage: string = 'ru') => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}/api/sanatorium/goal`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+        });
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+};
+
+
+interface IAllSanathorimFilter {
+    name?: string;
+    goalId?: string;
+}
+
+
+export const AllSanathoriums = async (acceptLanguage: string = 'en', options: IAllSanathorimFilter = {}) => {
+    try {
+        // Destructure and set default values for parameters
+        const {
+            name, // Destructure name
+            goalId,
+        } = options;
+
+        // Initialize params object, adding properties conditionally
+        const params: Record<string, any> = {};
+
+        if (name) params.name = name; // Include name if provided
+        if (goalId) params.goalId = goalId; // Include goalId if provided
+
+        // Make the API call with optional language header and query parameters
+        const response = await axios.get(`${BASE_URL}/api/sanatorium`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+            params,
+        });
+
+        return response.data; // Return the API response data
+    } catch (error) {
+        console.error('Error fetching tours:', error);
+        throw error; // Re-throw the error for external handling
+    }
+};
