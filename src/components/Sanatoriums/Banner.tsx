@@ -3,30 +3,13 @@ import { FC, useState, useEffect  , Dispatch , SetStateAction} from 'react';
 import TursTitle from '../ui/tursTitle';
 import bgSanathorium from '@/public/gallery/bg.jpg';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-
-const suggestions = [
-    "Санаторно-курортный комплекс «Тибет»",
-    "Санаторно-курортный комплекс «Бухара»",
-    "Санаторно-курортный комплекс «Ташкент»",
-    "Санаторно-курортный комплекс «Самарканд»",
-    "Санаторно-курортный комплекс «Хива»",
-];
-
-interface Filter {
-    name?: string
-    goalId?: string
-}
-
-interface IFilterSanathories {
-    cotegory: {id: string , name: string , orderNum: number , active: boolean}[]
-    setCotegoryID: Dispatch<SetStateAction<string>>
-    setFilters: (filters: Filter) => void
-    filters: Filter
-}
+import { IFilterProps } from '@/interface/Sanathory';
 
 
 
-const Banner: FC<IFilterSanathories> = ({cotegory , setCotegoryID  , setFilters , filters}) => {
+
+
+const Banner: FC<IFilterProps> = ({cotegory , setCotegoryID  , setFilters , filters , Name}) => {
     const [inputValue, setInputValue] = useState(filters.name)
     const [id , setID] = useState('0')
     const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
@@ -36,8 +19,8 @@ const Banner: FC<IFilterSanathories> = ({cotegory , setCotegoryID  , setFilters 
     // Effect to filter suggestions based on input
     useEffect(() => {
         if (inputValue) {
-            const filtered = suggestions.filter(suggestion =>
-                suggestion.toLowerCase().includes(inputValue.toLowerCase())
+            const filtered = Name.filter(name =>
+                name.toLowerCase().includes(inputValue.toLowerCase())
             );
             setFilteredSuggestions(filtered);
             setIsOpen(true);
@@ -135,7 +118,7 @@ const Banner: FC<IFilterSanathories> = ({cotegory , setCotegoryID  , setFilters 
 
                     {/* Suggestions Dropdown */}
                     {isOpen && filteredSuggestions.length > 0 && (
-                        <div className="absolute z-10 w-[90%] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:top-[90px] 2xl:w-[40.5%]">
+                        <div className="absolute z-10 w-[89%] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:top-[90px] 2xl:w-[40.5%] top-[80px]">
                             {filteredSuggestions.map((suggestion, index) => (
                                 <div
                                     key={index}
