@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Title from '../ui/title'
 import { Link } from '@/i18n/routing'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -8,11 +8,24 @@ import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import Image from 'next/image'
-import One from '@/public/slider/one.jpg'
-import Two from '@/public/slider/two.jpg'
-import three from '@/public/slider/three.png'
+import { RandomGallery } from '@/lib/api'
+import { IGallery } from '@/interface/Gallery'
 
 const Gallery: FC = () => {
+    const [gallery, setGallery] = useState<IGallery[]>([])
+    useEffect(() => {
+        const fetchGallery = async () => {
+            try {
+                const res = await RandomGallery(1)
+                setGallery(res.data) 
+            } catch (error) {
+                console.error("Error fetching gallery:", error)
+            }
+        }
+
+        fetchGallery() 
+    }, []) 
+
     return (
         <div className='mt-[120px] 2xl:mt-[180px]'>
             <div className='flex flex-col'>
@@ -30,28 +43,22 @@ const Gallery: FC = () => {
                         className='!flex !flex-row !flex-nowrap'
                         breakpoints={{
                             640: {
-                              slidesPerView: 1, // 1 slide for small devices
+                                slidesPerView: 1, // 1 slide for small devices
                             },
                             768: {
-                              slidesPerView: 2, // 2 slides for medium devices and larger
+                                slidesPerView: 2, // 2 slides for medium devices and larger
                             },
-                          }}
+                        }}
                     >
-                        <SwiperSlide className=' cursor-pointer'>
-                            <div className=' h-[220px] mdl:h-[320px] 2xl:h-[390px]'>
-                                <Image  src={One} alt='image slider' width={1000} height={700} quality={100} className='object-cover w-full h-full'/>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className=' cursor-pointer'>
-                            <div className=' h-[220px] mdl:h-[320px] 2xl:h-[390px]'>
-                                <Image  src={Two} alt='image slider' width={1000} height={700} quality={100} className='object-cover w-full h-full'/>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className=' cursor-pointer'>
-                            <div className=' h-[220px] mdl:h-[320px] 2xl:h-[390px]'>
-                                <Image  src={three} alt='image slider' width={1000} height={700} quality={100} className='object-cover w-full h-full'/>
-                            </div>
-                        </SwiperSlide>
+
+                        {gallery.map((gal) => (
+                            <SwiperSlide key={gal.id} className=' cursor-pointer'>
+                                <div className=' h-[220px] mdl:h-[320px] 2xl:h-[390px]'>
+                                    <Image src={gal.url} alt='image slider' width={1000} height={700} quality={100} className='object-cover w-full h-full' />
+                                </div>
+                            </SwiperSlide>
+                        ))}
+
 
 
                     </Swiper>

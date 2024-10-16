@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {  ApiResponse  , TourQueryOptions} from '@/interface/Tour';
-
+import { IGallery } from '@/interface/Gallery';
 const BASE_URL = 'https://med-travel.mrjtrade.uz';
 
 
@@ -163,3 +163,19 @@ export const AllTypes = async (acceptLanguage: string = 'ru') => {
         throw error;
     }
 };
+export const RandomGallery = async (size: number) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/api/tour/gallery`, {
+            params: {
+                size: size,
+            },
+        });
+
+        // Return the gallery data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching gallery:", error);
+        throw error;
+    }
+};
+
