@@ -1,10 +1,37 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useState , useEffect , Dispatch , SetStateAction } from "react";
 import TursTitle from "../ui/tursTitle";
 import TursBg from "@/public/tours/banner.png";
 import { DatePicker, Select } from "antd";
 import { LuDollarSign } from "react-icons/lu";
 const { Option } = Select;
+
+
+
+
+
+interface Filters {
+  fromAddress: string;
+  toAddress: string;
+  fromDate?: string;
+  toDate?: string;
+  adultSize: number;
+  childrenSize: number;
+  priceFrom?: number;
+  priceTo?: number;
+  typeId: number
+}
+
+
+interface BannerProps {
+  setFilters: (filters: Filters) => void; // Ota komponentdan keladigan funksiya
+  filters: Filters;
+  types: { id: number; name: string }[],
+  setIsRefresh: Dispatch<SetStateAction<boolean>>;
+}    
+
+
+
 
 const handleOpenChange = (open: boolean, type: "from" | "to") => {
   if (open) {
@@ -14,27 +41,92 @@ const handleOpenChange = (open: boolean, type: "from" | "to") => {
   }
 };
 
-const Banner: FC = () => {
-  const [adults, setAdults] = useState(1);
-  const [children, setChildren] = useState(0);
+const Banner: FC<BannerProps> = ({ setFilters, filters  , types , setIsRefresh}) => {
 
-  const totalPeople = adults + children;
+ // State variables initialized with filters prop values
+ const [adults, setAdults] = useState(filters.adultSize);
+ const [children, setChildren] = useState(filters.childrenSize);
+ const [fromAddress, setFromAddress] = useState(filters.fromAddress);
+ const [toAddress, setToAddress] = useState(filters.toAddress);
+ const [fromDate, setFromDate] = useState(filters.fromDate);
+ const [toDate, setToDate] = useState(filters.toDate);
+ const [priceFrom, setPriceFrom] = useState(filters.priceFrom);
+ const [priceTo, setPriceTo] = useState(filters.priceTo);
+ const [typeId , setTypeID] = useState(filters.typeId)
+ 
+ // Sync state with filters prop when it changes
+ useEffect(() => {
+   setAdults(filters.adultSize);
+   setChildren(filters.childrenSize);
+   setFromAddress(filters.fromAddress);
+   setToAddress(filters.toAddress);
+   setFromDate(filters.fromDate);
+   setToDate(filters.toDate);
+   setPriceFrom(filters.priceFrom);
+   setPriceTo(filters.priceTo);
+   setTypeID(filters.typeId);
+ }, [filters]);
 
-  const handleIncrementAdults = () => {
-    setAdults(adults + 1);
-  };
+ const totalPeople = adults + children;
 
-  const handleDecrementAdults = () => {
-    if (adults > 0) setAdults(adults - 1);
-  };
+ const handleIncrementAdults = () => {
+   setAdults(adults + 1);
+ };
 
-  const handleIncrementChildren = () => {
-    setChildren(children + 1);
-  };
+ const handleDecrementAdults = () => {
+   if (adults > 0) setAdults(adults - 1);
+ };
 
-  const handleDecrementChildren = () => {
-    if (children > 0) setChildren(children - 1);
-  };
+ const handleIncrementChildren = () => {
+   setChildren(children + 1);
+ };
+
+ const handleDecrementChildren = () => {
+   if (children > 0) setChildren(children - 1);
+ };
+
+ const handleSearch = () => {
+   const updatedFilters = {
+     fromAddress,
+     toAddress,
+     fromDate,
+     toDate,
+     adultSize: adults,
+     childrenSize: children,
+     priceFrom,
+     priceTo,
+     typeId,
+   };
+   setFilters(updatedFilters); // Filtrlar ota komponentga yuboriladi
+ };
+
+ const handleClean = () => {
+  // Reset all state variables to empty values
+  setAdults(0); // Assuming 0 is the default for adults
+  setChildren(0); // Assuming 0 is the default for children
+  setFromAddress(""); // Empty string for fromAddress
+  setToAddress(""); // Empty string for toAddress
+  setFromDate(undefined); // Resetting to no date
+  setToDate(undefined); // Resetting to no date
+  setPriceFrom(undefined); // Resetting priceFrom to undefined
+  setPriceTo(undefined); // Resetting priceTo to undefined
+  setTypeID(0); // Assuming 0 or any other default value for typeId
+  setIsRefresh(true)
+  // Call setFilters to update the parent component with reset values
+  setFilters({
+    fromAddress: "", // Resetting to empty string
+    toAddress: "", // Resetting to empty string
+    fromDate: undefined, // Resetting to no date
+    toDate: undefined, // Resetting to no date
+    adultSize: 0, // Resetting to 0
+    childrenSize: 0, // Resetting to 0
+    priceFrom: undefined, // Resetting priceFrom to undefined
+    priceTo: undefined, // Resetting priceTo to undefined
+    typeId: 0, // Resetting to a default value
+  });
+};
+
+
 
   return (
     <div
@@ -67,13 +159,13 @@ const Banner: FC = () => {
       <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px] shadow-[0px_4px_15px_rgba(0,0,0,0.1)]">
         <div className="flex flex-col gap-[16px] 2xl:gap-[20px] 2xl:flex-row  2xl:flex-wrap 2xl:items-center">
           <div className="flex flex-row gap-[1%] 2xl:w-[32%]">
-            <Select placeholder="Откуда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>
+            <Select onChange={(value) => setFromAddress(value)}  placeholder="Откуда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>
               <Option value="tashkent">Ташкент</Option>
               <Option value="samarkand">Самарканд</Option>
             </Select>
-            <Select placeholder="Куда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>
-              <Option value="bukhara">Бухара</Option>
-              <Option value="khiva">Хива</Option>
+            <Select onChange={(value) => setToAddress(value)}  placeholder="Куда" className="w-[49%] 2xl:w-full custom-select" suffixIcon={null}>
+              <Option value="Чимган">Чимган</Option>
+              <Option value="uz">Uz</Option>
             </Select>
           </div>
           <div className="flex flex-row gap-[1%] 2xl:w-[32%] 2xl:mt-[2px]">
@@ -81,11 +173,13 @@ const Banner: FC = () => {
               className="w-[49%] 2xl:w-full"
               placeholder="От"
               onOpenChange={(open) => handleOpenChange(open, "from")}
+              onChange={(date) => setFromDate(date ? date.format("YYYY-MM-DD") : undefined)}
             />
             <DatePicker
               className="w-[49%] 2xl:w-full"
               placeholder="До"
               onOpenChange={(open) => handleOpenChange(open, "to")}
+              onChange={(date) => setToDate(date ? date.format("YYYY-MM-DD") : undefined)}
             />
           </div>
           <Select
@@ -144,27 +238,31 @@ const Banner: FC = () => {
           </Select>
           {/* Other Select elements remain unchanged */}
           <div className="flex flex-row gap-[1%]  2xl:w-[32%]">
-            <Select placeholder="Цена от" className="w-[49%]  2xl:w-full custom-select" suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}>
+            <Select  onChange={(value) => setPriceFrom(value)} placeholder="Цена от" className="w-[49%]  2xl:w-full custom-select" suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}>
               <Option value="100">100$</Option>
               <Option value="200">200$</Option>
+              <Option value="250">250$</Option>
             </Select>
             <Select
               placeholder="Цена до"
               className="w-[49%] 2xl:w-full  custom-select"
               suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}
               dropdownStyle={{ backgroundColor: "##1AB2A6", color: "#fff" }}
+              onChange={(value) => setPriceTo(value)}
             >
-              <Option value="500">500$</Option>
-              <Option value="1000">1000$</Option>
+              <Option value="350">350$</Option>
+              <Option value="600">600$</Option>
             </Select>
           </div>
-          <Select placeholder="Тип тура" className="w-full custom-select 2xl:w-[32%]">
-            <Option value="medical">Медицинский</Option>
-            <Option value="default">Обычный</Option>
+          <Select  onChange={(value) => setTypeID(value)} placeholder="Тип тура" className="w-full custom-select 2xl:w-[32%]">
+            {types.map((type , index) => (
+              <Option key={index} className='mb-[5px]' value={type.id}>{type.name}</Option>
+            ))}
+            
           </Select>
           <div className="flex flex-col mdl:flex-row mdl:w-[62%] gap-[1%]">
-            <button className="greenButton font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px]">Поиск</button>
-            <button className="mt-[8px] border border-borderColor mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] text-titleDark font-bold p-[16px] font-raleway rounded-[10px] mdl:mt-0">
+            <button  onClick={handleSearch} className="greenButton font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px]">Поиск</button>
+            <button onClick={handleClean} className="mt-[8px] border border-borderColor mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] text-titleDark font-bold p-[16px] font-raleway rounded-[10px] mdl:mt-0">
               Очистить всё
             </button>
           </div>

@@ -12,18 +12,30 @@ interface AvailableProps {
 }
 const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
   const [activeTypeID, setActiveTypeID] = useState<number | null>(null); // Local state to track active button
+  const [filteredTours, setFilteredTours] = useState<Tour[]>(tours); // State for filtered tours
 
-  // Load activeTypeID from localStorage on component mount
   useEffect(() => {
     const storedTypeID = localStorage.getItem('activeTypeID');
-    setActiveTypeID(storedTypeID ? parseInt(storedTypeID) : types[0]?.id || null); // Default to the first type if none is stored
+    const initialTypeID = storedTypeID ? parseInt(storedTypeID) : types[0]?.id || null;
+    setActiveTypeID(initialTypeID);
   }, [types]);
+
+  useEffect(() => {
+    // Filter tours based on the active type ID
+    if (activeTypeID) {
+      const filtered = tours.filter(tour => tour.type.id === activeTypeID); // Assuming tour has a typeId property
+      setFilteredTours(filtered);
+    } else {
+      setFilteredTours(tours); // If no type is selected, show all tours
+    }
+  }, [activeTypeID, tours]); // Re-run effect when activeTypeID or tours change
 
   const handleTypeChange = (id: number) => {
     setActiveTypeID(id); // Update the local active state
     setTypeID(id); // Call the prop function to update the type in the parent
     localStorage.setItem('activeTypeID', id.toString()); // Store the active ID in localStorage
   };
+  
   return (
     <div className='relative'>
       <div className='flex flex-col'>
@@ -44,7 +56,7 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
           ))}
 
         </div>
-        <Tours tours={tours} />
+        <Tours tours={filteredTours} />
       </div>
     </div>
   )
