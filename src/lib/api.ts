@@ -259,8 +259,8 @@ export const Allpromotions = async (acceptLanguage: string = 'ru') => {
 };
 
 
-// ALL BLOG TYPE
 
+//  blog 
 export const AllBlogType = async (acceptLanguage: string = 'ru') => {
     try {
        
@@ -309,3 +309,28 @@ export const AllBlogs = async (acceptLanguage: string = 'ru') => {
         throw error;
     }
 }
+export const GetCommentWithID = async ( blogID: number) => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}api/blog/comments/${blogID}`);
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+}
+export const CreateCommentWithID = async (blogID: number , comment:string) => {
+    try {
+       
+        const response = await axios.post(`${BASE_URL}api/blog/comment/${blogID}` , {comment});
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+}
+

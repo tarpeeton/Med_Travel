@@ -1,24 +1,28 @@
 "use client"
 import Image from 'next/image'
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { Link } from '@/i18n/routing'
 import { MdNavigateNext } from "react-icons/md"
 import useLocale from '@/hooks/useLocale'
 import { useParams } from 'next/navigation'
-import { BlogSlug, AllBlogs } from '@/lib/api'
+import { BlogSlug } from '@/lib/api'
 import { IBlog } from '../Blog/Main'
 
 
-const BlogWithSlug: FC = () => {
+interface IBlogWithSlug {
+    setBlogID: Dispatch<SetStateAction<number>>
+    allBlogs: IBlog[]
+}
+
+
+const BlogWithSlug: FC<IBlogWithSlug> = ({setBlogID , allBlogs}) => {
     const locale = useLocale()
     const { slug } = useParams()
     const [blogWithSlug, setBlogWithSlug] = useState<IBlog | null>(null)
-    const [allBlogs, setAllBlogs] = useState<IBlog[] | null>(null)
+    
 
 
-    const [blogID, setBlogID] = useState<number>(0)
     const normalizedSlug = Array.isArray(slug) ? slug[0] : slug
-
 
 
 
@@ -36,17 +40,7 @@ const BlogWithSlug: FC = () => {
         FetchBlogWithSlug()
     }, [slug, locale])
 
-    useEffect(() => {
-        const FetchAllBlogs = async () => {
-            try {
-                const res = await AllBlogs(locale)
-                setAllBlogs(res.data)
-            } catch (error) {
-
-            }
-        }
-        FetchAllBlogs()
-    }, [locale])
+   
 
     return (
         <div className='flex flex-col mt-[20px]'>
@@ -105,38 +99,21 @@ const BlogWithSlug: FC = () => {
                 </div>
                 {/* SIMILAR NEWS */}
                 <div className='hidden 2xl:flex 2xl:flex-col 2xl:gap-[12px] 2xl:w-[30%] mt-[158px]'>
-                    <div className='border border-borderColor p-[30px] rounded-[20px]'>
+                        {
+                            allBlogs.map((similar) => (
+<div className='border border-borderColor p-[30px] rounded-[20px]'>
                         <p className='text-[18px] font-semibold font-raleway text-titleDark '>
-                            Как выбрать правильное место для реабилитации: Советы экспертов
+                            {similar.option[0].title}
                         </p>
                         <div className='mt-[20px]'>
-                            <Link href={"/slug"} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
+                            <Link href={`blog/${similar.slug}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
                         </div>
                     </div>
-                    <div className='border border-borderColor p-[30px] rounded-[20px]'>
-                        <p className='text-[18px] font-semibold font-raleway text-titleDark '>
-                            Как выбрать правильное место для реабилитации: Советы экспертов
-                        </p>
-                        <div className='mt-[20px]'>
-                            <Link href={"/slug"} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
-                        </div>
-                    </div>
-                    <div className='border border-borderColor p-[30px] rounded-[20px]'>
-                        <p className='text-[18px] font-semibold font-raleway text-titleDark '>
-                            Как выбрать правильное место для реабилитации: Советы экспертов
-                        </p>
-                        <div className='mt-[20px]'>
-                            <Link href={"/slug"} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
-                        </div>
-                    </div>
-                    <div className='border border-borderColor p-[30px] rounded-[20px]'>
-                        <p className='text-[18px] font-semibold font-raleway text-titleDark '>
-                            Как выбрать правильное место для реабилитации: Советы экспертов
-                        </p>
-                        <div className='mt-[20px]'>
-                            <Link href={"/slug"} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
-                        </div>
-                    </div>
+                            ))
+                        }
+
+                    
+                    
                 </div>
             </div>
         </div>
