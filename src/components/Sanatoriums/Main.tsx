@@ -8,6 +8,7 @@ import Form from '../Form/Form'
 import Contacts from '../Main/Contacts'
 import { AllSanathoriumGoal, AllSanathoriums } from '@/lib/api'
 import useLocale from '@/hooks/useLocale'
+import { ISanathoryData } from '@/interface/Sanathory'
 
 
 interface Filters {
@@ -26,7 +27,7 @@ const MainSanathorium: FC = () => {
   const [cotegory, setCotegory] = useState<ICategory[]>([])
   const [cotegoryID, setCotegoryID] = useState('0')
   const locale = useLocale()
-  const [sanathoriums, setSanathoriums] = useState<any[]>([])
+  const [sanathoriums, setSanathoriums] = useState<ISanathoryData[]>([])
   const [sanathoriumNames, setSanathoriumNames] = useState<string[]>([]) // New state for names
 
   const [filters, setFilters] = useState<Filters>({ name: '', goalId: '' });

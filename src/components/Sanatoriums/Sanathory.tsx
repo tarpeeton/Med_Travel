@@ -13,10 +13,13 @@ import LeanMoreButton from '../ui/more';
 import Title from '../ui/title';
 
 
+interface ISanathory  {
+  data: ISanathoryData[],
+ cotegory: { id: string, name: string, orderNum: number, active: boolean }[]
+}
 
 
-const Sanathory: FC<ISanathoryData> = ({ data, cotegory }) => {
-  console.log(data)
+const Sanathory: FC<ISanathory> = ({ data, cotegory }) => {
   const [activeButton, setActiveButton] = useState('Лечение') // State to track the active button
   const { sliceNumber, handleSliceNumber } = useSlice(9)
   const [filteredData, setFilteredData] = useState(data)
