@@ -13,10 +13,11 @@ interface IArticlesBlogProps {
     setTypeID: Dispatch<SetStateAction<number>>
     types: IBlogTypes[]
     setSearch: Dispatch<SetStateAction<string>>
-    search: string
+    search:string
+    typeID: number
 }
 
-const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , search}) => {
+const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , search , typeID}) => {
 
 
     return (
@@ -41,7 +42,12 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                 >
                     <SwiperSlide>
                         <div>
-                            <button onClick={() => setTypeID(11212)} className='py-[12px] px-[20px] bg-green100 text-white text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]'>
+                            <button onClick={() => setTypeID(11212)} className={`py-[12px] px-[20px] ${
+                  typeID === 11212
+                    ? "bg-green100 text-white"
+                    : "border border-borderColor"
+                } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}
+              >
                                 Все категории
                             </button>
                         </div>
@@ -50,7 +56,11 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                     {types.map((type) => (
                         <SwiperSlide key={type.id}>
                             <div>
-                                <button onClick={() => setTypeID(type.id)} className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor rounded-full font-raleway text-[15px] w-[100%]'>
+                                <button onClick={() => setTypeID(type.id)} className={`py-[12px] px-[20px] ${
+                    typeID === type.id
+                      ? "bg-green100 text-white"
+                      : "border border-borderColor"
+                  } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}>
                                     {type.name}
                                 </button>
                             </div>
@@ -64,11 +74,20 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
             {/* Desktop View */}
             <div className='hidden mdl:block'>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
-                    <button onClick={() => setTypeID(11212)} className='py-[12px] px-[20px] bg-green100 text-white text-center flex items-center justify-center rounded-full font-raleway text-[15px]'>Все категории</button>
+                    <button onClick={() => setTypeID(11212)} className={`py-[12px] px-[20px] ${
+                  typeID === 11212
+                    ? "bg-green100 text-white"
+                    : "border border-borderColor"
+                } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}
+              >Все категории</button>
 
 
                     {types.map((type) => (
-                        <button onClick={() => setTypeID(type.id)} className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor  rounded-full font-raleway text-[15px]'>{type.name}</button>
+                        <button onClick={() => setTypeID(type.id)} className={`py-[12px] px-[20px] ${
+                            typeID === type.id
+                              ? "bg-green100 text-white"
+                              : "border border-borderColor"
+                          } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}>{type.name}</button>
                     ))}
 
 

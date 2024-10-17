@@ -3,7 +3,7 @@ import Title from '../ui/title'
 import Image from 'next/image'
 import { MdNavigateNext } from "react-icons/md"
 import { Link } from '@/i18n/routing'
-import { IBlog } from './Main'
+import { IBlog } from '@/interface/Blog'
 
 interface Latest {
     blogs: IBlog[]

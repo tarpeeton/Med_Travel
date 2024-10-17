@@ -6,7 +6,7 @@ import { MdNavigateNext } from "react-icons/md"
 import useLocale from '@/hooks/useLocale'
 import { useParams } from 'next/navigation'
 import { BlogSlug } from '@/lib/api'
-import { IBlog } from '../Blog/Main'
+import { IBlog } from '@/interface/Blog'
 
 
 interface IBlogWithSlug {
@@ -15,11 +15,11 @@ interface IBlogWithSlug {
 }
 
 
-const BlogWithSlug: FC<IBlogWithSlug> = ({setBlogID , allBlogs}) => {
+const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
     const locale = useLocale()
     const { slug } = useParams()
     const [blogWithSlug, setBlogWithSlug] = useState<IBlog | null>(null)
-    
+
 
 
     const normalizedSlug = Array.isArray(slug) ? slug[0] : slug
@@ -40,7 +40,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({setBlogID , allBlogs}) => {
         FetchBlogWithSlug()
     }, [slug, locale])
 
-   
+
 
     return (
         <div className='flex flex-col mt-[20px]'>
@@ -99,21 +99,21 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({setBlogID , allBlogs}) => {
                 </div>
                 {/* SIMILAR NEWS */}
                 <div className='hidden 2xl:flex 2xl:flex-col 2xl:gap-[12px] 2xl:w-[30%] mt-[158px]'>
-                        {
-                            allBlogs.map((similar) => (
-<div className='border border-borderColor p-[30px] rounded-[20px]'>
-                        <p className='text-[18px] font-semibold font-raleway text-titleDark '>
-                            {similar.option[0].title}
-                        </p>
-                        <div className='mt-[20px]'>
-                            <Link href={`blog/${similar.slug}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
-                        </div>
-                    </div>
-                            ))
-                        }
+                    {
+                        allBlogs.map((similar) => (
+                            <div className='border border-borderColor p-[30px] rounded-[20px]'>
+                                <p className='text-[18px] font-semibold font-raleway text-titleDark '>
+                                    {similar.option[0].title}
+                                </p>
+                                <div className='mt-[20px]'>
+                                    <Link href={`${similar.slug}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
+                                </div>
+                            </div>
+                        ))
+                    }
 
-                    
-                    
+
+
                 </div>
             </div>
         </div>

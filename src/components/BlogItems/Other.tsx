@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { MdNavigateNext } from "react-icons/md"
 import Title from '../ui/title'
-import { IBlog } from '../Blog/Main'
+import { IBlog } from '@/interface/Blog'
 
 
 interface IOtherBlog {
@@ -12,9 +12,9 @@ interface IOtherBlog {
 }
 
 
-const OtherBlogs: FC<IOtherBlog> = ({otherBlogs}) => {
+const OtherBlogs: FC<IOtherBlog> = ({ otherBlogs }) => {
 
-  
+
   return (
     <div className='mt-[120px]'>
       <div className='flex flex-col'>
@@ -39,7 +39,7 @@ const OtherBlogs: FC<IOtherBlog> = ({otherBlogs}) => {
                 </p>
               </div>
               <div className='mt-[16px] mdl:mt-[25px] 2xl:mt-[30px] mdl:absolute  mdl:bottom-[40px]'>
-                <Link href={`blog/${item.slug}`} className='flex flex-row items-center font-bold text-green100 text-[14px] mdl:text-[18px] 2xl:text-[18px] '>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
+                <Link href={`${item.slug}`} className='flex flex-row items-center font-bold text-green100 text-[14px] mdl:text-[18px] 2xl:text-[18px] '>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
               </div>
             </div>
           </div>
