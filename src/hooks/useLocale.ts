@@ -1,11 +1,10 @@
-// hooks/useLocale.ts
 import { useParams } from 'next/navigation';
 
-const useLocale = (): string => {
-    const { locale } = useParams<{ locale: string }>();
+const useLocale = (): 'ru' | 'uz' | 'en' => {
+  const { locale } = useParams<{ locale: string }>();
 
-    // Fallback to a default locale if it's an array or undefined
-    return Array.isArray(locale) ? locale[0] : locale || 'en'; // Default to 'en'
+  // Ensure locale is one of 'ru', 'uz', or 'en'
+  return Array.isArray(locale) ? (locale[0] as 'ru' | 'uz' | 'en') : (locale || 'en') as 'ru' | 'uz' | 'en';
 };
 
 export default useLocale;

@@ -19,7 +19,6 @@ export interface IFilterProps {
 
 
 export interface ISanathoryData {
-    data: {
       id: number
       name: string
       address: string
@@ -37,7 +36,6 @@ export interface ISanathoryData {
       orderNum: number
       active: boolean
       rating: number
-    }[]
-    cotegory: { id: string, name: string, orderNum: number, active: boolean }[]
+      cotegory: { id: string, name: string, orderNum: number, active: boolean }[]
   }
   
