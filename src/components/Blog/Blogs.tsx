@@ -10,6 +10,12 @@ import LeanMoreButton from '../ui/more'
 import useSlice from '@/hooks/useSlice'
 import { useLoader } from '@/context/LoaderContext'
 import Spinner from '../Spinner'
+
+
+
+
+
+
 const Blogs: FC = () => {
     const { locale } = useParams()
     const { sliceNumber, handleSliceNumber } = useSlice(12)
