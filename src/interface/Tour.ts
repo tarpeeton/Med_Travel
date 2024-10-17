@@ -1,20 +1,8 @@
 export interface Tour {
     id: number;
-    name: {
-        uz: string;
-        ru: string;
-        en: string;
-    };
-    fromAddress: {
-        uz: string;
-        ru: string;
-        en: string;
-    };
-    toAddress: {
-        uz: string;
-        ru: string;
-        en: string;
-    };
+    name: string
+    fromAddress: string
+    toAddress: string
     fromDate: string;
     toDate: string;
     price: number;

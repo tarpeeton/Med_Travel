@@ -4,10 +4,10 @@ import Image from 'next/image'
 import useSlice from "@/hooks/useSlice"
 import LeanMoreButton from '../ui/more'
 import { Tour } from '@/interface/Tour'
+import useLocale from '@/hooks/useLocale'
 
 const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
     const { sliceNumber, handleSliceNumber } = useSlice(9)
-
     if (!tours || tours.length === 0) {
         return (
             <div className='mt-[16px] mdl:mt-[20px] 2xl:mt-[40px]'>
@@ -29,10 +29,10 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
                             </div>
                             <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]  flex flex-col'>
                                 <div className=''>
-                                    <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-raleway font-bold text-titleDark'>{t.name.ru}</p>
+                                    <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-raleway font-bold text-titleDark'>{t.name}</p>
                                 </div>
                                 <div className=''>
-                                    <p className='text-[14px] text-[#7C7C7C] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium '>{t.fromAddress.ru} - {t.toAddress.ru} • {t.fromDate} - {t.toDate}</p>
+                                    <p className='text-[14px] text-[#7C7C7C] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium '>{t.fromAddress} - {t.toAddress} • {t.fromDate} - {t.toDate}</p>
                                 </div>
                                 <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]'>
                                     <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>{t.price}$</p>
