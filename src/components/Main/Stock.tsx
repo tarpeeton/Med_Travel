@@ -1,49 +1,40 @@
 "use client"
 import Image from 'next/image'
-import { FC, useRef, useState, useEffect } from "react"
+import { FC, useRef, useState, useEffect , useMemo } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
-import Stock1 from '@/public/aksia.jpg'
-import Stock2 from '@/public/aksi5.jpg'
-import Stock3 from '@/public/aksi8.jpg'
-import Stock4 from '@/public/aksiaThre.jpg'
-import Stock5 from '@/public/aksiaTwo.jpg'
-import Stories from 'react-insta-stories'
+import useLocale from '@/hooks/useLocale'
+import { Allpromotions } from '@/lib/api'
+import { IPromotions } from '@/interface/Promotions'
 import { IoClose } from "react-icons/io5";
-const StockData = [
-  {
-    title: 'Раннее бронирование скидка 20%',
-    date: '19 августа 2024',
-    url: Stock1,
-  },
-  {
-    title: 'Раннее бронирование скидка 20%',
-    date: '19 августа 2024',
-    url: Stock2,
-  },
-  {
-    title: 'Раннее бронирование скидка 20%',
-    date: '19 августа 2024',
-    url: Stock3,
-  },
-  {
-    title: 'Раннее бронирование скидка 20%',
-    date: '19 августа 2024',
-    url: Stock4,
-  },
-  {
-    title: 'Раннее бронирование скидка 20%',
-    date: '19 августа 2024',
-    url: Stock5,
-  },
-]
+import Stories from 'react-insta-stories'
+
 
 const Stock: FC = () => {
+  const locale = useLocale()
   const sliderRef = useRef<Slider | null>(null)
   const [storiesVisible, setStoriesVisible] = useState(false)
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0)
   const storyModalRef = useRef<HTMLDivElement | null>(null) // Ref for the story modal
+  const [stocks , setStock] = useState<IPromotions[]>([])
+
+    useEffect(() => {
+      const FetchPromotions = async () => {
+        try {
+          const res = await Allpromotions(locale)
+          setStock(res.data) 
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      FetchPromotions()
+    }  , [locale])
+
+
+
+
 
   const handlePrev = () => {
     sliderRef.current?.slickPrev()
@@ -104,7 +95,7 @@ const Stock: FC = () => {
   }
 
   const handleStoryNext = () => {
-    if (currentStoryIndex < StockData.length - 1) {
+    if (currentStoryIndex < stocks.length - 1) {
       setCurrentStoryIndex(currentStoryIndex + 1)
     } else {
       setStoriesVisible(false) // Optionally close when reaching the end
@@ -118,17 +109,17 @@ const Stock: FC = () => {
   }
 
   // Prepare stories data by converting StaticImageData to string URLs
-  const stories = StockData.map(stock => ({
+  const stories = useMemo(() => stocks.map(stock => ({
     title: stock.title,
-    url: stock.url.src,
+    url: stock.photo.url,
     duration: 5000,
     header: {
       heading: stock.title,
       subheading: stock.date,
-      profileImage: 'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'
-    }
-  }))
-
+      profileImage: 'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/',
+    },
+  })), [stocks]);
+  
   
 
   return (
@@ -144,15 +135,18 @@ const Stock: FC = () => {
       </div>
 
       <Slider {...settings} ref={sliderRef} className='mt-[20px] mdl:mt-[30px] 2xl:mt-[40px]'>
-        {StockData.map((stock, index) => (
+        {stocks.map((stock, index) => (
           <div className='w-[40%]' key={index} onClick={() => handleStoryOpen(index)}>
             <div className='flex flex-col w-[98%]'>
               <div className='h-[230px] mdl:h-[230px] 2xl:h-[300px]'>
-                <Image src={stock.url} width={1000} height={700} alt={`Акция: ${stock.title}`} className='rounded-[20px] mdl:w-[100%] w-full h-full object-cover' />
+                <Image src={stock?.photo?.url} width={1000} height={700} alt={`Акция: ${stock.title}`} className='rounded-[20px] mdl:w-[100%] w-full h-full object-cover' />
               </div>
-              <div className='flex flex-col mt-[12px] relative justify-between'>
-                <p className='text-[15px] font-semibold text-[#242424] font-raleway w-[80%] mb-[25px] mdl:text-[20px] h-auto break-words'>{stock.title}</p>
-                <p className='text-[#7C7C7C] text-[14px] 2xl:text-[17px]'>{stock.date}</p>
+              <div className='flex flex-col mt-[12px] relative justify-between   2xl:pb-[40px] 2xl:h-[175px]'>
+                <p className='text-[15px] font-semibold text-[#242424] font-raleway w-[80%] mb-[25px] mdl:text-[20px] h-auto break-words 2xl:text-[18px] 2xl:w-full  '>
+                {stock.title.length > 27 ? `${stock.title.slice(0, 27)}...` : stock.title}
+
+                </p>
+                <p className='text-[#7C7C7C] text-[14px] 2xl:text-[17px] 2xl:absolute 2xl:bottom-[80px]'>{stock.date}</p>
               </div>
             </div>
           </div>

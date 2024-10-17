@@ -234,3 +234,26 @@ export const AllSanathoriums = async (acceptLanguage: string = 'en', options: IA
         throw error; // Re-throw the error for external handling
     }
 };
+
+
+
+// PROMOTIONS
+
+
+
+export const Allpromotions = async (acceptLanguage: string = 'ru') => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}/api/promotion`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+        });
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+};
