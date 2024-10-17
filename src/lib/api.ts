@@ -260,7 +260,6 @@ export const Allpromotions = async (acceptLanguage: string = 'ru') => {
 
 
 // ALL BLOG TYPE
-// 
 
 export const AllBlogType = async (acceptLanguage: string = 'ru') => {
     try {
@@ -278,3 +277,19 @@ export const AllBlogType = async (acceptLanguage: string = 'ru') => {
         throw error;
     }
 };
+export const AllBlogs = async (acceptLanguage: string = 'ru') => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}/api/blog`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+        });
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+}

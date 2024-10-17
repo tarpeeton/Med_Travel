@@ -1,5 +1,5 @@
 "use client"
-import { FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import Title from '../ui/title'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
@@ -7,9 +7,14 @@ import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { RiSearchLine } from "react-icons/ri"
+import { IBlogTypes } from './Main'
 
+interface IArticlesBlogProps {
+    setTypeID: Dispatch<SetStateAction<number>>
+    types: IBlogTypes[]
+}
 
-const Articles: FC = () => {
+const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types }) => {
 
 
     return (
@@ -40,21 +45,18 @@ const Articles: FC = () => {
                         </div>
                     </SwiperSlide>
 
-                    <SwiperSlide>
-                        <div>
-                            <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor rounded-full font-raleway text-[15px] w-[100%]'>
-                                Медицина
-                            </button>
-                        </div>
-                    </SwiperSlide>
+                    {types.map((type) => (
+                        <SwiperSlide key={type.id}>
+                            <div>
+                                <button onClick={() => setTypeID(type.id)} className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor rounded-full font-raleway text-[15px] w-[100%]'>
+                                    {type.name}
+                                </button>
+                            </div>
+                        </SwiperSlide>
+                    ))}
 
-                    <SwiperSlide>
-                        <div>
-                            <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor rounded-full font-raleway text-[15px] w-[100%]'>
-                                Туризм
-                            </button>
-                        </div>
-                    </SwiperSlide>
+
+
                 </Swiper>
             </div>
             {/* Desktop View */}

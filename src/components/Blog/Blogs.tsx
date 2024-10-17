@@ -22,12 +22,7 @@ const Blogs: FC = () => {
     const {isLoading , setIsLoading} = useLoader()
         // setIsLoading(true)
 
-    const allowedLocales: Locale[] = ['ru', 'uz', 'en']
-
-    // Validate and assign currentLocale as Locale type
-    const currentLocale: Locale = (typeof locale === "string" && allowedLocales.includes(locale as Locale))
-        ? locale as Locale
-        : 'ru' // Fallback to 'ru' if invalid
+  
 
           if (isLoading) {
         return <Spinner />; // Show spinner while loading
