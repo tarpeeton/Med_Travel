@@ -277,6 +277,22 @@ export const AllBlogType = async (acceptLanguage: string = 'ru') => {
         throw error;
     }
 };
+export const BlogSlug = async (acceptLanguage: string = 'ru' , slug: string) => {
+    try {
+       
+        const response = await axios.get(`${BASE_URL}/api/blog/${slug}`, {
+            headers: {
+                'Accept-Language': acceptLanguage,
+            },
+        });
+
+        // Return the clinic data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching clinics:", error);
+        throw error;
+    }
+}
 export const AllBlogs = async (acceptLanguage: string = 'ru') => {
     try {
        

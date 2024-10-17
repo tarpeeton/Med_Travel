@@ -12,9 +12,11 @@ import { IBlogTypes } from './Main'
 interface IArticlesBlogProps {
     setTypeID: Dispatch<SetStateAction<number>>
     types: IBlogTypes[]
+    setSearch: Dispatch<SetStateAction<string>>
+    search: string
 }
 
-const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types }) => {
+const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , search}) => {
 
 
     return (
@@ -24,7 +26,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types }) => {
             </div>
 
             <div className='input_search w-[100%] mt-[20px] 2xl:mt-[24px] bg-[#F3F7FB] rounded-[10px]  py-[13px] mdl:py-[16px] px-[20px] flex flex-row items-center justify-between'>
-                <input className='w-full outline-none border-none bg-inherit' placeholder='Поиск статей' />
+                <input value={search} onChange={(e) => setSearch(e.target.value)} className='w-full outline-none border-none bg-inherit' placeholder='Поиск статей' />
                 <RiSearchLine size={22} className='text-titleDark font-bold' />
             </div>
 
@@ -39,7 +41,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types }) => {
                 >
                     <SwiperSlide>
                         <div>
-                            <button className='py-[12px] px-[20px] bg-green100 text-white text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]'>
+                            <button onClick={() => setTypeID(11212)} className='py-[12px] px-[20px] bg-green100 text-white text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]'>
                                 Все категории
                             </button>
                         </div>
@@ -62,9 +64,14 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types }) => {
             {/* Desktop View */}
             <div className='hidden mdl:block'>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
-                    <button className='py-[12px] px-[20px] bg-green100 text-white text-center flex items-center justify-center rounded-full font-raleway text-[15px]'>Все категории</button>
-                    <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor  rounded-full font-raleway text-[15px]'>Медицина</button>
-                    <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor  rounded-full font-raleway text-[15px]'>Туризм</button>
+                    <button onClick={() => setTypeID(11212)} className='py-[12px] px-[20px] bg-green100 text-white text-center flex items-center justify-center rounded-full font-raleway text-[15px]'>Все категории</button>
+
+
+                    {types.map((type) => (
+                        <button onClick={() => setTypeID(type.id)} className='py-[12px] px-[20px] text-center flex items-center justify-center border border-borderColor  rounded-full font-raleway text-[15px]'>{type.name}</button>
+                    ))}
+
+
                 </div>
             </div>
 

@@ -43,11 +43,10 @@ export interface IBlog {
 
 const MainBlog: FC = () => {
   const locale = useLocale()
-  const [typeID, setTypeID] = useState(1)
+  const [typeID, setTypeID] = useState(11212)
   const [types, setTypes] = useState<IBlogTypes[]>([])
   const [blogs , setBlogs] = useState<IBlog[]>([])
-  let ArticlesBlogs = blogs.slice(0 , 3)
-
+  const [search , setSearch] = useState('')
 
 
 
@@ -62,7 +61,7 @@ const MainBlog: FC = () => {
       }
     }
     FetchAllTypes()
-  })
+  } , [])
 
 
   useEffect(() => {
@@ -81,9 +80,9 @@ const MainBlog: FC = () => {
 
   return (
     <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
-      <Latests blogs={ArticlesBlogs} />
-      <Articles setTypeID={setTypeID} types={types} />
-      <Blogs />
+      <Latests blogs={blogs.slice(0 , 3)} />
+      <Articles setTypeID={setTypeID} types={types} setSearch={setSearch} search={search} />
+      <Blogs  typeID={typeID}  blogs={blogs.slice(3)}  search={search}/>
       <FormBlog />
     </div>
   )

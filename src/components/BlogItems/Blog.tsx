@@ -1,10 +1,53 @@
+"use client"
 import Image from 'next/image'
-import { FC } from 'react'
-import slugblog from '@/public/slugblog.jpg'
+import { FC, useState, useEffect } from 'react'
 import { Link } from '@/i18n/routing'
 import { MdNavigateNext } from "react-icons/md"
+import useLocale from '@/hooks/useLocale'
+import { useParams } from 'next/navigation'
+import { BlogSlug, AllBlogs } from '@/lib/api'
+import { IBlog } from '../Blog/Main'
+
 
 const BlogWithSlug: FC = () => {
+    const locale = useLocale()
+    const { slug } = useParams()
+    const [blogWithSlug, setBlogWithSlug] = useState<IBlog | null>(null)
+    const [allBlogs, setAllBlogs] = useState<IBlog[] | null>(null)
+
+
+    const [blogID, setBlogID] = useState<number>(0)
+    const normalizedSlug = Array.isArray(slug) ? slug[0] : slug
+
+
+
+
+
+    useEffect(() => {
+        const FetchBlogWithSlug = async () => {
+            try {
+                const res = await BlogSlug(locale, normalizedSlug)
+                setBlogWithSlug(res.data)
+                setBlogID(res.data.id)
+            } catch (error) {
+
+            }
+        }
+        FetchBlogWithSlug()
+    }, [slug, locale])
+
+    useEffect(() => {
+        const FetchAllBlogs = async () => {
+            try {
+                const res = await AllBlogs(locale)
+                setAllBlogs(res.data)
+            } catch (error) {
+
+            }
+        }
+        FetchAllBlogs()
+    }, [locale])
+
     return (
         <div className='flex flex-col mt-[20px]'>
             <div className='flex flex-col 2xl:flex-row 2xl:justify-between'>
@@ -14,27 +57,50 @@ const BlogWithSlug: FC = () => {
                         <p className='text-[#7C7C7C] text-[15px] mdl:text-[17px] font-raleway'>
                             20.08.2024
                         </p>
-                        <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>Безопасность пациентов: Как гарантировать свое здоровье при лечении?</h1>
+                        <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>{blogWithSlug?.option[0]?.title}</h1>
                     </div>
                     <div className='mt-[20px] mdl:mt-[25px]  rounded-[20px] overflow-hidden h-[220px] mdl:h-[420px] 2xl:h-[510px]'>
-                        <Image quality={100} alt='blogImage' src={slugblog} width={1075} height={500} className='object-cover w-full h-full' />
+                        {blogWithSlug?.option[0]?.photo?.url ? (
+                            <Image
+                                quality={100}
+                                alt='blogImage'
+                                src={blogWithSlug.option[0].photo.url}
+                                width={1075}
+                                height={500}
+                                className='object-cover w-full h-full'
+                            />
+                        ) : (
+                            null
+                        )}
                     </div>
                     <div className='mt-[30px] mdl:mt-[40px] '>
                         <p className='text-[15px] font-raleway  mdl:text-[17px]'>
-                            В условиях современного здравоохранения обеспечение безопасности пациентов становится приоритетной задачей. Важно помнить, что ваше здоровье во многом зависит от мер предосторожности, которые вы принимаете при лечении.
-
-                            Первый шаг к обеспечению безопасности — это тщательный выбор медицинского учреждения. Убедитесь, что клиника или медицинский центр имеет все необходимые лицензии и сертификаты, а также положительные отзывы от предыдущих пациентов
-
-                            Кроме того, рекомендуется проверять квалификацию медицинских специалистов. Опыт и профессионализм врачей играют ключевую роль в успешности лечения.
+                            {blogWithSlug?.option?.[0].description}
                         </p>
                     </div>
-                    <div className='mt-[40px] mdl:mt-[50px] 2xl:mt-[60px] flex flex-col gap-[12px] 2xl:gap-[12px]'>
-                        <p className='text-[22px] mdl:text-[25px]  text-titleDark font-semibold'>Соблюдение рекомендаций</p>
-                        <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>Соблюдение всех предписаний, таких как диета и режим, помогает избежать осложнений и ускоряет процесс восстановления.
 
-                            Обеспечение безопасности пациентов требует внимательности и ответственности как со стороны медицинских учреждений, так и со стороны самих пациентов. Следуя этим рекомендациям, вы можете значительно повысить уровень своей защиты и гарантировать себе безопасное и эффективное лечение.</p>
-                        <p className='text-[22px] mdl:text-[25px]  text-titleDark font-semibold'>Полис медицинского страхования</p>
-                        <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>Наконец, не забывайте о страховании. Полис медицинского страхования может стать важным фактором в обеспечении вашей безопасности, покрывая непредвиденные расходы и предоставляя дополнительную защиту.</p>
+
+
+
+                    <div className='mt-[40px] mdl:mt-[50px] 2xl:mt-[60px] flex flex-col gap-[12px] 2xl:gap-[12px]'>
+
+
+
+                        {blogWithSlug?.option && blogWithSlug.option.length > 0 ? (
+                            blogWithSlug.option.map((data) => (
+                                <div key={data.id}>
+                                    <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold'>{data.title}</p>
+                                    <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>
+                                        {data.description}
+                                    </p>
+                                </div>
+                            ))
+                        ) : (
+                            null // Fallback if no options are available
+                        )}
+
+
+
                     </div>
                 </div>
                 {/* SIMILAR NEWS */}
