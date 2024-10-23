@@ -1,14 +1,11 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, SetStateAction, useState  , Dispatch} from "react";
 import TursTitle from "../ui/tursTitle";
-import TursBg from "@/public/tours/banner.png";
 import { DatePicker, Select } from "antd";
 import { LuDollarSign } from "react-icons/lu";
+import moment, { Moment } from "moment";
 const { Option } = Select;
 import sanathorybg from '@/public/sanathorybg.jpg'
-
-
-
 
 const handleOpenChange = (open: boolean, type: "from" | "to") => {
   if (open) {
@@ -18,55 +15,108 @@ const handleOpenChange = (open: boolean, type: "from" | "to") => {
   }
 };
 
-const Banner: FC = () => {
-  const [adults, setAdults] = useState(1);
-  const [children, setChildren] = useState(0);
 
-  const totalPeople = adults + children;
+interface BannerProps {
+  setAvailableFrom: Dispatch<SetStateAction<string | ''>>;
+  setAvailableTo: Dispatch<SetStateAction<string | ''>>;
+  setAdultsSize: Dispatch<SetStateAction<number>>;
+  setChildrenSize: Dispatch<SetStateAction<number>>;
+  setPriceFrom: Dispatch<SetStateAction<number | 0>>;
+  setPriceTo: Dispatch<SetStateAction<number | 0>>;
+  onSearch: () => void;
+}
 
-  const handleIncrementAdults = () => {
-    setAdults(adults + 1);
-  };
 
-  const handleDecrementAdults = () => {
-    if (adults > 0) setAdults(adults - 1);
-  };
+const Banner: FC<BannerProps> = ({ setAvailableFrom,
+  setAdultsSize,
+  setChildrenSize,
+  setPriceFrom,
+  setPriceTo , setAvailableTo , onSearch}) => {
+// State for DatePickers and Selects
+const [fromDate, setFromDate] = useState<string | null>(null);
+const [toDate, setToDate] = useState<string | null>(null);
+const [priceFrom, setPriceFromGG] = useState<number | null>(null);
+const [priceTo, setPriceToGG] = useState<number | null>(null);
+const [adults, setAdults] = useState<number>(1);
+const [children, setChildren] = useState<number>(0);
 
-  const handleIncrementChildren = () => {
-    setChildren(children + 1);
-  };
+const totalPeople = adults + children;
 
-  const handleDecrementChildren = () => {
-    if (children > 0) setChildren(children - 1);
-  };
+// Handlers for DatePicker values
+const handleDateFromChange = (date: Moment | null, dateString: string | string[]) => {
+  if (typeof dateString === 'string') {
+    setFromDate(dateString); // save formatted date as string
+  }
+};
 
+const handleDateToChange = (date: Moment | null, dateString: string | string[]) => {
+  if (typeof dateString === 'string') {
+    setToDate(dateString); // save formatted date as string
+  }
+};
+
+// Handlers for Select values
+const handlePriceFromChange = (value: number) => {
+  setPriceFromGG(value);
+};
+
+const handlePriceToChange = (value: number) => {
+  setPriceToGG(value);
+};
+
+// Handle increments and decrements for people count
+const handleIncrementAdults = () => {
+  setAdults(adults + 1);
+};
+
+const handleDecrementAdults = () => {
+  if (adults > 0) setAdults(adults - 1);
+};
+
+const handleIncrementChildren = () => {
+  setChildren(children + 1);
+};
+
+const handleDecrementChildren = () => {
+  if (children > 0) setChildren(children - 1);
+};
+
+// Handler for "Поиск" button click
+const handleSearch = () => {
+  setAvailableFrom(fromDate || '');
+  setAvailableTo(toDate || '');
+  setAdultsSize(adults);
+  setChildrenSize(children);
+  setPriceFrom(priceFrom || 0);
+  setPriceTo(priceTo || 0);
+  onSearch();
+};
   return (
     <div
-    style={{
-      backgroundImage: `url(${sanathorybg.src})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      position: "relative", // Ensure relative positioning for the overlay
-    }}
-    className="h-[180px] mdl:h-[240px] 2xl:h-[300px] shadow-inner"
-  >
-    {/* Overlay to darken the background */}
-    <div
       style={{
-        backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the opacity for darkness level
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 10, // Make sure the overlay stays behind the content
+        backgroundImage: `url(${sanathorybg.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative", // Ensure relative positioning for the overlay
       }}
-    ></div>
+      className="h-[180px] mdl:h-[240px] 2xl:h-[300px] shadow-inner"
+    >
+      {/* Overlay to darken the background */}
+      <div
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the opacity for darkness level
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 10, // Make sure the overlay stays behind the content
+        }}
+      ></div>
       <div className="py-[40px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
         <TursTitle title="Гостиницы и отели Узбекистана" />
         <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-medium font-raleway mt-[8px] mdl:mt-[10px]">
-        
-        Ваш идеальный отель ждет вас
+          Ваш идеальный отель ждет вас
         </p>
       </div>
       <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px] shadow-[0px_4px_15px_rgba(0,0,0,0.1)]">
@@ -76,31 +126,41 @@ const Banner: FC = () => {
             <DatePicker
               className="w-[49%] 2xl:w-full"
               placeholder="Заезд"
+              value={fromDate ? moment(fromDate) : null}
+              onChange={handleDateFromChange}
               onOpenChange={(open) => handleOpenChange(open, "from")}
             />
             <DatePicker
               className="w-[49%] 2xl:w-full"
               placeholder="Выезд"
+              value={toDate ? moment(toDate) : null}
+              onChange={handleDateToChange}
               onOpenChange={(open) => handleOpenChange(open, "to")}
             />
           </div>
        
-          {/* Other Select elements remain unchanged */}
+          {/* Other Select elements */}
           <div className="flex flex-row gap-[1%]  2xl:w-[32%]">
-            <Select placeholder="Цена от" className="w-[49%]  2xl:w-full custom-select" suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}>
-              <Option value="100">100$</Option>
-              <Option value="200">200$</Option>
+            <Select
+              placeholder="Цена от"
+              className="w-[49%]  2xl:w-full custom-select"
+              suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}
+              onChange={handlePriceFromChange}
+            >
+              <Option value={100}>100$</Option>
+              <Option value={200}>200$</Option>
             </Select>
             <Select
               placeholder="Цена до"
               className="w-[49%] 2xl:w-full  custom-select"
               suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}
-              dropdownStyle={{ backgroundColor: "##1AB2A6", color: "#fff" }}
+              onChange={handlePriceToChange}
             >
-              <Option value="500">500$</Option>
-              <Option value="1000">1000$</Option>
+              <Option value={500}>500$</Option>
+              <Option value={1000}>1000$</Option>
             </Select>
           </div>
+          
           <Select
             value={`${totalPeople} человек`} // Dynamic value based on adults + children
             className="w-full custom-select 2xl:w-[32%]"
@@ -157,7 +217,12 @@ const Banner: FC = () => {
           </Select>
          
           <div className="flex flex-col mdl:flex-row mdl:w-[62%] gap-[1%]">
-            <button className="greenButton font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px]">Поиск</button>
+            <button
+              className="greenButton font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px]"
+              onClick={handleSearch} // Call search handler on button click
+            >
+              Поиск
+            </button>
             <button className="mt-[8px] border border-borderColor mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] text-titleDark font-bold p-[16px] font-raleway rounded-[10px] mdl:mt-0">
               Очистить всё
             </button>

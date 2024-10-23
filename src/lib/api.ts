@@ -11,6 +11,31 @@ interface IAllSanathorimFilter {
   goalId?: string
 }
 
+
+
+
+export const AllBanner = async (acceptLanguage: string = 'ru') => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/banner` , {
+      headers: {
+        'Accept-Language': acceptLanguage
+      }}
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Error sending question:', error)
+    // Optionally, throw the error or handle it in some other way
+    throw error
+  }
+}
+
+
+
+
+
+
+
 export const question = async (
   name: string,
   phone: string,
@@ -329,6 +354,23 @@ export const CreateCommentWithID = async (blogID: number, comment: string) => {
     })
 
     // Return the clinic data
+    return response.data
+  } catch (error) {
+    console.error('Error fetching clinics:', error)
+    throw error
+  }
+}
+
+
+
+export const AllHotels = async (acceptLanguage: string = 'ru') => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/hotel`, {
+      headers: {
+        'Accept-Language': acceptLanguage
+      }
+    })
+
     return response.data
   } catch (error) {
     console.error('Error fetching clinics:', error)

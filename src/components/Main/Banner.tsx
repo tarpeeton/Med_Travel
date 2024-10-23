@@ -1,5 +1,5 @@
 "use client"
-import { FC, useRef, useState } from "react"
+import { FC, useRef, useState , useEffect } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import { GrLinkNext } from "react-icons/gr"
@@ -9,29 +9,41 @@ import banner from '@/public/banner.jpg'
 import bannerTWO from '@/public/bannnerTWO.jpg'
 import { GiCommercialAirplane } from "react-icons/gi";
 import { Link } from '@/i18n/routing'
+import useLocale from '@/hooks/useLocale'
+import { AllBanner } from '@/lib/api'
+
+
+interface IBanner {
+  id: number;
+  title: string;
+  leftPhoto: { id: number, url: string};
+  rightPhoto: { id: number, url: string}
+  orderNum: number
+}
 
 const MainBanner: FC = () => {
   const sliderRef = useRef<Slider | null>(null) // Reference for the slider
+  const [banners , setBanner] = useState<IBanner[] | []>([])
+  const locale = useLocale()
 
-  const [banners] = useState([
-    {
-      id: 1,
-      title: "Ваш путь к здоровью\n — с нашими турами!",
-      imageUrl:
-        banner,
-    },
-    {
-      id: 2,
-      title: "Ваш путь к здоровью\n — с нашими турами!",
-      imageUrl:
-        bannerTWO
-    },
-  ])
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+         const res = await AllBanner(locale)
+        setBanner(res.data)
+      } catch (error) {
+        
+      }
+    }
+    fetchBanners()
+  } , [locale])
+
 
   const settings = {
     dots: false,
     infinite: true,
-    speed: 700,
+    speed: 900,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -59,7 +71,7 @@ const MainBanner: FC = () => {
             <div className="flex w-full cursor-pointer">
               <div className="w-full relative h-[500px] mdl:h-[600px] ">
                 <Image
-                  src={banner.imageUrl}
+                  src={banner.leftPhoto.url}
                   alt={banner.title}
                   quality={100}
                   width={1500}
@@ -70,7 +82,7 @@ const MainBanner: FC = () => {
                 <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-35" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
 
-                  <h2 className="text-[30px] font-bold mdl:text-[45px] 2xl:text-[50px]">
+                  <h2 className="text-[30px] font-bold mdl:text-[45px] 2xl:text-[50px] 2xl:w-[70%] 3xl:w-[50%]">
                     {banner.title.split("\n").map((line, index) => (
                       <span key={index}>
                         {line}

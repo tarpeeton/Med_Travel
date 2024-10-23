@@ -49,7 +49,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                 <div className='flex flex-col 2xl:w-[68%]'>
                     <div className='flex flex-col gap-[10px]'>
                         <p className='text-[#7C7C7C] text-[15px] mdl:text-[17px] font-raleway'>
-                            20.08.2024
+                            {blogWithSlug?.createdAt}
                         </p>
                         <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>{blogWithSlug?.option[0]?.title}</h1>
                     </div>

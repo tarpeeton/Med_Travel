@@ -5,9 +5,16 @@ import useSlice from '@/hooks/useSlice'
 import LeanMoreButton from '../ui/more'
 import { IoIosStar } from "react-icons/io"
 import Image from 'next/image'
-import { HotelData } from '@/constants/Hotels/Hotel'
+import { IHotel } from './Main'
 
-const Hotels: FC = () => {
+
+
+interface IHoteDataMap {
+    data: IHotel[]
+}
+
+
+const Hotels: FC<IHoteDataMap> = ({data}) => {
     const { sliceNumber, handleSliceNumber } = useSlice(10)
     const [serviceSlice, setServiceSlice] = useState(4)
 
@@ -15,7 +22,7 @@ const Hotels: FC = () => {
         setServiceSlice((prev) => prev + 4)
     }
 
-    const displayedHotels = HotelData.slice(0, sliceNumber);
+    const displayedHotels = data.slice(0, sliceNumber);
 
     return (
         <div className='mt-[380px] 2xl:mt-[180px]'>
@@ -26,10 +33,10 @@ const Hotels: FC = () => {
                         displayedHotels.map((t, index) => (
                             <div key={index} className='mdl:w-[48%] mb-[50px] 2xl:w-[32%] cursor-pointer group '>
                                 <div className='h-[199px] w-full overflow-hidden rounded-[15px] relative 2xl:h-[307px]'>
-                                    <Image src={t.image} alt='toursimage' width={1000} height={1000} className='object-cover w-full h-full' />
+                                    <Image src={t.photo.url} alt='toursimage' width={1000} height={1000} className='object-cover w-full h-full' />
                                     {/* RATING */}
                                     <div className='flex flex-row items-center rounded-full bg-titleDark bg-opacity-[80%] py-[10px] px-[20px] absolute gap-[5px] top-[10px] left-[15px]'>
-                                        <p className='text-white'>5.5</p>
+                                        <p className='text-white'>{t.rating}</p>
                                         <IoIosStar className='text-white' />
                                     </div>
                                     <div className='mt-[-70px] ml-[15px] transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-[100] p-[16px] text-center justify-center bg-white z-[999] text-green100 relative w-[200px] rounded-[10px] font-bold'>Забронировать</div>
@@ -45,7 +52,7 @@ const Hotels: FC = () => {
                                         {t.service.slice(0, serviceSlice).map((ser, index) => (
                                             <div key={index} className='flex flex-row gap-[10px] py-[8px] px-[12px] text-center rounded-[5px] bg-[#F3F7FB]'>
                                                 <div className='w-[24px] h-[24px]'>
-                                                    <Image src={ser.icon.src} alt='Service' width={24} height={24} quality={100} className='w-full h-full object-cover' />
+                                                    <Image src={ser?.icon?.url} alt='Service' width={24} height={24} quality={100} className='w-full h-full object-cover' />
                                                 </div>
                                                 <div>
                                                     <p className='text-[14px] mdl:text-[15px] 2xl:text-[16px] text-[#7C7C7C] font-semibold'>{ser.name}</p>
@@ -59,7 +66,7 @@ const Hotels: FC = () => {
                                         )}
                                     </div>
                                     <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]'>
-                                        <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>от {t.price}/сут</p>
+                                        <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>от {t.price} /сут</p>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +79,7 @@ const Hotels: FC = () => {
                 }
             </div>
 
-            {sliceNumber < HotelData.length && (
+            {sliceNumber < data.length && (
                 <LeanMoreButton sliceCounterUp={handleSliceNumber} />
             )}
         </div>

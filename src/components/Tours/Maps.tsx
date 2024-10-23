@@ -1,23 +1,19 @@
 "use client"
 
 import Link from 'next/link'
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect, useState, useMemo } from "react"
 import { MdNavigateNext } from "react-icons/md"
 import { Location } from '@/interface/location'
-import { tours  , medicalTours} from '@/constants/Coordinates'
-
-
+import { tours, medicalTours } from '@/constants/Coordinates'
 
 const Map: FC = () => {
   const [mapLoaded, setMapLoaded] = useState(false)
   const [mapInstance, setMapInstance] = useState<any>(null)
   const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics")
-  const [routes, setRoutes] = useState<any[]>([])
+  const [clinicRoutes, setClinicRoutes] = useState<any[]>([])
+  const [tourRoutes, setTourRoutes] = useState<any[]>([])
 
-  const fromLocationCoords: [number, number] = [41.351473, 69.289052] // Result cardinate
-
-  
-
+  const fromLocationCoords: [number, number] = [41.351473, 69.289052] // Начальная точка
 
   const currentLocations = activeTab === "clinics" ? medicalTours : tours
 
@@ -39,7 +35,8 @@ const Map: FC = () => {
               controls: ['typeSelector', 'fullscreenControl'],
             })
             setMapInstance(map)
-            createRoutes(currentLocations, map)
+            createClinicRoutes(map)
+            createTourRoutes(map)
           })
         }
       }
@@ -51,50 +48,61 @@ const Map: FC = () => {
           controls: ['typeSelector', 'fullscreenControl'],
         })
         setMapInstance(map)
-        createRoutes(currentLocations, map)
+        createClinicRoutes(map)
+        createTourRoutes(map)
       })
     }
   }
 
-  const createRoutes = (locations: Location[], map: any) => {
-    if (map && window.ymaps) {
-      // Remove any existing routes
-      routes.forEach(route => map.geoObjects.remove(route))
-      setRoutes([])
-
-      // Define specific colors for each route
-      const routeColors = [
-        "#1AB2A6", // Samarkand to Tashkent
-        "#FF9F81", // Samarkand to Bukhara
-        "#87CEEB", // Samarkand to Khiva
-        "#FF8C00", // Samarkand to Andijan
-        "#32CD32",  // Samarkand to Navoi
-        "#168CE6",  // Samarkand to Navoi
-        "#9281FF",  // Samarkand to Navoi
-      ]
-
-      // Create and add new routes for each location
-      const newRoutes = locations.map((location, index) => {
-        const color = routeColors[index % routeColors.length] // Assign a color based on the index
-
-        const multiRoute = new window.ymaps.multiRouter.MultiRoute({
-          referencePoints: [
-            fromLocationCoords,
-            location.coords
-          ],
-          params: { routingMode: 'auto' }
-        }, {
-          boundsAutoApply: true,
-          routeActiveStrokeWidth: 4,
-          routeActiveStrokeColor: color, // Set the route color
-        })
-
-        map.geoObjects.add(multiRoute)
-        return multiRoute
+  const createClinicRoutes = (map: any) => {
+    const routes = medicalTours.map((location) => {
+      const multiRoute = new window.ymaps.multiRouter.MultiRoute({
+        referencePoints: [fromLocationCoords, location.coords],
+        params: { routingMode: 'auto' }
+      }, {
+        boundsAutoApply: true,
+        routeActiveStrokeWidth: 7,
+        routeActiveStrokeColor: "#32CD32", // Зеленый цвет для клиник
       })
+      map.geoObjects.add(multiRoute)
+      return multiRoute
+    })
+    setClinicRoutes(routes)
+  }
 
-      setRoutes(newRoutes)
-    }
+  const createTourRoutes = (map: any) => {
+    const routes = tours.map((location) => {
+      const multiRoute = new window.ymaps.multiRouter.MultiRoute({
+        referencePoints: [fromLocationCoords, location.coords],
+        params: { routingMode: 'auto' }
+      }, {
+        boundsAutoApply: true,
+        routeActiveStrokeWidth: 7,
+        routeActiveStrokeColor: "#FF8C00", // Оранжевый цвет для туров
+      })
+      map.geoObjects.add(multiRoute)
+      return multiRoute
+    })
+    setTourRoutes(routes)
+  }
+
+  const toggleRoutesVisibility = () => {
+    // Скрыть или показать маршруты в зависимости от активной вкладки
+    clinicRoutes.forEach(route => {
+      if (activeTab === "clinics") {
+        route.options.set('visible', true)
+      } else {
+        route.options.set('visible', false)
+      }
+    })
+
+    tourRoutes.forEach(route => {
+      if (activeTab === "tours") {
+        route.options.set('visible', true)
+      } else {
+        route.options.set('visible', false)
+      }
+    })
   }
 
   useEffect(() => {
@@ -102,14 +110,13 @@ const Map: FC = () => {
       loadYandexMap()
       setMapLoaded(true)
     } else if (mapInstance) {
-      createRoutes(currentLocations, mapInstance)
+      toggleRoutesVisibility()
     }
-  }, [mapLoaded, activeTab])
+  }, [mapLoaded, activeTab, clinicRoutes, tourRoutes])
 
   const handleLocationClick = (location: Location) => {
     if (mapInstance) {
-      mapInstance.setCenter(location.coords, 14, { duration: 300 })
-      createRoutes([location], mapInstance) // Create only the selected route
+      mapInstance.setCenter(location.coords, 14, { duration: 2000 })
     }
   }
 
@@ -143,12 +150,12 @@ const Map: FC = () => {
           <p className="text-[25px] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px] font-raleway">
             Туры и медицинские клиники Узбекистана
           </p>
-          <div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px] mdl:w-[80%] 2xl:w-[70%]">
+          <div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px] mdl:w-[80%] 2xl:w-[70%] 2xl:justify-normal 2xl:gap-[8px]">
             <button className={`font-semibold text-[14px] py-[12px] px-[20px] rounded-full ${activeTab === "clinics" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("clinics")}>
-              Медицинские клиники
+            Медицинские туры
             </button>
             <button className={`font-semibold w-[40%] text-[14px] py-[12px] px-[18px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("tours")}>
-              Туры
+            Обычные туры
             </button>
           </div>
         </div>

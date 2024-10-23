@@ -18,7 +18,7 @@ const Reviews: FC = () => {
     const [open, setOpen] = useState(false)
     const locale = useLocale()
     const [selectedReview, setSelectedReview] = useState<ReviewProps | null>(null)
-    const swiperRef = useRef<any>(null) // Ref to access Swiper instance
+    const swiperRef = useRef<any>(null) 
     const [reviews, setReviews] = useState<ReviewProps[] | []>([])
     const [loading, setLoading] = useState(true) // State for loading
 

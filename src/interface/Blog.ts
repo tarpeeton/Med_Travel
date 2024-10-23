@@ -20,5 +20,6 @@ export interface IBlog {
     orderNum: number; // Blog postining tartib raqami
     main: boolean; // Asosiy maqola belgilash
     active: boolean; // Faol maqola belgilash
+    createdAt: string
   }
   
