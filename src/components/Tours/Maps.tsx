@@ -1,10 +1,11 @@
 "use client"
 
 import Link from 'next/link'
-import { FC, useEffect, useState, useMemo } from "react"
+import { FC, useEffect, useState } from "react"
 import { MdNavigateNext } from "react-icons/md"
 import { Location } from '@/interface/location'
 import { tours, medicalTours } from '@/constants/Coordinates'
+import { gsap } from 'gsap'
 
 const Map: FC = () => {
   const [mapLoaded, setMapLoaded] = useState(false)
@@ -16,6 +17,10 @@ const Map: FC = () => {
   const fromLocationCoords: [number, number] = [41.351473, 69.289052] // Начальная точка
 
   const currentLocations = activeTab === "clinics" ? medicalTours : tours
+
+  // Цвета для маршрутов
+  const clinicRouteColors = ["#32CD32", "#008000", "#00FF00", "#006400"] // Цвета для клиник
+  const tourRouteColors = ["#FF8C00", "#FFA500", "#FF4500", "#FF6347"]  // Цвета для туров
 
   const loadYandexMap = () => {
     if (typeof window !== "undefined" && !document.getElementById("yandex-map-script")) {
@@ -55,14 +60,14 @@ const Map: FC = () => {
   }
 
   const createClinicRoutes = (map: any) => {
-    const routes = medicalTours.map((location) => {
+    const routes = medicalTours.map((location, index) => {
       const multiRoute = new window.ymaps.multiRouter.MultiRoute({
         referencePoints: [fromLocationCoords, location.coords],
         params: { routingMode: 'auto' }
       }, {
         boundsAutoApply: true,
         routeActiveStrokeWidth: 7,
-        routeActiveStrokeColor: "#32CD32", // Зеленый цвет для клиник
+        routeActiveStrokeColor: clinicRouteColors[index % clinicRouteColors.length], // Применяем цвета
       })
       map.geoObjects.add(multiRoute)
       return multiRoute
@@ -71,14 +76,14 @@ const Map: FC = () => {
   }
 
   const createTourRoutes = (map: any) => {
-    const routes = tours.map((location) => {
+    const routes = tours.map((location, index) => {
       const multiRoute = new window.ymaps.multiRouter.MultiRoute({
         referencePoints: [fromLocationCoords, location.coords],
         params: { routingMode: 'auto' }
       }, {
         boundsAutoApply: true,
         routeActiveStrokeWidth: 7,
-        routeActiveStrokeColor: "#FF8C00", // Оранжевый цвет для туров
+        routeActiveStrokeColor: tourRouteColors[index % tourRouteColors.length], // Применяем цвета
       })
       map.geoObjects.add(multiRoute)
       return multiRoute
@@ -103,6 +108,11 @@ const Map: FC = () => {
         route.options.set('visible', false)
       }
     })
+
+    // Анимация переключения вкладок
+    gsap.to(".map-container", { opacity: 0, duration: 0.3, onComplete: () => {
+      gsap.to(".map-container", { opacity: 1, duration: 0.6 })
+    }})
   }
 
   useEffect(() => {
@@ -117,6 +127,12 @@ const Map: FC = () => {
   const handleLocationClick = (location: Location) => {
     if (mapInstance) {
       mapInstance.setCenter(location.coords, 14, { duration: 2000 })
+
+      // Анимация для перемещения карты
+      gsap.to(mapInstance, { duration: 2, ease: "power2.out", onComplete: () => {
+        // Дополнительная анимация после перемещения
+        gsap.fromTo(".location-info", { opacity: 0 }, { opacity: 1, duration: 0.8 })
+      }})
     }
   }
 
@@ -124,7 +140,7 @@ const Map: FC = () => {
     return (
       <div>
         {currentLocations.map((location) => (
-          <div key={location.id} className='rounded-[25px] bg-[#F3F7FB] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px]' onClick={() => handleLocationClick(location)} style={{ cursor: 'pointer' }}>
+          <div key={location.id} className='location-info rounded-[25px] bg-[#F3F7FB] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px]' onClick={() => handleLocationClick(location)} style={{ cursor: 'pointer' }}>
             <div>
               <p className='text-[20px] font-raleway font-semibold text-titleDark'>{location.name}</p>
             </div>
@@ -165,7 +181,7 @@ const Map: FC = () => {
             {renderLocations()}
           </div>
 
-          <div className="rounded-[30px] overflow-hidden w-full 2xl:w-[70%]">
+          <div className="map-container rounded-[30px] overflow-hidden w-full 2xl:w-[70%]">
             <div className="w-full h-[350px] mdl:h-[400px] 2xl:h-[600px]">
               <div id="yandexMap" className="w-full h-full rounded-[20px]" />
             </div>
