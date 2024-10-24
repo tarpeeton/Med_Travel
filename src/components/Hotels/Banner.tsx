@@ -37,7 +37,7 @@ const [fromDate, setFromDate] = useState<string | null>(null);
 const [toDate, setToDate] = useState<string | null>(null);
 const [priceFrom, setPriceFromGG] = useState<number | null>(null);
 const [priceTo, setPriceToGG] = useState<number | null>(null);
-const [adults, setAdults] = useState<number>(1);
+const [adults, setAdults] = useState<number>(0);
 const [children, setChildren] = useState<number>(0);
 
 const totalPeople = adults + children;
@@ -91,6 +91,24 @@ const handleSearch = () => {
   setPriceTo(priceTo || 0);
   onSearch();
 };
+const handleClean = () => {
+  // Reset local state
+  setFromDate(null);
+  setToDate(null);
+  setPriceFromGG(null);
+  setPriceToGG(null);
+  setAdults(1); // Reset adults to 1
+  setChildren(0); // Reset children to 0
+
+  // Reset parent state
+  setAvailableFrom('');
+  setAvailableTo('');
+  setAdultsSize(1); // Default to 1 adult
+  setChildrenSize(0); // Default to 0 children
+  setPriceFrom(0); // Default to 0 price
+  setPriceTo(0); // Default to 0 price
+};
+
   return (
     <div
       style={{
@@ -146,12 +164,14 @@ const handleSearch = () => {
               className="w-[49%]  2xl:w-full custom-select"
               suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}
               onChange={handlePriceFromChange}
+              value={priceFrom || undefined}
             >
               <Option value={100}>100$</Option>
               <Option value={200}>200$</Option>
             </Select>
             <Select
               placeholder="Цена до"
+              value={priceTo || undefined}
               className="w-[49%] 2xl:w-full  custom-select"
               suffixIcon={<LuDollarSign className="text-[#7C7C7C]" size={16} />}
               onChange={handlePriceToChange}
@@ -223,7 +243,7 @@ const handleSearch = () => {
             >
               Поиск
             </button>
-            <button className="mt-[8px] border border-borderColor mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] text-titleDark font-bold p-[16px] font-raleway rounded-[10px] mdl:mt-0">
+            <button onClick={handleClean} className="mt-[8px] border border-borderColor mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] text-titleDark font-bold p-[16px] font-raleway rounded-[10px] mdl:mt-0">
               Очистить всё
             </button>
           </div>

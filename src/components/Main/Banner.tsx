@@ -5,8 +5,6 @@ import "slick-carousel/slick/slick.css"
 import { GrLinkNext } from "react-icons/gr"
 import { GrLinkPrevious } from "react-icons/gr"
 import Image from 'next/image'
-import banner from '@/public/banner.jpg'
-import bannerTWO from '@/public/bannnerTWO.jpg'
 import { GiCommercialAirplane } from "react-icons/gi";
 import { Link } from '@/i18n/routing'
 import useLocale from '@/hooks/useLocale'

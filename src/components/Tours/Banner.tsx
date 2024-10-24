@@ -85,6 +85,8 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh }) =
     setFilters(updatedFilters) // Filtrlar ota komponentga yuboriladi
   }
 
+  
+
   const handleClean = () => {
     // Reset all state variables to empty values
     setAdults(0) // Assuming 0 is the default for adults

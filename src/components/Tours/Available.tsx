@@ -1,18 +1,20 @@
 'use client'
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, useRef } from 'react'
 import Title from '../ui/title'
 import Tours from './Tours'
 import { Tour } from '@/interface/Tour'
-
+import { gsap } from 'gsap'
 
 interface AvailableProps {
   tours: Tour[]
   setTypeID: (id: number) => void
   types: { id: number; name: string }[] // Define the structure of types
 }
+
 const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
   const [activeTypeID, setActiveTypeID] = useState<number | null>(null) // Local state to track active button
   const [filteredTours, setFilteredTours] = useState<Tour[]>(tours) // State for filtered tours
+  const toursRef = useRef<HTMLDivElement>(null) // Ref to the tours container for animation
 
   useEffect(() => {
     const storedTypeID = localStorage.getItem('activeTypeID')
@@ -29,6 +31,16 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
       setFilteredTours(tours) // If no type is selected, show all tours
     }
   }, [activeTypeID, tours]) // Re-run effect when activeTypeID or tours change
+
+  useEffect(() => {
+    // GSAP animation for filtered tours
+    if (toursRef.current) {
+      gsap.fromTo(toursRef.current.children, 
+        { opacity: 0, y: 70 }, // Starting state
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.55 } // Ending state
+      );
+    }
+  }, [filteredTours]); // Trigger animation when filtered tours change
 
   const handleTypeChange = (id: number) => {
     setActiveTypeID(id) // Update the local active state
@@ -52,11 +64,11 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
             >
               {type.name}
             </button>
-
           ))}
-
         </div>
-        <Tours tours={filteredTours} />
+        <div ref={toursRef}>
+          <Tours tours={filteredTours} />
+        </div>
       </div>
     </div>
   )

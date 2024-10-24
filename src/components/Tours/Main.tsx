@@ -73,12 +73,7 @@ const MainTours: FC = () => {
                 setIsRefresh={setIsRefresh}
             />
             <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] relative mt-[420px] mdl:mt-[370px] 2xl:mt-[180px] flex flex-col gap-[120px] mdl:gap-[180px]'>
-                {loading ? (
-                    <Spinner />
-                ) : error ? (
-                    <p>{error}</p>
-                ) : (
-                    <>
+                
                         <Available tours={data} types={types} setTypeID={setTypeID} />
                         <Gallery/>
                         <Map />
@@ -86,8 +81,6 @@ const MainTours: FC = () => {
                         <Faq />
                         <Form />
                         <Contacts />
-                    </>
-                )}
             </div>
         </div>
     )
