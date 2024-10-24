@@ -1,10 +1,10 @@
 'use client';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState , RefObject } from 'react';
 import Title from '../ui/title';
 import useSlice from '@/hooks/useSlice';
 import LeanMoreButton from '../ui/more';
-import SpinnerGif from '@/public/loader.gif';
-import Image from 'next/image';
+// import SpinnerGif from '@/public/loader.gif';
+// import Image from 'next/image';
 
 interface Service {
   id: number;
@@ -24,11 +24,15 @@ interface Clinic {
 
 interface BannerContent {
   clinics: Clinic[];
+  animation: RefObject<HTMLDivElement>;
 }
 
-const Content: FC<BannerContent> = ({ clinics }) => {
+const Content: FC<BannerContent> = ({ clinics  , animation}) => {
   const { sliceNumber, handleSliceNumber } = useSlice(10);
   const [loading, setLoading] = useState(true);
+  const [serviceVison , setServiceVision] = useState(4)
+  const handleAllServiceVision = () => setServiceVision(Number.MAX_SAFE_INTEGER);
+
 
   useEffect(() => {
     setLoading(true);
@@ -43,23 +47,9 @@ const Content: FC<BannerContent> = ({ clinics }) => {
     <div className='mt-[310px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] 2xl:mt-[160px]'>
       <Title title='Доступные клиники' />
 
-      <div className='flex flex-col mt-[25px] mdl:mt-[35px] w-full 2xl:mt-[50px] mdl:flex-row mdl:flex-wrap mdl:justify-between'>
-        {loading ? (
-          <div className=' w-full h-[200px] mdl:h-[400px]'>
-            <Image
-              src={SpinnerGif.src}
-              alt="Loading..."
-              quality={100}
-              width={1000}
-              height={600}
-              className='w-full h-full object-cover'
-            />
-          </div>
-        ) : (
-          clinics.length > 0 ? (
+      <div className='flex flex-col mt-[25px] mdl:mt-[35px] w-full 2xl:mt-[50px] mdl:flex-row mdl:flex-wrap mdl:justify-between' ref={animation}>
+          {clinics.length > 0 ? (
             clinics.map((data, index) => {
-              const serviceNames = new Set(["Анализы", "УЗИ-обследование", "ЭЭГ", "ЭКГ", "Консультации специлаистов"]);
-              const hasAllServices = data.services.some(service => serviceNames.has(service.name));
 
               return (
                 <div key={index} className='rounded-[15px] mdl:rounded-[20px] bg-white shadow-[0px_4px_15px_rgba(0,0,0,0.1)] py-[20px] px-[16px] mdl:py-[30px] mdl:px-[24px] mdl:w-[49%] mb-[20px] mdl:mb-[30px] 2xl:mb-[40px] 2xl:w-[32%] cursor-pointer'>
@@ -68,19 +58,17 @@ const Content: FC<BannerContent> = ({ clinics }) => {
                     <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px] mt-[8px] mdl:mt-[9px] text-[#7C7C7C] font-medium font-raleway'>{data.address}</p>
                   </div>
                   <div className='flex flex-row flex-wrap mt-[20px] mdl:mt-[21px] 2xl:mt-[30px] gap-[8px]'>
-                    {data.services
-                      .filter(service => service.name !== "Все услуги")
-                      .map((ser, index) => (
+                    {data.services.slice(0 , serviceVison).map((ser, index) => (
                         <p key={index} className='bg-[#E8F7F6] text-[#1AB2A6] rounded-[5px] py-[8px] px-[12px] text-center font-semibold mdl:text-[16px] 2xl:text-[16.5px]'>
                           {ser.name}
                         </p>
                       ))}
 
-                    {hasAllServices && (
-                      <p className='bg-[#1AB2A6] text-white rounded-[5px] py-[8px] px-[30px] text-center font-semibold mdl:text-[16px] 2xl:text-[16.5px]'>
-                        Все услуги
-                      </p>
-                    )}
+                  {serviceVison < data.services.length && (
+                  <button onClick={handleAllServiceVision} className='bg-[#1AB2A6] text-white rounded-[5px] py-[8px] px-[30px] text-center font-semibold mdl:text-[16px] 2xl:text-[16.5px]'>
+                    Все услуги
+                  </button>
+                )}
                   </div>
                 </div>
               );
@@ -90,7 +78,7 @@ const Content: FC<BannerContent> = ({ clinics }) => {
               Ничего не найдено. Попробуйте изменить параметры фильтра
             </p>
           )
-        )}
+        }
       </div>
 
          {!loading && sliceNumber < (clinics.length || 0) && (

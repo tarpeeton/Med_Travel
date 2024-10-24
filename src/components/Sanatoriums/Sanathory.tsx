@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect  , RefObject} from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -15,12 +15,13 @@ import Title from '../ui/title';
 
 interface ISanathory  {
   data: ISanathoryData[],
- cotegory: { id: string, name: string, orderNum: number, active: boolean }[]
+  cotegory: { id: string, name: string, orderNum: number, active: boolean }[]
+  animation: RefObject<HTMLDivElement>;
 }
 
 
-const Sanathory: FC<ISanathory> = ({ data, cotegory }) => {
-  const [activeButton, setActiveButton] = useState('Лечение') // State to track the active button
+const Sanathory: FC<ISanathory> = ({ data, cotegory , animation }) => {
+  const [activeButton, setActiveButton] = useState('Реабилитация') // State to track the active button
   const { sliceNumber, handleSliceNumber } = useSlice(9)
   const [filteredData, setFilteredData] = useState(data)
 
@@ -82,11 +83,11 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory }) => {
             ))}
           </Swiper>
         </div>
-        <div className='mt-[16px] mdl:mt-[20px] 2xl:mt-[35px] flex flex-col gap-[20px] mdl:flex-row mdl:flex-wrap 2xl:gap-0 2xl:justify-between'>
+        <div ref={animation} className='mt-[16px] mdl:mt-[20px] 2xl:mt-[35px] flex flex-col gap-[20px] mdl:flex-row mdl:flex-wrap 2xl:gap-0 2xl:justify-between'>
           {
             filteredData && filteredData.length > 0 ? (
               filteredData.slice(0, sliceNumber).map((t, index) => (
-                <div key={index} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group 2xl:mb-[50px]'>
+                <div key={index} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group 2xl:mb-[50px]' >
                   <div className='h-[199px] w-full overflow-hidden rounded-[15px] relative 2xl:h-[307px]'>
                     <Image
                       src={t.photo?.url}

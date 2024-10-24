@@ -15,8 +15,10 @@ const Banner: FC<IFilterProps> = ({cotegory , setCotegoryID  , setFilters , filt
     const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [isOpen, setIsOpen] = useState(false); // Initially closed
-    // Effect to filter suggestions based on input
+    const [isOpen, setIsOpen] = useState(false); 
+
+
+    
     useEffect(() => {
         if (inputValue) {
             const filtered = Name.filter(name =>
@@ -38,6 +40,7 @@ const Banner: FC<IFilterProps> = ({cotegory , setCotegoryID  , setFilters , filt
     const handleSuggestionClick = (suggestion: string) => {
         setInputValue(suggestion);
         setIsOpen(false);  // Close the suggestions dropdown after click
+        setIsOpen(false);
     };
 
     const handleCategorySelect = (category: string , id: string) => {
