@@ -23,7 +23,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
     return (
         <div className='flex flex-col  mt-[120px] mdl:w-[50%] 2xl:w-[35%]'>
             <div>
-                <Title title='Статьи' />
+                <Title text={{ru: 'Статьи' , uz: "" , en: ""}} />
             </div>
 
             <div className='input_search w-[100%] mt-[20px] 2xl:mt-[24px] bg-[#F3F7FB] rounded-[10px]  py-[13px] mdl:py-[16px] px-[20px] flex flex-row items-center justify-between'>

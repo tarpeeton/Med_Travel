@@ -18,7 +18,7 @@ const OtherBlogs: FC<IOtherBlog> = ({ otherBlogs }) => {
   return (
     <div className='mt-[120px]'>
       <div className='flex flex-col'>
-        <Title title='Другие статьи' />
+        <Title  text={{ru: 'Другие статьи' , uz: "" , en: ""}} />
       </div>
       <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between mt-[20px] mdl:mt-[30px] 2xl:mt-[40px]'>
         {otherBlogs.map((item, index) => (

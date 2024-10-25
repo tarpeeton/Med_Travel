@@ -26,7 +26,7 @@ const Hotels: FC<IHoteDataMap> = ({data}) => {
 
     return (
         <div className='mt-[380px] 2xl:mt-[180px]'>
-            <Title title='Доступные гостиницы и отели' />
+            <Title   text={{ru: 'Доступные гостиницы и отели' , uz: "" , en: ""}} />
             <div className='mt-[25px] mdl:mt-[30px] 2xl:mt-[35px] flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between'>
                 {
                     displayedHotels.length > 0 ? (

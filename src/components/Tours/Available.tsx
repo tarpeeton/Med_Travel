@@ -51,7 +51,7 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
   return (
     <div className='relative'>
       <div className='flex flex-col'>
-        <Title title='Доступные туры' />
+        <Title  text={{ru: 'Доступные туры' , uz: "" , en: ""}}  />
         <div className='flex 2xl:w-[30%] flex-row justify-between mt-[20px] mdl:mt-[30px]'>
           {types.map((type) => (
             <button

@@ -1,8 +1,18 @@
+'use client'
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Link } from '@/i18n/routing'
+import QuestionModal from './Modal/Question'
+
+
 
 const Footer: FC = () => {
+	const [visible, setvisible] = useState(false)
+	const openQuestionModal = () => setvisible(!visible)
+
+
+
+
 	return (
 		<div className='bg-[#F9F9F9] mt-[120px] '>
 			<div className='2xl:flex 2xl:flex-row 2xl:px-[200px]'>
@@ -35,11 +45,12 @@ const Footer: FC = () => {
 						<div className='flex flex-col mt-[8px] gap-[4px] mdl:gap-[6px]'>
 							<Link href='/about' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>О компании</Link>
 							<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway'>Партнеры</Link>
-							<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Задать вопрос</Link>
+							<button onClick={openQuestionModal} className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300 text-left'>Задать вопрос</button>
 							<Link href='/blog' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Блог</Link>
 
 						</div>
 					</div>
+					<QuestionModal visible={visible} close={openQuestionModal}/>
 					<div className='w-[80%] mt-[40px] mdl:w-[33%] mdl:mt-0 2xl:w-[15%]'>
 						<span className='text-[16px] font-semibold text-titleDark mdl:text-[18px]'>Мы в соц.сетях</span>
 						<div className='flex flex-row flex-wrap mt-[8px] gap-[40px]  mdl:flex-col mdl:gap-0'>
@@ -58,9 +69,12 @@ const Footer: FC = () => {
 					</div>
 					<div className='hidden   2xl:block 2xl:w-[35%]'>
 						<p className='text-[22px] font-raleway text-titleDark font-bold mdl:text-[28px] '>Здоровье и отдых в одном путешествии!</p>
-						<button className='borderedButton mt-[16px] font-bold'>
-							Начать путешествие
-						</button>
+						<div className='mt-[30px]'>
+							<Link href='/tours' className='borderedButton  font-bold'>
+								Начать путешествие
+							</Link>
+						</div>
+
 					</div>
 				</div>
 				{/* COPY */}

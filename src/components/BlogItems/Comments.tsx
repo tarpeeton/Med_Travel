@@ -56,7 +56,7 @@ const Comments: FC<IComment> = ({ blogID }) => {
   return (
     <div className='mt-[120px]'>
       <div className='flex flex-col'>
-        <Title title='Комментарии' />
+        <Title  text={{ru: 'Комментарии' , uz: "" , en: ""}} />
         <div className='flex flex-col mt-[20px] mdl:mt-[30px] 2xl:mt-[40px]'>
           <textarea onChange={(e) => setComment(e.target.value)} placeholder='Ваш комментарий' className='py-[16px] px-[20px] border border-borderColor outline-none rounded-[10px] mdl:h-[200px] 2xl:h-[220px]' />
           <button onClick={createComment} className='greenButton p-[16px] w-[80%] font-bold mt-[12px] mdl:mt-[20px] mdl:w-[25%] 2xl:w-[15%]'>

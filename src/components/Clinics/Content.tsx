@@ -45,7 +45,7 @@ const Content: FC<BannerContent> = ({ clinics  , animation}) => {
 
   return (
     <div className='mt-[310px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] 2xl:mt-[160px]'>
-      <Title title='Доступные клиники' />
+      <Title   text={{ru: 'Доступные клиники' , uz: "" , en: ""}}/>
 
       <div className='flex flex-col mt-[25px] mdl:mt-[35px] w-full 2xl:mt-[50px] mdl:flex-row mdl:flex-wrap mdl:justify-between' ref={animation}>
           {clinics.length > 0 ? (

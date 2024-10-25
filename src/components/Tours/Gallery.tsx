@@ -30,7 +30,7 @@ const Gallery: FC = () => {
         <div className='mt-[120px] 2xl:mt-[180px]'>
             <div className='flex flex-col'>
                 <div className='flex flex-col'>
-                    <Title title='Фотографии из туров' />
+                    <Title  text={{ru: 'Фотографии из туров' , uz: "" , en: ""}} />
                     <p className='mt-[5px]  2xl:mt-[10px] font-raleway text-[15px] mdl:text-[18px] 2xl:text-[20px] text-[#7C7C7C] font-medium'>Часть незабываемых моментов с туров</p>
                 </div>
                 {/* SLIDER */}

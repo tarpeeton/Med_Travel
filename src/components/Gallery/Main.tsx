@@ -39,7 +39,7 @@ const MainGalley: FC = () => {
     return (
         <div className='flex flex-col mt-[20px] mdl:mt-[40px] 2xl:mt-[60px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
             <div>
-                <Title title='Фотографии из туров' />
+                <Title  text={{ru: 'Фотографии из туров' , uz: "" , en: ""}} />
                 <p className='text-[#7C7C7C] text-[15px] mdl:text-[18px] 2xl:text-[20px]  font-raleway font-medium'>Часть незабываемых моментов с туров</p>
             </div>
             <div className='mt-[20px] mdl:mt-[40px]'>

@@ -46,7 +46,7 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory , animation }) => {
   return (
     <div className='mt-[300px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] 2xl:mt-[165px]'>
       <div>
-        <Title title='Доступные санатории' />
+        <Title   text={{ru: 'Доступные санатории' , uz: "" , en: ""}}  />
         <div className='hidden mt-[30px] mdl:flex mdl:flex-row mdl:flex-wrap mdl:gap-[8px]'>
           {cotegory.map((category, index) => (
             <button

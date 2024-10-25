@@ -76,7 +76,6 @@ const MainBanner: FC = () => {
                   height={666}
                   className="w-full h-[500px] mdl:h-[600px] object-cover"
                 />
-
                 <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-35" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
 

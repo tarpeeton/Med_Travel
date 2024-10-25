@@ -1,5 +1,5 @@
 "use client"
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect, useState  , useCallback} from "react"
 import { Link } from '@/i18n/routing'
 import { AllTours, AllSanathoriums } from '@/lib/api'
 import { Tour } from '@/interface/Tour'
@@ -15,27 +15,26 @@ import 'swiper/css/navigation'
 const Tours: FC = () => {
     const [data, setData] = useState<Tour[]>([])
     const [sanathory, setSanathory] = useState<ISanathoryData[]>([])
-
     const [active, setActive] = useState(0)
     const locale = useLocale()
 
-    useEffect(() => {
-        const FetchData = async () => {
-            try {
-                if (active === 0) {
-                    const res = await AllTours(locale)
-                    setData(res.data)
-                } else {
-                    const res = await AllSanathoriums(locale)
-                    setSanathory(res.data)
-                }
-            } catch (error) {
-                console.error(error)
+    const FetchData = useCallback(async () => {
+        try {
+            if (active === 0) {
+                const res = await AllTours(locale)
+                setData(res.data)
+            } else {
+                const res = await AllSanathoriums(locale)
+                setSanathory(res.data)
             }
-        }
-
-        FetchData()
+        } catch (error) {
+            console.error(error)
+        } 
     }, [active, locale])
+
+    useEffect(() => {
+        FetchData()
+    }, [FetchData])
 
     return (
         <div className='mt-[120px] mx-[16px] 2xl:ml-[200px]'>

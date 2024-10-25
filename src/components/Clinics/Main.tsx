@@ -7,10 +7,22 @@ import HowWork from '../Main/HowWork'
 import Form from '../Form/Form'
 import Contacts from '../Main/Contacts'
 import { gsap } from 'gsap'
+import { IClinick } from '@/interface/Clinick'
+
+
+
+
+
+
+
+
 
 const MainClinics: FC = () => {
-    const [clinics, setClinics] = useState<any[]>([]);
+    const [clinics, setClinics] = useState<IClinick[]>([]);
     const contentRef = useRef<HTMLDivElement>(null); // Ref for GSAP animation
+
+    console.log(clinics)
+
 
     useEffect(() => {
         // GSAP animation for Content component

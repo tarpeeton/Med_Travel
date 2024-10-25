@@ -15,7 +15,7 @@ const Latests: FC<Latest> = ({ blogs }) => {
     return (
         <div className='flex flex-col  mt-[20px] mdl:mt-[60px]'>
             <div>
-                <Title title='Свежие новости' />
+                <Title  text={{ru: 'Свежие новости' , uz: "" , en: ""}} />
             </div>
             <div className='flex flex-col mt-[16px] mdl:mt-[30px] 2xl:mt-[30px] gap-[16px] mdl:gap-[20px]'>
                 {blogs.map((blog) => (

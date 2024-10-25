@@ -2,8 +2,8 @@
 import { FC, useState } from "react"
 import ConsultationModal from '../Modal/ConsultationSuccess'
 import { IFormProps } from "@/interface/IForm"
-import { consultation } from "@/lib/api" // Correct import for consultation function
-// FloatingLabelInput component
+import { consultation } from "@/lib/api" 
+
 const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange, pattern, inputMode, placeholder }) => {
   const [focused, setFocused] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
@@ -115,8 +115,6 @@ const Form: FC = () => {
               id="phone"
               value={formValues.phone}
               onChange={handleChange}
-              inputMode="numeric"  // Ensures numeric keypad on mobile devices
-              pattern="[0-9]*"     // Only allows numbers
               placeholder='например: +99899 000-00-00'
             />
 

@@ -45,7 +45,7 @@ const QuestionModal: FC<IShareModal> = ({ visible, close }) => {
                 className="custom-modal z-[999999]"
             >
                 <div className="flex flex-col">
-                    <Title title='Задать вопрос' />
+                    <Title  text={{ru: 'Задать вопрос' , uz: "" , en: ""}} />
                     <p className='mt-[4px] text-[14px] mdl:text-[17px]  text-[#7C7C7C] font-raleway'>
                         Мы свяжемся с вами в скором времени
                     </p>

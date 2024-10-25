@@ -1,112 +1,119 @@
-'use client';
-import { FC, useState, useEffect, useRef, Dispatch, SetStateAction } from 'react';
-import TursTitle from '../ui/tursTitle';
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import BannerImage from '@/public/klinika/banner.png';
-import { allClinick, AllService } from '@/lib/api';
-import { useParams } from 'next/navigation';
+'use client'
+import { FC, useState, useEffect, useRef, Dispatch, SetStateAction } from 'react'
+import TursTitle from '../ui/tursTitle'
+import { MdOutlineKeyboardArrowDown } from "react-icons/md"
+import BannerImage from '@/public/klinika/banner.png'
+import { allClinick, AllService } from '@/lib/api'
+import { useParams } from 'next/navigation'
+import { IClinick } from '@/interface/Clinick'
+
+
+
 
 interface BannerProps {
-    clinics: any[];
-    setClinics: Dispatch<SetStateAction<any[]>>;
+    clinics: IClinick[]
+    setClinics: Dispatch<SetStateAction<IClinick[]>>
 }
 
 const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
-    const { locale } = useParams<{ locale: string | string[] }>();
-    const currentLocale = Array.isArray(locale) ? locale[0] : locale || 'en'; // Default to 'en' if locale is undefined
-    const [inputValue, setInputValue] = useState('');
-    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([]);
-    const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
-    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const { locale } = useParams<{ locale: string | string[] }>()
+    const currentLocale = Array.isArray(locale) ? locale[0] : locale || 'en' // Default to 'en' if locale is undefined
+    const [inputValue, setInputValue] = useState('')
+    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false)
+    const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([])
+    const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
+    const dropdownRef = useRef<HTMLDivElement | null>(null)
 
     const handleSuggestionClick = (suggestion: string) => {
-        setInputValue(suggestion);
-        setIsSuggestionDropdownOpen(false);
-        setIsDropdownOpen(false);
-    };
+        setInputValue(suggestion)
+        setIsSuggestionDropdownOpen(false)
+        setIsDropdownOpen(false)
+    }
 
     // Fetch clinics based on the locale
     useEffect(() => {
         const fetchClinics = async () => {
             try {
-                const clinicsData = await allClinick(currentLocale);
-                setClinics(clinicsData?.data || []);
+                const clinicsData = await allClinick(currentLocale)
+                setClinics(clinicsData?.data || [])
             } catch (error) {
-                console.error("Error fetching clinics:", error);
+                console.error("Error fetching clinics:", error)
             }
-        };
-        fetchClinics();
-    }, [currentLocale]);
+        }
+        fetchClinics()
+    }, [currentLocale])
 
     // Fetch categories based on the locale
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const categoriesData = await AllService(currentLocale);
-                setCategories(categoriesData.data || []);
+                const categoriesData = await AllService(currentLocale)
+                setCategories(categoriesData.data || [])
             } catch (error) {
-                console.error("Error fetching categories:", error);
+                console.error("Error fetching categories:", error)
             }
-        };
-        fetchCategories();
-    }, [currentLocale]);
+        }
+        fetchCategories()
+    }, [currentLocale])
 
     // Optimize input change handling and filtering suggestions
     useEffect(() => {
         if (inputValue) {
             const filtered = clinics
                 .map(clinic => clinic.name)
-                .filter(name => name.toLowerCase().includes(inputValue.toLowerCase()));
+                .filter(name => name.toLowerCase().includes(inputValue.toLowerCase()))
 
-            setFilteredSuggestions(filtered);
-            setIsSuggestionDropdownOpen(filtered.length > 0);
+            setFilteredSuggestions(filtered)
+            setIsSuggestionDropdownOpen(filtered.length > 0)
         } else {
-            setFilteredSuggestions([]);
-            setIsSuggestionDropdownOpen(false);
+            setFilteredSuggestions([])
+            setIsSuggestionDropdownOpen(false)
         }
-    }, [inputValue, clinics]);
+    }, [inputValue, clinics])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
-    };
+        setInputValue(e.target.value)
+    }
+
+      
+
 
     const handleCategorySelect = (category: { id: string; name: string }) => {
         setSelectedCategories(prevSelected => {
-            const isSelected = prevSelected.some(item => item.id === category.id);
-            return isSelected ? prevSelected.filter(item => item.id !== category.id) : [...prevSelected, category];
-        });
-    };
+            const isSelected = prevSelected.some(item => item.id === category.id)
+            return isSelected ? prevSelected.filter(item => item.id !== category.id) : [...prevSelected, category]
+        })
+    }
 
     const toggleCategoryDropdown = () => {
-        setIsDropdownOpen(prev => !prev);
-        setIsSuggestionDropdownOpen(false);
-    };
+        setIsDropdownOpen(prev => !prev)
+        setIsSuggestionDropdownOpen(false)
+    }
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsDropdownOpen(false);
+                setIsDropdownOpen(false)
             }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
+        }
+        document.addEventListener('mousedown', handleClickOutside)
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [dropdownRef]);
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [dropdownRef])
 
     const SearchData = async () => {
         try {
-            const serviceIds = selectedCategories.map(category => category.id).join(',');
-            const name = inputValue || undefined;
-            const clinicsData = await allClinick(currentLocale, name, serviceIds);
-            setClinics(clinicsData?.data || []);
+            const serviceIds = selectedCategories.map(category => category.id).join(',')
+            const name = inputValue || undefined
+            const clinicsData = await allClinick(currentLocale, name, serviceIds)
+            setClinics(clinicsData?.data || [])
         } catch (error) {
-            console.error("Error searching clinics:", error);
+            console.error("Error searching clinics:", error)
         }
-    };
+    }
 
     return (
         <div
@@ -190,7 +197,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                 </form>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Banner;
+export default Banner

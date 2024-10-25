@@ -156,7 +156,7 @@ const Header = ({ locale }: { locale: string }) => {
                 <p>одном путешествии!</p>
               </div>
               <div className='w-full mt-[16px]'>
-                <Link href='/' className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
+                <Link onClick={toggleMenuOpen} href='/tours' className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
                   Начать путешествие
                 </Link>
               </div>
