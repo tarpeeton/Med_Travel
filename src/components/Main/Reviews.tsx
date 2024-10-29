@@ -4,15 +4,22 @@ import { GrLinkNext, GrLinkPrevious } from "react-icons/gr"
 import Image from 'next/image'
 import useLocale from '@/hooks/useLocale'
 import { MdNavigateNext } from "react-icons/md"
-
 import FullReviewsModal from '../Modal/ReviewFull'
 import { ReviewProps } from '@/interface/Reviews'
-
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
-import { AllReviews } from '@/lib/api'
+import { client } from "@/sanity/lib/client";
+import { urlFor } from '@/sanity/lib/image'
+
+
+
+
+
+
+
+
 
 const Reviews: FC = () => {
     const [open, setOpen] = useState(false)
@@ -37,8 +44,11 @@ const Reviews: FC = () => {
         const fetchReviews = async () => {
             setLoading(true) // Start loading
             try {
-                const res = await AllReviews(locale) // Change to your desired language
-                setReviews(res.data) // Ensure you set the data correctly
+                const res = await client.fetch(
+                        `*[_type == "review"]
+                        {_id,createdAt,name,comment,image}`
+                ) // Change to your desired language
+                setReviews(res) // Ensure you set the data correctly
             } catch (error) {
                 console.error("Error fetching reviews:", error)
             } finally {
@@ -47,6 +57,17 @@ const Reviews: FC = () => {
         }
         fetchReviews()
     }, [locale]) // Added locale to the dependency array
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('ru-RU', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        })
+      }
+
+
 
     return (
         <div className='mt-[120px] bg-green100 2xl:pl-[200px]'>
@@ -113,24 +134,29 @@ const Reviews: FC = () => {
                                             <div className='bg-white rounded-[20px] p-[20px] mt-[20px] mdl:w-[99%] 2xl:w-[99%] 2xl:h-[350px]'>
                                                 <div className='flex flex-col h-[320px]'>
                                                     <div className='flex flex-row gap-[8px]'>
-                                                        <Image
-                                                            src={review?.photo?.url || 'https://ucarecdn.com/30077089-1dac-4769-b282-fba533147b26/-/preview/65x65/'}
-                                                            width={50}
-                                                            height={50}
-                                                            alt='User logo'
-                                                            className='rounded-full'
-                                                        />
+                                                        
+                                                         <Image
+                                                        src={
+                                                            review.image
+                                                                ? urlFor(review.image.asset._ref).width(50).height(50).url()
+                                                                : 'https://ucarecdn.com/30077089-1dac-4769-b282-fba533147b26/-/preview/65x65/'
+                                                        }
+                                                        width={50}
+                                                        height={50}
+                                                        alt='User logo'
+                                                        className='rounded-full'
+                                                    />
                                                         <div className='flex flex-col'>
                                                             <p className='text-[16px] text-titleDark mdl:text-[20px] font-semibold'>{review.name}</p>
-                                                            <p className='text-[14px] text-[#A7A7A7] font-medium mdl:text-[16px]'>{review.date}</p>
+                                                            <p className='text-[14px] text-[#A7A7A7] font-medium mdl:text-[16px]'>{formatDate(review.createdAt)}</p>
                                                         </div>
                                                     </div>
                                                     <div className='mt-[20px]'>
                                                         <p className='text-titleDark font-raleway font-medium'>
-                                                            {review.text.length > 215 ? review.text.slice(0, 215) + '...' : review.text}
+                                                            {review.comment[locale].length > 215 ? review.comment[locale].slice(0, 215) + '...' : review.comment[locale]}
                                                         </p>
                                                     </div>
-                                                    {review.text.length > 215 && (
+                                                    {review.comment[locale].length > 215 && (
                                                         <div className='mt-[20px] slg:absolute slg:bottom-[30px]'>
                                                             <button
                                                                 onClick={() => handleReadMore(review)}
@@ -171,11 +197,10 @@ const Reviews: FC = () => {
                             </div>
                         </div>
                     )}
-
-                    {/* Pass the selected review to the modal */}
                     {selectedReview && (
                         <FullReviewsModal
                             visible={open}
+                            locale={locale}
                             close={handleCloseModal}
                             review={selectedReview} // Pass selected review
                         />

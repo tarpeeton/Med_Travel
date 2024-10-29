@@ -1,10 +1,17 @@
 export interface ReviewProps {
+    _id: string;
+    createdAt: string;
     name: string;
-    date: string;
-    text: string;
-    photo: { // Adjusted to match the incoming data
-        id: number; // Include the id if needed
-        url: string;
+    comment: {
+        uz: string;
+        en: string;
+        ru: string;
     };
-    orderNum: number; // Include this if needed based on your data structure
+    image?: {
+        _type: 'image';
+        asset: {
+            _ref: string;
+            _type: 'reference';
+        };
+    };
 }
