@@ -21,7 +21,7 @@ const Latests: FC<Latest> = ({ blogs }) => {
                 {blogs.map((blog) => (
                     <div key={blog.id} className='rounded-[20px] overflow-hidden border border-borderColor pb-[20px] mdl:w-[100%] mdl:flex mdl:flex-row mdl:h-[400px] mdl:pb-0 '>
                         <div className='mdl:w-[50%] mdl:order-[2]'>
-                            <Image quality={100} alt='blog Image' src={blog.option[0].photo.url} width={1000} height={600} className='object-cover w-full h-full' />
+                            <Image quality={100} alt='blog Image' src={blog.sections[0].photo.url} width={1000} height={600} className='object-cover w-full h-full' />
                         </div>
 
                         <div className='px-[16px] mdl:px-[30px] 2xl:px-[40px] mt-[20px] flex flex-col mdl:w-[50%] mdl:justify-center'>

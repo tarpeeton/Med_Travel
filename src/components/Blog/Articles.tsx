@@ -8,17 +8,18 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { RiSearchLine } from "react-icons/ri"
 import { IBlogTypes } from './Main'
+import useLocale from '@/hooks/useLocale'
 
 interface IArticlesBlogProps {
-    setTypeID: Dispatch<SetStateAction<number>>
+    setTypeID: Dispatch<SetStateAction<string>>
     types: IBlogTypes[]
     setSearch: Dispatch<SetStateAction<string>>
     search:string
-    typeID: number
+    typeID: string
 }
 
 const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , search , typeID}) => {
-
+    const locale = useLocale()
 
     return (
         <div className='flex flex-col  mt-[120px] mdl:w-[50%] 2xl:w-[35%]'>
@@ -42,8 +43,8 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                 >
                     <SwiperSlide>
                         <div>
-                            <button onClick={() => setTypeID(11212)} className={`py-[12px] px-[20px] ${
-                  typeID === 11212
+                            <button onClick={() => setTypeID('all')} className={`py-[12px] px-[20px] ${
+                  typeID === 'all'
                     ? "bg-green100 text-white"
                     : "border border-borderColor"
                 } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}
@@ -54,14 +55,14 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                     </SwiperSlide>
 
                     {types.map((type) => (
-                        <SwiperSlide key={type.id}>
+                        <SwiperSlide key={type._id}>
                             <div>
-                                <button onClick={() => setTypeID(type.id)} className={`py-[12px] px-[20px] ${
-                    typeID === type.id
+                                <button onClick={() => setTypeID(type._id)} className={`py-[12px] px-[20px] ${
+                    typeID === type._id
                       ? "bg-green100 text-white"
                       : "border border-borderColor"
                   } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}>
-                                    {type.name}
+                                    {type.title[locale]}
                                 </button>
                             </div>
                         </SwiperSlide>
@@ -74,8 +75,8 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
             {/* Desktop View */}
             <div className='hidden mdl:block'>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
-                    <button onClick={() => setTypeID(11212)} className={`py-[12px] px-[20px] ${
-                  typeID === 11212
+                    <button onClick={() => setTypeID('all')} className={`py-[12px] px-[20px] ${
+                  typeID === "all"
                     ? "bg-green100 text-white"
                     : "border border-borderColor"
                 } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}
@@ -83,11 +84,11 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
 
 
                     {types.map((type) => (
-                        <button onClick={() => setTypeID(type.id)} className={`py-[12px] px-[20px] ${
-                            typeID === type.id
+                        <button onClick={() => setTypeID(type._id)} className={`py-[12px] px-[20px] ${
+                            typeID === type._id
                               ? "bg-green100 text-white"
                               : "border border-borderColor"
-                          } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}>{type.name}</button>
+                          } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}>{type.title[locale]}</button>
                     ))}
 
 
