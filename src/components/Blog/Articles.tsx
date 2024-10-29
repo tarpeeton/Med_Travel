@@ -68,8 +68,6 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                         </SwiperSlide>
                     ))}
 
-
-
                 </Swiper>
             </div>
             {/* Desktop View */}

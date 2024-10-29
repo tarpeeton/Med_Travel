@@ -5,40 +5,80 @@ import { Link } from '@/i18n/routing'
 import { MdNavigateNext } from "react-icons/md"
 import useLocale from '@/hooks/useLocale'
 import { useParams } from 'next/navigation'
-import { BlogSlug } from '@/lib/api'
 import { IBlog } from '@/interface/Blog'
+import { client } from "@/sanity/lib/client"
+import { urlFor } from '@/sanity/lib/image'
+
+
+
 
 
 interface IBlogWithSlug {
-    setBlogID: Dispatch<SetStateAction<number>>
+    setBlogID: Dispatch<SetStateAction<string>>
     allBlogs: IBlog[]
 }
 
+export interface IBlogSlugData {
+    _id: string
+    createdAt: string
+    sections: Array<{
+        _key: string
+        title: {
+            ru: string
+            uz: string
+            en: string
+        }
+        image?: {
+            _type: string
+            asset: {
+                _type: string
+                _ref: string
+            }
+        }
+        description: {
+            ru: string
+            uz: string
+            en: string
+        }
+    }>
+}
 
 const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
     const locale = useLocale()
-    const { slug } = useParams()
-    const [blogWithSlug, setBlogWithSlug] = useState<IBlog | null>(null)
+    const { id } = useParams()
+    const [blogWithSlug, setBlogWithSlug] = useState<IBlogSlugData | null>(null)
 
 
 
-    const normalizedSlug = Array.isArray(slug) ? slug[0] : slug
-
-
+    const normalizedSlug = Array.isArray(id) ? id[0] : id
 
 
     useEffect(() => {
         const FetchBlogWithSlug = async () => {
             try {
-                const res = await BlogSlug(locale, normalizedSlug)
-                setBlogWithSlug(res.data)
-                setBlogID(res.data.id)
-            } catch (error) {
+                // Fetch the blog by `_id`
+                const query = `*[_type == "blog" && _id == $_id][0]{
+                    _id,
+                    createdAt,
+                    sections,
+                }`
+                const params = { _id: normalizedSlug }
+                const res = await client.fetch(query, params)
 
+                console.log(res, 'Fetched Blog Data')
+
+                if (res) {
+                    setBlogWithSlug(res)
+                    setBlogID(res._id)
+                }
+            } catch (error) {
+                console.error("Failed to fetch blog:", error)
             }
         }
+
         FetchBlogWithSlug()
-    }, [slug, locale])
+    }, [normalizedSlug, locale, setBlogID])
+
 
 
 
@@ -51,25 +91,24 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                         <p className='text-[#7C7C7C] text-[15px] mdl:text-[17px] font-raleway'>
                             {blogWithSlug?.createdAt}
                         </p>
-                        <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>{blogWithSlug?.option[0]?.title}</h1>
+                        <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>{blogWithSlug?.sections[0]?.title[locale]}</h1>
                     </div>
                     <div className='mt-[20px] mdl:mt-[25px]  rounded-[20px] overflow-hidden h-[220px] mdl:h-[420px] 2xl:h-[510px]'>
-                        {blogWithSlug?.option[0]?.photo?.url ? (
+                        {blogWithSlug?.sections[0]?.image?.asset && (
                             <Image
                                 quality={100}
                                 alt='blogImage'
-                                src={blogWithSlug.option[0].photo.url}
+                                src={urlFor(blogWithSlug.sections[0].image.asset._ref).width(1075).height(500).url()}
                                 width={1075}
                                 height={500}
                                 className='object-cover w-full h-full'
                             />
-                        ) : (
-                            null
                         )}
+
                     </div>
                     <div className='mt-[30px] mdl:mt-[40px] '>
                         <p className='text-[15px] font-raleway  mdl:text-[17px]'>
-                            {blogWithSlug?.option?.[0].description}
+                            {blogWithSlug?.sections?.[0].description[locale]}
                         </p>
                     </div>
 
@@ -80,12 +119,12 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
 
 
 
-                        {blogWithSlug?.option && blogWithSlug.option.length > 0 ? (
-                            blogWithSlug.option.map((data) => (
-                                <div key={data.id}>
-                                    <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold'>{data.title}</p>
+                        {blogWithSlug?.sections && blogWithSlug.sections.length > 0 ? (
+                            blogWithSlug.sections.map((data) => (
+                                <div key={data._key}>
+                                    <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold'>{data.title[locale]}</p>
                                     <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>
-                                        {data.description}
+                                        {data.description[locale]}
                                     </p>
                                 </div>
                             ))
@@ -103,17 +142,14 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                         allBlogs.map((similar) => (
                             <div className='border border-borderColor p-[30px] rounded-[20px]'>
                                 <p className='text-[18px] font-semibold font-raleway text-titleDark '>
-                                    {similar.option[0].title}
+                                    {similar.sections[0].title[locale]}
                                 </p>
                                 <div className='mt-[20px]'>
-                                    <Link href={`${similar.slug}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
+                                    <Link href={`${similar._id}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
                                 </div>
                             </div>
                         ))
                     }
-
-
-
                 </div>
             </div>
         </div>

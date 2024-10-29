@@ -5,7 +5,6 @@ import Latests from './Latests'
 import Articles from './Articles'
 import FormBlog from './Form'
 import Blogs from './Blogs'
-import { AllBlogs, AllBlogType } from '@/lib/api'
 import useLocale from '@/hooks/useLocale'
 import { IBlog } from '@/interface/Blog'
 import { client } from "@/sanity/lib/client"
@@ -58,10 +57,7 @@ const MainBlog: FC = () => {
       try {
         const res = await client.fetch(
           `*[_type == "blog"]
-          { _id,
-categories,
-sections,
-createdAt}
+          { _id,categories,sections,createdAt}
           `
         )
         setBlogs(res)

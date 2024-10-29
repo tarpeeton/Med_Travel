@@ -7,19 +7,27 @@ import OtherBlogs from './Other'
 import { AllBlogs } from '@/lib/api'
 import useLocale from '@/hooks/useLocale'
 import { IBlog } from '@/interface/Blog'
+import { client } from "@/sanity/lib/client"
 
 
 
 const MainBlogWithSlug: FC = () => {
   const locale = useLocale()
-  const [blogID, setBlogID] = useState<number>(0)
+  const [blogID, setBlogID] = useState<string>('')
 
-  const [allBlogs, setAllBlogs] = useState<IBlog[] | null>(null)
+  const [allBlogs, setAllBlogs] = useState<IBlog[] | []>([])
+
+
+
   useEffect(() => {
     const FetchAllBlogs = async () => {
       try {
-        const res = await AllBlogs(locale)
-        setAllBlogs(res.data)
+         const res = await client.fetch(
+          `*[_type == "blog"]
+          { _id,categories,sections,createdAt}
+          `
+        )
+        setAllBlogs(res)
       } catch (error) {
 
       }
@@ -29,6 +37,8 @@ const MainBlogWithSlug: FC = () => {
   const similarNews = allBlogs ? allBlogs.slice(0, 4) : []
   const otherNews = allBlogs ? allBlogs.slice(4, 7) : []
 
+
+  
   return (
     <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
       <BlogWithSlug setBlogID={setBlogID} allBlogs={similarNews} />

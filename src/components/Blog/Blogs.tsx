@@ -23,7 +23,6 @@ const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
     const [blogsName, setBlogsName] = useState<string[]>([])
     const locale = useLocale()
 
-    console.log(typeID , "Filtered TypeID")
     useEffect(() => {
         const titles = blogs.map((e) => e.sections[0].title[locale])
         setBlogsName(titles)
