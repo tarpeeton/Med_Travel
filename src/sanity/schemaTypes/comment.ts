@@ -1,4 +1,6 @@
-export default {
+import { defineType } from 'sanity';
+
+export default defineType({
   name: 'comment',
   type: 'document',
   title: 'Комментарий',
@@ -24,4 +26,4 @@ export default {
       readOnly: true,
     },
   ],
-};
+});
