@@ -27,6 +27,19 @@ const Comments: FC<IComment> = ({ blogID }) => {
   const [comments, setComments] = useState<ICommentData[]>([]);
   const [newComment, setNewComment] = useState<string>(''); // State for new comment input
 
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+  }
+
+
+
+
   useEffect(() => {
     const fetchComments = async (blogId: string) => {
       const query = `*[_type == "comment" && blog._ref == $blogId]{
@@ -48,7 +61,6 @@ const Comments: FC<IComment> = ({ blogID }) => {
 
   const createCommentInSanity = async () => {
     if (!newComment.trim()) return; // Prevent empty comments
-
     try {
       const response = await client.create({
         _type: 'comment',
@@ -75,8 +87,6 @@ const Comments: FC<IComment> = ({ blogID }) => {
             Отправить
           </button>
         </div>
-
-
         {comments && Array.isArray(comments) && comments.length > 0 && (
           <div className='mt-[50px] mdl:mt-[70px] 2xl:mt-[100px] flex flex-col pb-[30px] mdl:pb-[40px]'>
             <div className='flex flex-col '>
@@ -89,7 +99,7 @@ const Comments: FC<IComment> = ({ blogID }) => {
                     <div className='flex flex-col ml-[12px]'>
                       <p className='text-[16px] mdl:text-[20px] font-semibold text-titleDark font-raleway'>Rustam</p>
                       <p className='text-[14px] mdl:text-[16px] font-medium  text-[#A7A7A7] font-raleway'>
-                        {com.createdAt}
+                        {formatDate(com.createdAt)}
                       </p>
                     </div>
                   </div>

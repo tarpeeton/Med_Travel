@@ -48,7 +48,14 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
     const { id } = useParams()
     const [blogWithSlug, setBlogWithSlug] = useState<IBlogSlugData | null>(null)
 
-
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('ru-RU', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        })
+      }
 
     const normalizedSlug = Array.isArray(id) ? id[0] : id
 
@@ -89,7 +96,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                 <div className='flex flex-col 2xl:w-[68%]'>
                     <div className='flex flex-col gap-[10px]'>
                         <p className='text-[#7C7C7C] text-[15px] mdl:text-[17px] font-raleway'>
-                            {blogWithSlug?.createdAt}
+                        {blogWithSlug?.createdAt ? formatDate(blogWithSlug.createdAt) : 'Дата неизвестна'}
                         </p>
                         <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>{blogWithSlug?.sections[0]?.title[locale]}</h1>
                     </div>

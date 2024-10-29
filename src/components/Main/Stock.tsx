@@ -49,8 +49,6 @@ const Stock: FC = () => {
   }
 
 
-    console.log(stocks , "STOCK")
-
 
 
     useEffect(() => {
