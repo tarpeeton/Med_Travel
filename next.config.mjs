@@ -7,7 +7,7 @@ const withNextIntl = createNextIntlPlugin();
  */
 const nextConfig = {
     images: {
-        domains: ['ucarecdn.com', 'med-travel.mrjtrade.uz'], // Corrected domain configuration
+        domains: ['ucarecdn.com', 'med-travel.mrjtrade.uz' , 'cdn.sanity.io'], // Corrected domain configuration
     },
 };
 

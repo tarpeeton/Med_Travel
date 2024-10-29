@@ -9,6 +9,26 @@ import { Allpromotions } from '@/lib/api'
 import { IPromotions } from '@/interface/Promotions'
 import { IoClose } from "react-icons/io5";
 import Stories from 'react-insta-stories'
+import { client } from "@/sanity/lib/client";
+import { urlFor } from '@/sanity/lib/image'
+
+
+interface IHistoryData {
+  title: {
+    ru: string;
+    uz: string;
+    en: string;
+  };
+  createdAt: string;
+  media: Array<{
+    _type: 'image';
+    _key: string;
+    asset: {
+      _ref: string;
+      _type: 'reference';
+    };
+  }>;
+}
 
 
 const Stock: FC = () => {
@@ -17,13 +37,33 @@ const Stock: FC = () => {
   const [storiesVisible, setStoriesVisible] = useState(false)
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0)
   const storyModalRef = useRef<HTMLDivElement | null>(null) // Ref for the story modal
-  const [stocks , setStock] = useState<IPromotions[]>([])
+  const [stocks , setStock] = useState<IHistoryData[] | []>([])
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+  }
+
+
+    console.log(stocks , "STOCK")
+
+
 
     useEffect(() => {
       const FetchPromotions = async () => {
         try {
-          const res = await Allpromotions(locale)
-          setStock(res.data) 
+          const res = await client.fetch(
+            `*[_type == "history"]{ 
+              title, 
+              createdAt, 
+              media 
+            }`
+          )
+          setStock(res) 
         } catch (error) {
           console.log(error)
         }
@@ -110,15 +150,15 @@ const Stock: FC = () => {
 
   // Prepare stories data by converting StaticImageData to string URLs
   const stories = useMemo(() => stocks.map(stock => ({
-    title: stock.title,
-    url: stock.photo.url,
+    title: stock.title[locale],
+    url: stock.media[0] ? urlFor(stock.media[0].asset).url() : '',
     duration: 5000,
     header: {
-      heading: stock.title,
-      subheading: stock.date,
+      heading: stock.title[locale],
+      subheading: formatDate(stock.createdAt),
       profileImage: 'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/',
     },
-  })), [stocks]);
+  })), [stocks, locale]);
   
   
 
@@ -139,14 +179,24 @@ const Stock: FC = () => {
           <div className='w-[40%]' key={index} onClick={() => handleStoryOpen(index)}>
             <div className='flex flex-col w-[98%]'>
               <div className='h-[230px] mdl:h-[230px] 2xl:h-[300px]'>
-                <Image src={stock?.photo?.url} width={1000} height={700} alt={`Акция: ${stock.title}`} className='rounded-[20px] mdl:w-[100%] w-full h-full object-cover' />
+                 {stock.media[0] && (
+                  <Image 
+                    src={urlFor(stock.media[0].asset).url()} 
+                    width={1000} 
+                    height={700} 
+                    alt={`Акция: ${stock.title[locale]}`} 
+                    className='rounded-[20px] mdl:w-[100%] w-full h-full object-cover' 
+                  />
+                )}
               </div>
               <div className='flex flex-col mt-[12px] relative justify-between   2xl:pb-[40px] 2xl:h-[175px]'>
                 <p className='text-[15px] font-semibold text-[#242424] font-raleway w-[80%] mb-[25px] mdl:text-[20px] h-auto break-words 2xl:text-[18px] 2xl:w-full  '>
-                {stock.title.length > 27 ? `${stock.title.slice(0, 27)}...` : stock.title}
+                {stock.title[locale].length > 27 ? `${stock.title[locale].slice(0, 27)}...` : stock.title[locale]}
 
                 </p>
-                <p className='text-[#7C7C7C] text-[14px] 2xl:text-[17px] 2xl:absolute 2xl:bottom-[80px]'>{stock.date}</p>
+                <p className='text-[#7C7C7C] text-[14px] 2xl:text-[17px] 2xl:absolute 2xl:bottom-[80px]'>
+                  {formatDate(stock.createdAt)}
+                  </p>
               </div>
             </div>
           </div>

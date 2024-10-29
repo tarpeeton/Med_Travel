@@ -8,34 +8,58 @@ import Image from 'next/image'
 import { GiCommercialAirplane } from "react-icons/gi";
 import { Link } from '@/i18n/routing'
 import useLocale from '@/hooks/useLocale'
-import { AllBanner } from '@/lib/api'
+import { client } from "@/sanity/lib/client";
+import { urlFor } from '@/sanity/lib/image'
+
+
 
 
 interface IBanner {
-  id: number;
-  title: string;
-  leftPhoto: { id: number, url: string};
-  rightPhoto: { id: number, url: string}
-  orderNum: number
+  backgroundImage: {
+    _type: string;
+    asset: {
+      _type: string;
+      _ref: string;
+    };
+  };
+  _createdAt: string; // ISO format date as string
+  _id: string;
+  _updatedAt: string;
+  buttonText: {
+    ru: string;
+    uz: string;
+    en: string;
+  };
+  buttonLink: string;
+  _rev: string;
+  _type: string;
+  title: {
+    ru: string;
+    uz: string;
+    en: string;
+  };
 }
 
 const MainBanner: FC = () => {
   const sliderRef = useRef<Slider | null>(null) // Reference for the slider
-  const [banners , setBanner] = useState<IBanner[] | []>([])
   const locale = useLocale()
+  const [dataBanner  , setDataBanner] = useState<IBanner[] | []>([])
 
 
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-         const res = await AllBanner(locale)
-        setBanner(res.data)
+        const banner =  await client.fetch(
+          `*[_type == "banner"]`
+        )
+        setDataBanner(banner);
       } catch (error) {
-        
+        console.debug(error)
       }
     }
     fetchBanners()
   } , [locale])
+
 
 
   const settings = {
@@ -64,14 +88,13 @@ const MainBanner: FC = () => {
   return (
     <div className="relative ">
       <Slider {...settings} ref={sliderRef}>
-        {banners.map((banner) => (
-          <div key={banner.id} className="flex justify-between">
+        {dataBanner.map((banner) => (
+          <div key={banner._id} className="flex justify-between">
             <div className="flex w-full cursor-pointer">
               <div className="w-full relative h-[500px] mdl:h-[600px] ">
-                <Image
-                  src={banner.leftPhoto.url}
-                  alt={banner.title}
-                  quality={100}
+              <Image
+                  src={urlFor(banner.backgroundImage).url()}
+                  alt={banner.title[locale]}
                   width={1500}
                   height={666}
                   className="w-full h-[500px] mdl:h-[600px] object-cover"
@@ -80,7 +103,7 @@ const MainBanner: FC = () => {
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">
 
                   <h2 className="text-[30px] font-bold mdl:text-[45px] 2xl:text-[50px] 2xl:w-[70%] 3xl:w-[50%]">
-                    {banner.title.split("\n").map((line, index) => (
+                    {banner.title[locale].split("\n").map((line, index) => (
                       <span key={index}>
                         {line}
                         <br />
@@ -89,7 +112,8 @@ const MainBanner: FC = () => {
                   </h2>
                   <div className="flex flex-row items-center justify-between">
                     <Link href='/tours' className="mt-6 w-[60%] mdl:w-[40%] bg-[#1AB2A6] text-white py-[16px] px-[20px] 2xl:w-[20%] rounded-[10px] font-bold flex flex-row justify-center gap-[8px]">
-                      Найти тур <GiCommercialAirplane />
+                      {banner.buttonText[locale]}
+                       <GiCommercialAirplane />
                     </Link>
                   </div>
                 </div>
