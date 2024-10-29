@@ -35,7 +35,8 @@ const MainBlogWithSlug: FC = () => {
     FetchAllBlogs()
   }, [locale])
   const similarNews = allBlogs ? allBlogs.slice(0, 4) : []
-  const otherNews = allBlogs ? allBlogs.slice(4, 7) : []
+  // const otherNews = allBlogs ? allBlogs.slice(4, 7) : []
+  const otherNews = allBlogs ? allBlogs.slice(0) : []
 
 
   
