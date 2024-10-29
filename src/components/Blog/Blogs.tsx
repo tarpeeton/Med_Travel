@@ -23,7 +23,7 @@ const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
     const [blogsName, setBlogsName] = useState<string[]>([])
     const locale = useLocale()
 
-    console.log(blogs , "HAMMA BLOGLAR")
+    console.log(typeID , "Filtered TypeID")
     useEffect(() => {
         const titles = blogs.map((e) => e.sections[0].title[locale])
         setBlogsName(titles)
@@ -33,7 +33,7 @@ const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
 
     // Bloglarni filterlash (typeID orqali)
     const filteredBlogs = useMemo(() => {
-        return typeID === 'all' ? blogs : blogs.filter(blog => blog._id === typeID)
+        return typeID === 'all' ? blogs : blogs.filter(blog => blog.categories.some(category => category._ref === typeID))
     }, [blogs, typeID])
 
     // Qidiruv bo'yicha filterlangan bloglar
@@ -77,7 +77,7 @@ const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
                                     </p>
                                 </div>
                                 <div className='mt-[16px] mdl:mt-[25px] 2xl:mt-[30px] mdl:absolute mdl:bottom-[40px]'>
-                                    <Link href={`/blog/${item.sections[0].title[locale]}`} className='flex flex-row items-center font-bold text-green100 text-[14px] mdl:text-[18px] 2xl:text-[18px]'>
+                                    <Link href={`/blog/${item._id}`} className='flex flex-row items-center font-bold text-green100 text-[14px] mdl:text-[18px] 2xl:text-[18px]'>
                                         Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} />
                                     </Link>
                                 </div>

@@ -76,7 +76,7 @@ createdAt}
 
   return (
     <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
-      {/* <Latests blogs={blogs.slice(0, 3)} /> */}
+      <Latests blogs={blogs.slice(0, 3)} />
       <Articles setTypeID={setTypeID} types={types} setSearch={setSearch} search={search} typeID={typeID} />
       <Blogs typeID={typeID} blogs={blogs} search={search} />
       <FormBlog />
