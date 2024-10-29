@@ -1,40 +1,65 @@
 // src/global.d.ts
+
 interface YMaps {
 	Map: new (element: string | HTMLElement, options: YMapOptions) => YMapInstance;
 	Placemark: new (
-	  coordinates: [number, number], // A tuple for latitude and longitude
+	  coordinates: [number, number],
 	  properties: PlacemarkProperties,
 	  options: PlacemarkOptions
 	) => PlacemarkInstance;
 	ready: (callback: () => void) => void;
-  }
-  
-  interface YMapOptions {
-	center: [number, number]; // Tuple representing latitude and longitude
-	zoom: number;
-	controls: string[]; // Controls that should be added to the map (e.g., 'zoomControl')
-  }
-  
-  interface YMapInstance {
-	geoObjects: {
-	  add: (placemark: PlacemarkInstance) => void;
+
+	// Добавляем multiRouter для поддержки маршрутов
+	multiRouter: {
+		MultiRoute: new (options: MultiRouteOptions, params: MultiRouteParams) => MultiRouteInstance;
 	};
-  }
-  
-  interface PlacemarkProperties {
-	hintContent: string; // Content that shows when hovering over the placemark
-	balloonContent: string; // Content that shows when the placemark is clicked
-  }
-  
-  interface PlacemarkOptions {
-	iconColor?: string; // The color of the placemark icon
-  }
-  
-  interface PlacemarkInstance {
-	// This is the instance returned when you create a placemark
-  }
-  
-  interface Window {
-	ymaps: YMaps; // Define ymaps with a strict type
-  }
-  
+}
+
+interface YMapOptions {
+	center: [number, number];
+	zoom: number;
+	controls: string[];
+}
+
+interface YMapInstance {
+	geoObjects: {
+	  add: (object: PlacemarkInstance | MultiRouteInstance) => void;
+	};
+}
+
+interface PlacemarkProperties {
+	hintContent: string;
+	balloonContent: string;
+}
+
+interface PlacemarkOptions {
+	iconColor?: string;
+}
+
+interface PlacemarkInstance {
+	// Instance returned when creating a placemark
+}
+
+interface MultiRouteOptions {
+	referencePoints: [number, number][];
+	params?: {
+		routingMode?: 'auto' | 'masstransit' | 'bicycle' | 'pedestrian';
+	};
+}
+
+interface MultiRouteParams {
+	boundsAutoApply?: boolean;
+	routeActiveStrokeWidth?: number;
+	routeActiveStrokeColor?: string;
+}
+
+interface MultiRouteInstance {
+	// Instance of a multiRouter route
+	options: {
+		set: (key: string, value: any) => void;
+	};
+}
+
+interface Window {
+	ymaps: YMaps;
+}
