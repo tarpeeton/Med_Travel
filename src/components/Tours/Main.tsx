@@ -1,126 +1,119 @@
 "use client"
-import { FC, useState, useEffect } from 'react';
-import Banner from './Banner';
-import Available from './Available';
-import Gallery from './Gallery';
-import Map from './Maps';
-import Faq from './Faq';
-import HowWork from '../Main/HowWork';
-import Form from '../Form/Form';
-import Contacts from '../Main/Contacts';
-import useLocale from '@/hooks/useLocale';
-import { Filters } from '@/interface/ToursFilter';
-import { client } from "@/sanity/lib/client";
-import { Tour } from '@/interface/Tour';
+import { FC , useEffect } from 'react'
+import Banner from './Banner'
+import Available from './Available'
+import Gallery from './Gallery'
+import Map from './Maps'
+import Faq from './Faq'
+import HowWork from '../Main/HowWork'
+import Form from '../Form/Form'
+import Contacts from '../Main/Contacts'
+import useLocale from '@/hooks/useLocale'
+import { client } from "@/sanity/lib/client"
+import { useTourState } from '@/hooks/useTourState'
 
-interface ITypes {
-    _id: string;
-    name: { ru: string; uz: string; en: string };
-}
+
+
 
 const MainTours: FC = () => {
-    const locale = useLocale();
-    const [data, setData] = useState<Tour[]>([]);
-    const [filteredData, setFilteredData] = useState<Tour[]>([]);
-    const [types, setTypes] = useState<ITypes[]>([]);
-    const [typeId, setTypeID] = useState('');
-    const [filters, setFilters] = useState<Filters>({
-        fromAddress: '',
-        toAddress: '',
-        fromDate: undefined,
-        toDate: undefined,
-        adultSize: 0,
-        childrenSize: 0,
-        priceFrom: undefined,
-        priceTo: undefined,
-        typeId: typeId,
-    });
+    const locale = useLocale()
+    const {
+        data,
+        setData,
+        filteredData,
+        setFilteredData,
+        types,
+        setTypes,
+        setTypeID,
+        filters,
+        setFilters,
+    } = useTourState()
+
+
 
     // MA'LUMOTNI OLISH
     useEffect(() => {
         const fetchTours = async () => {
             try {
-                const toursRes = await client.fetch(`*[_type == "tour"]`);
-                const res = await client.fetch(`*[_type == "torscotegory"]{_id, name}`);
-                setData(toursRes);
-                setFilteredData(toursRes); // Dastlab barcha ma'lumotlarni ko'rsatamiz
-                setTypes(res);
-                setTypeID(res?.[0]._id || '');
+                const toursRes = await client.fetch(`*[_type == "tour"]`)
+                const res = await client.fetch(`*[_type == "torscotegory"]{_id, name}`)
+                setData(toursRes)
+                setFilteredData(toursRes) // Dastlab barcha ma'lumotlarni ko'rsatamiz
+                setTypes(res)
+                setTypeID(res?.[0]._id || '')
             } catch (err) {
-                console.error('Error fetching tours:', err);
+                console.error('Error fetching tours:', err)
             }
-        };
+        }
 
-        fetchTours();
-    }, [locale]);
+        fetchTours()
+    }, [locale])
 
     // FILTRLASH
     useEffect(() => {
         const applyFilters = () => {
             if (Object.values(filters).every(filter => filter === undefined || filter === '')) {
                 // Agar filtrlar qo'llanilmagan bo'lsa, barcha ma'lumotlarni qaytaramiz
-                setFilteredData(data);
-                return;
+                setFilteredData(data)
+                return
             }
 
             const filteredTours = data.filter((tour) => {
-                let matches = true;
+                let matches = true
 
                 // Narxni tekshiramiz
-                const tourPrice = Number(tour.price);
-                const priceFrom = filters.priceFrom ? Number(filters.priceFrom) : undefined;
-                const priceTo = filters.priceTo ? Number(filters.priceTo) : undefined;
+                const tourPrice = Number(tour.price)
+                const priceFrom = filters.priceFrom ? Number(filters.priceFrom) : undefined
+                const priceTo = filters.priceTo ? Number(filters.priceTo) : undefined
                 if (priceFrom !== undefined && tourPrice < priceFrom) {
-                    matches = false;
+                    matches = false
                 }
                 if (priceTo !== undefined && tourPrice > priceTo) {
-                    matches = false;
+                    matches = false
                 }
 
                 // Sanalarni tekshiramiz
-                const tourStart = new Date(tour.fromDate);
-                const tourEnd = new Date(tour.toDate);
-                let filterStart = filters.fromDate ? new Date(filters.fromDate) : null;
-                let filterEnd = filters.toDate ? new Date(filters.toDate) : null;
+                const tourStart = new Date(tour.fromDate)
+                const tourEnd = new Date(tour.toDate)
+                let filterStart = filters.fromDate ? new Date(filters.fromDate) : null
+                let filterEnd = filters.toDate ? new Date(filters.toDate) : null
 
                 // Agar filter sanalari mavjud bo'lsa va noto'g'ri tartibda bo'lsa, ularni almashtiramiz
                 if (filterStart && filterEnd && filterStart > filterEnd) {
-                    const temp = filterStart;
-                    filterStart = filterEnd;
-                    filterEnd = temp;
+                    const temp = filterStart
+                    filterStart = filterEnd
+                    filterEnd = temp
                 }
 
                 // Sanalar kesishishini tekshiramiz
                 if (filterStart && tourEnd < filterStart) {
-                    matches = false;
+                    matches = false
                 }
                 if (filterEnd && tourStart > filterEnd) {
-                    matches = false;
+                    matches = false
                 }
 
                 // Kattalar sonini tekshiramiz
                 if (filters.adultSize && tour.adultSize < filters.adultSize) {
-                    matches = false;
+                    matches = false
                 }
 
                 // Bolalar sonini tekshiramiz
                 if (filters.childrenSize && tour.childrenSize < filters.childrenSize) {
-                    matches = false;
+                    matches = false
                 }
 
                 // Tur tipini tekshiramiz
                 if (filters.typeId && tour.category._ref !== filters.typeId) {
-                    matches = false;
+                    matches = false
                 }
+                return matches
+            })
 
-                return matches;
-            });
-
-            setFilteredData(filteredTours);
-        };
-
-        applyFilters();
-    }, [filters, data]);
+            setFilteredData(filteredTours)
+        }
+        applyFilters()
+    }, [filters, data])
 
     return (
         <div className='relative'>
@@ -140,7 +133,7 @@ const MainTours: FC = () => {
                 <Contacts />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default MainTours;
+export default MainTours

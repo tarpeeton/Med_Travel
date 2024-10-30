@@ -2,29 +2,51 @@
 import { FC, useState  , useEffect} from 'react'
 import Title from '../ui/title'
 import Galler from './Images'
-import { IGallery } from '@/interface/Gallery'
-import { RandomGallery } from '@/lib/api'
+import { client } from '@/sanity/lib/client'
+
+
+
+
+export interface DataItem {
+    gallery: {
+        _type: "image";
+        _key: string;
+        asset: {
+            _type: "reference";
+            _ref: string;
+        };
+    }[];
+}
 
 
 const MainGalley: FC = () => {
     const [sliceNumber, setSliceNumber] = useState(10)
-    const [size , setSize] = useState(20)
-    const [gallery, setGallery] = useState<IGallery[]>([])
+    const [size , setSize] = useState(10)
+    const [gallery, setGallery] = useState<DataItem[] | []>([])
     
 
 
     useEffect(() => {
-        const fetchGallery = async () => {
+        const fetchTours = async () => {
             try {
-                const res = await RandomGallery(size)
-                setGallery((prevGallery) => [...prevGallery, ...res.data]);
-            } catch (error) {
-                console.error("Error fetching gallery:", error)
+                const toursRes = await client.fetch(`*[_type == "tour"]{gallery}`)
+                setGallery(toursRes)
+            } catch (err) {
+                console.error('Error fetching tours:', err)
             }
         }
 
-        fetchGallery() 
-    }, [size]) 
+        fetchTours()
+    }, [])
+
+
+
+
+
+
+
+
+    
     const toggleSliceNumber = () => {
         setSliceNumber((prev) => prev + 10)
     }
@@ -43,16 +65,9 @@ const MainGalley: FC = () => {
                 <p className='text-[#7C7C7C] text-[15px] mdl:text-[18px] 2xl:text-[20px]  font-raleway font-medium'>Часть незабываемых моментов с туров</p>
             </div>
             <div className='mt-[20px] mdl:mt-[40px]'>
-                <Galler images={gallery}  sliceNumber={sliceNumber} />
+                <Galler images={gallery}  sliceNumber={sliceNumber} LoadMore={LoadMore} />
             </div>
-            <div className='w-full flex justify-center items-center mt-[20px] mdl:mt-[70px]'>
-                    <button
-                        onClick={LoadMore}
-                        className='bg-green100 text-white font-semibold w-[60%] mdl:w-[30%] 3xl:w-[20%] text-[14px] mdl:text-[16px] py-[15px] px-[20px] rounded-[10px]'
-                    >
-                        Загрузить еще
-                    </button>
-                </div>
+          
         </div>
     )
 }
