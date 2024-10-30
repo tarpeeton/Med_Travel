@@ -16,7 +16,7 @@ interface BannerProps {
   filters: Filters
   types: { _id: string; name: {ru: string , uz:string , en:string} }[] 
   setIsRefresh: Dispatch<SetStateAction<boolean>>
-  locale: "ru" | "uz" | "en"
+  locale: "ru" | "uz" | "en",
 }
 
 
@@ -28,7 +28,7 @@ const handleOpenChange = (open: boolean, type: "from" | "to") => {
   }
 }
 
-const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh  , locale}) => {
+const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh  , locale }) => {
 
   // State variables initialized with filters prop values
   const [adults, setAdults] = useState(filters.adultSize)

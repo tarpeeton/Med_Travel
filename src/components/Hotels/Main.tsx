@@ -43,7 +43,6 @@ const MainHotels: FC = () => {
     const [data, setData] = useState<IHotel[]>([]);
     const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 
-    console.log(data, "DATA");
 
     // Fetch hotels
     useEffect(() => {
@@ -101,7 +100,6 @@ const MainHotels: FC = () => {
         .filter((hotel) => hotel.score > 0) // Only keep hotels that have at least some matching criteria
         .sort((a, b) => b.score - a.score); // Sort by the best matches (highest score)
 
-    console.log("Filtered Hotels:", filteredHotels);
 
 
     return (
