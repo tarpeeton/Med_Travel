@@ -1,36 +1,53 @@
 "use client";
 import Image from 'next/image';
-import { FC, useRef } from "react";
+import { FC, useRef , useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from '@/sanity/lib/image'
+import useLocale from '@/hooks/useLocale'
 
-const teamMembers = [
-  {
-    name: "Иванов Иван",
-    role: "Основатель компании",
-    imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
-  },
-  {
-    name: "Петров Петр",
-    role: "Технический директор",
-    imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
-  },
-  {
-    name: "Петров Петр",
-    role: "Технический директор",
-    imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
-  },
-  {
-    name: "Петров Петр",
-    role: "Технический директор",
-    imageUrl: 'https://ucarecdn.com/1a41936a-4d1a-4b2b-ae78-cd1ccbfecadc/-/preview/345x370/',
-  },
-  // Add more team members here
-];
+
+interface TeamMember {
+  name: { ru: string; uz: string; en: string };
+  occupation: { ru: string; uz: string; en: string };
+  photo?: {
+    _type: 'image';
+    asset: {
+        _ref: string;
+        _type: 'reference';
+    };
+};
+}
+
+
 
 const Team: FC = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const [team , setTeam] = useState<TeamMember[] | []>([])
+  const locale = useLocale()
+
+  console.log(team)
+
+  useEffect(() => {
+    const fetchAllTeam = async () => {
+      try {
+        const teamData = await client.fetch(`
+          *[_type == "teamMember"]{
+            name,
+            occupation,
+            photo
+          }
+        `);
+        setTeam(teamData);
+      } catch (error) {
+        console.error("Failed to fetch team data:", error);
+      }
+    };
+    fetchAllTeam();
+  }, []);
+
 
   const handlePrev = () => {
     if (sliderRef.current) {
@@ -93,19 +110,21 @@ const Team: FC = () => {
       </div>
       <div className='mt-[20px]'>
         <Slider ref={sliderRef} {...settings}>
-          {teamMembers.map((member, index) => (
+          {team.map((member, index) => (
             <div key={index} className='flex flex-col 2xl:w-[30%] w-full items-center mdl:w-[25%] px-[2px]'>
-              <Image
-                src={member.imageUrl}
-                width={300}
-                height={370}
-                alt={`Photo of ${member.name}`}
-                quality={100}
-                className='object-contain rounded-[20px] w-full'
-              />
+              {member?.photo && (
+                 <Image
+                 src={urlFor(member.photo.asset._ref).url()}
+                 width={300}
+                 height={370}
+                 alt={`Photo of ${member.name[locale]}`}
+                 quality={100}
+                 className='object-cover rounded-[20px]  w-full h-[270px] 2xl:h-[276px] 2xl:w-[276px]'
+               />
+              )}
               <div className='flex flex-col mt-[20px]  w-full'>
-                <p className='text-[20px] mdl:text-[25px] font-semibold text-titleDark'>{member.name}</p>
-                <p className='text-[14px] mdl:text-[17px] font-raleway font-medium text-[#7C7C7C]'>{member.role}</p>
+                <p className='text-[20px] mdl:text-[25px] font-semibold text-titleDark'>{member.name[locale]}</p>
+                <p className='text-[14px] mdl:text-[17px] font-raleway font-medium text-[#7C7C7C]'>{member.occupation[locale]}</p>
               </div>
             </div>
           ))}
