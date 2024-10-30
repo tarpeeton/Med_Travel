@@ -7,8 +7,11 @@ import comment from './comment'
 import reviews from './reviews'
 import team from './team'
 import partners from './partners'
+import tours from './tours'
+import tourscotegory from './tour-cotegory'
+
 
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [banner , history , blogCotegory  , blog , comment , reviews , team  , partners ],
+  types: [banner , history , blogCotegory  , blog , comment , reviews , team  , partners , tours , tourscotegory ],
 }

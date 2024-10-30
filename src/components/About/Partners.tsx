@@ -22,7 +22,6 @@ interface IPartners {
 }
 
 
-
 const Partners: FC = () => {
     const sliderRef = useRef<Slider | null>(null)
     const [partners, setPartners] = useState<IPartners[] | []>([])

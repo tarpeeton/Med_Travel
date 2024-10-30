@@ -7,25 +7,31 @@ import { gsap } from 'gsap'
 
 interface AvailableProps {
   tours: Tour[]
-  setTypeID: (id: number) => void
-  types: { id: number; name: string }[] // Define the structure of types
+  locale: "ru" | "uz" | "en"
+  setTypeID: (id: string) => void
+  types: { _id: string; name: {ru: string , uz:string , en:string} }[] // Define the structure of types
 }
 
-const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
-  const [activeTypeID, setActiveTypeID] = useState<number | null>(null) // Local state to track active button
+const Available: FC<AvailableProps> = ({ tours, types, setTypeID , locale }) => {
+  const [activeTypeID, setActiveTypeID] = useState<string | null>(null) // Local state to track active button
   const [filteredTours, setFilteredTours] = useState<Tour[]>(tours) // State for filtered tours
   const toursRef = useRef<HTMLDivElement>(null) // Ref to the tours container for animation
+  
+
 
   useEffect(() => {
-    const storedTypeID = localStorage.getItem('activeTypeID')
-    const initialTypeID = storedTypeID ? parseInt(storedTypeID) : types[0]?.id || null
-    setActiveTypeID(initialTypeID)
-  }, [types])
+    const storedTypeID = localStorage.getItem('activeTypeID');
+    const initialTypeID = storedTypeID || types[0]?._id || ''; 
+    setActiveTypeID(initialTypeID);
+  }, [types]);
+
+
+
 
   useEffect(() => {
-    // Filter tours based on the active type ID
+    
     if (activeTypeID) {
-      const filtered = tours.filter(tour => tour.type.id === activeTypeID) // Assuming tour has a typeId property
+      const filtered = tours.filter(tour => tour.category._ref === activeTypeID); // Assuming tour has a typeId property
       setFilteredTours(filtered)
     } else {
       setFilteredTours(tours) // If no type is selected, show all tours
@@ -42,12 +48,15 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
     }
   }, [filteredTours]); // Trigger animation when filtered tours change
 
-  const handleTypeChange = (id: number) => {
+  const handleTypeChange = (id: string) => {
     setActiveTypeID(id) // Update the local active state
     setTypeID(id) // Call the prop function to update the type in the parent
     localStorage.setItem('activeTypeID', id.toString()) // Store the active ID in localStorage
   }
 
+
+
+  
   return (
     <div className='relative'>
       <div className='flex flex-col'>
@@ -55,14 +64,14 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID }) => {
         <div className='flex 2xl:w-[30%] flex-row justify-between mt-[20px] mdl:mt-[30px]'>
           {types.map((type) => (
             <button
-              key={type.id}
-              onClick={() => handleTypeChange(type.id)} // Use the local function to handle state change
-              className={`text-[15px] rounded-full font-semibold py-[12px] w-[48%] ${activeTypeID === type.id
+              key={type._id}
+              onClick={() => handleTypeChange(type._id)} // Use the local function to handle state change
+              className={`text-[15px] rounded-full font-semibold py-[12px] w-[48%] ${activeTypeID === type._id
                 ? 'bg-greenButton text-white'
                 : 'border border-borderColor bg-white text-titleDark'
                 }`}
             >
-              {type.name}
+              {type.name[locale]}
             </button>
           ))}
         </div>

@@ -14,8 +14,9 @@ import moment from "moment"; // Import moment
 interface BannerProps {
   setFilters: (filters: Filters) => void // Ota komponentdan keladigan funksiya
   filters: Filters
-  types: { id: number; name: string }[],
+  types: { _id: string; name: {ru: string , uz:string , en:string} }[] 
   setIsRefresh: Dispatch<SetStateAction<boolean>>
+  locale: "ru" | "uz" | "en"
 }
 
 
@@ -27,7 +28,7 @@ const handleOpenChange = (open: boolean, type: "from" | "to") => {
   }
 }
 
-const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh }) => {
+const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh  , locale}) => {
 
   // State variables initialized with filters prop values
   const [adults, setAdults] = useState(filters.adultSize)
@@ -97,7 +98,7 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh }) =
     setToDate(undefined) // Resetting to no date
     setPriceFrom(undefined) // Resetting priceFrom to undefined
     setPriceTo(undefined) // Resetting priceTo to undefined
-    setTypeID(0) // Assuming 0 or any other default value for typeId
+    setTypeID('') // Assuming 0 or any other default value for typeId
     setFilters({
       fromAddress: "", // Resetting to empty string
       toAddress: "", // Resetting to empty string
@@ -107,7 +108,7 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh }) =
       childrenSize: 0, // Resetting to 0
       priceFrom: undefined, // Resetting priceFrom to undefined
       priceTo: undefined, // Resetting priceTo to undefined
-      typeId: 0, // Resetting to a default value
+      typeId: '', // Resetting to a default value
     })
     setIsRefresh(true)
 
@@ -247,7 +248,7 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh }) =
           </div>
           <Select value={typeId || undefined} onChange={(value) => setTypeID(value)} placeholder="Тип тура" className="w-full custom-select 2xl:w-[32%]">
             {types.map((type, index) => (
-              <Option key={index} className='mb-[5px]' value={type.id}>{type.name}</Option>
+              <Option key={index} className='mb-[5px]' value={type._id}>{type.name[locale]}</Option>
             ))}
 
           </Select>

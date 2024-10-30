@@ -7,5 +7,5 @@ export interface Filters {
     childrenSize: number;
     priceFrom?: number;
     priceTo?: number;
-    typeId: number
+    typeId: string
   }

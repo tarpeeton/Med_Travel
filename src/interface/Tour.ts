@@ -1,28 +1,39 @@
 export interface Tour {
-    id: number;
-    name: string
-    fromAddress: string
-    toAddress: string
+    _id: string; // Since "_id" seems to be a unique identifier of type string in the data
+    name: {
+        ru: string;
+        uz: string;
+        en: string;
+    };
+    fromAddress: {
+        ru: string;
+        uz: string;
+        en: string;
+    };
+    toAddress: {
+        ru: string;
+        uz: string;
+        en: string;
+    };
     fromDate: string;
     toDate: string;
     price: number;
     mainPhoto: {
-        id: number;
-        url: string;
+        _type: "image";
+        asset: {
+            _ref: string; // Reference to the image asset
+            _type: "reference";
+        };
     };
     gallery: Array<{
-        id: number;
-        url: string;
-    }>;
-    type: {
-        id: number;
-        name: {
-            uz: string;
-            ru: string;
-            en: string;
+        _type: "image";
+        asset: {
+            _ref: string; // Reference to the image asset
+            _type: "reference";
         };
-        orderNum: number;
-        active: boolean | null;
+    }>;
+    category: {
+        _ref: string;
     };
     adultSize: number;
     childrenSize: number;
@@ -33,7 +44,6 @@ export interface ApiResponse {
     data: Tour[];
 }
 
-
 export interface TourQueryOptions {
     fromAddress?: string;
     toAddress?: string;
@@ -43,5 +53,5 @@ export interface TourQueryOptions {
     childrenSize?: number;
     priceFrom?: number;
     priceTo?: number;
-    typeId?: number;
+    typeId?: string;
 }
