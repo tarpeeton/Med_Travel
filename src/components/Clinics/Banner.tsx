@@ -3,28 +3,38 @@ import { FC, useState, useEffect, useRef, Dispatch, SetStateAction } from 'react
 import TursTitle from '../ui/tursTitle'
 import { MdOutlineKeyboardArrowDown } from "react-icons/md"
 import BannerImage from '@/public/klinika/banner.png'
-import { allClinick, AllService } from '@/lib/api'
-import { useParams } from 'next/navigation'
 import { IClinick } from '@/interface/Clinick'
-
+import { client } from '@/sanity/lib/client'
+import useLocale from '@/hooks/useLocale'
 
 
 
 interface BannerProps {
     clinics: IClinick[]
     setClinics: Dispatch<SetStateAction<IClinick[]>>
+    setFilteredData: Dispatch<SetStateAction<IClinick[]>>
 }
 
-const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
-    const { locale } = useParams<{ locale: string | string[] }>()
-    const currentLocale = Array.isArray(locale) ? locale[0] : locale || 'en' // Default to 'en' if locale is undefined
+interface SelectService {
+    _id: string ,
+    name: {
+        ru: string ,
+        uz:string,
+        en:string,
+    }
+}
+
+const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
+    const locale = useLocale()
     const [inputValue, setInputValue] = useState('')
     const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [isSuggestionDropdownOpen, setIsSuggestionDropdownOpen] = useState(false)
-    const [selectedCategories, setSelectedCategories] = useState<{ id: string; name: string }[]>([])
-    const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
+    const [selectedCategories, setSelectedCategories] = useState<SelectService[]>([])
+    const [categories, setCategories] = useState<SelectService[]>([])
     const dropdownRef = useRef<HTMLDivElement | null>(null)
+
+    console.log(selectedCategories , "SELECTED CCC")
 
     const handleSuggestionClick = (suggestion: string) => {
         setInputValue(suggestion)
@@ -36,27 +46,43 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
     useEffect(() => {
         const fetchClinics = async () => {
             try {
-                const clinicsData = await allClinick(currentLocale)
-                setClinics(clinicsData?.data || [])
+                const clinickResponse = await client.fetch(`
+                    *[_type == "clinic"]{
+                      _id,
+                      name,
+                      address,
+                      "services": services[]->{
+                        _id,
+                        name
+                      }
+                    }
+                  `);
+                  
+                
+                setClinics(clinickResponse )
             } catch (error) {
                 console.error("Error fetching clinics:", error)
             }
         }
         fetchClinics()
-    }, [currentLocale])
+    }, [locale])
 
     // Fetch categories based on the locale
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const categoriesData = await AllService(currentLocale)
-                setCategories(categoriesData.data || [])
+                const clinickService = await client.fetch(`
+                    *[_type == "service"]{_id , name}
+                  `);
+
+                  console.log("ALL TYPES CL" , clinickService)
+                setCategories(clinickService || [])
             } catch (error) {
                 console.error("Error fetching categories:", error)
             }
         }
         fetchCategories()
-    }, [currentLocale])
+    }, [locale])
 
     // Optimize input change handling and filtering suggestions
     useEffect(() => {
@@ -80,10 +106,10 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
       
 
 
-    const handleCategorySelect = (category: { id: string; name: string }) => {
+    const handleCategorySelect = (category: SelectService) => {
         setSelectedCategories(prevSelected => {
-            const isSelected = prevSelected.some(item => item.id === category.id)
-            return isSelected ? prevSelected.filter(item => item.id !== category.id) : [...prevSelected, category]
+            const isSelected = prevSelected.some(item => item._id === category._id)
+            return isSelected ? prevSelected.filter(item => item._id !== category._id) : [...prevSelected, category]
         })
     }
 
@@ -104,16 +130,29 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
         }
     }, [dropdownRef])
 
-    const SearchData = async () => {
-        try {
-            const serviceIds = selectedCategories.map(category => category.id).join(',')
-            const name = inputValue || undefined
-            const clinicsData = await allClinick(currentLocale, name, serviceIds)
-            setClinics(clinicsData?.data || [])
-        } catch (error) {
-            console.error("Error searching clinics:", error)
-        }
+
+
+    const FilterData = () => {
+        // Фильтрация клиник по названию и выбранным категориям
+        const filtered = clinics.filter(clinic => {
+            // Проверка, совпадает ли название клиники с inputValue (учитываем регистр)
+            const matchesName = clinic.name.toLowerCase().includes(inputValue.toLowerCase());
+    
+            // Проверка, совпадает ли хотя бы одна из услуг клиники с выбранными категориями
+            const matchesCategories = selectedCategories.length === 0 || 
+                clinic.services.some(service => 
+                    selectedCategories.some(selected => selected._id === service._id)
+                );
+    
+            // Возвращаем клиники, соответствующие и названию, и выбранным категориям
+            return matchesName && matchesCategories;
+        });
+    
+        // Обновление состояния filteredData
+        setFilteredData(filtered);
     }
+    
+    
 
     return (
         <div
@@ -155,24 +194,24 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                             onClick={toggleCategoryDropdown}
                             className={`border w-full outline-none flex flex-row items-center justify-between focus:border-green100 border-borderColor rounded-[10px] py-[13.5px] px-[16px] cursor-pointer ${selectedCategories.length === 0 ? 'text-[#A0AEC0]' : 'text-[#1AB2A6]'}`}
                         >
-                            {selectedCategories.length > 0 ? selectedCategories.map(cat => cat.name).join(', ') : 'Цель поездки'}
+                            {selectedCategories.length > 0 ? selectedCategories.map(cat => cat.name[locale]).join(', ') : 'Цель поездки'}
                             <MdOutlineKeyboardArrowDown size={22} className='text-[#7C7C7C]' />
                         </div>
                         {isDropdownOpen && (
                             <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-[20px] mt-1 max-h-60 overflow-auto mdl:rounded-[15px]">
                                 {categories.map(category => (
                                     <div
-                                        key={category.id}
+                                        key={category._id}
                                         className="flex items-center py-[15px] px-[12px] cursor-pointer hover:bg-[#E8F7F6] border-b border-borderColor"
                                         onClick={() => handleCategorySelect(category)}
                                     >
                                         <input
                                             type="checkbox"
-                                            checked={selectedCategories.some(item => item.id === category.id)}
+                                            checked={selectedCategories.some(item => item._id === category._id)}
                                             onChange={() => handleCategorySelect(category)}
-                                            className="form-checkbox h-4 w-4 accent-[#05a397] border-gray-300 rounded-[8px] focus:ring-0 mr-2"
+                                            className="form-checkbox h-4 w-4 accent-[#05a397] border-gray-300 rounded-[8px] focus:ring-0 mr-2 "
                                         />
-                                        <span className="text-titleDark font-raleway text-[15px] mdl:text-[17px]">{category.name}</span>
+                                        <span className="text-titleDark font-raleway text-[15px] mdl:text-[17px]">{category.name[locale]}</span>
                                     </div>
                                 ))}
                             </div>
@@ -193,7 +232,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics }) => {
                         </div>
                     )}
 
-                    <button type='button' onClick={SearchData} className="greenButton 2xl:py-[13.5px] 2xl:w-[17%] w-full 2xl:mt-0 font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] mt-[25px]">Поиск</button>
+                    <button type='button' onClick={FilterData} className="greenButton 2xl:py-[13.5px] 2xl:w-[17%] w-full 2xl:mt-0 font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] mt-[25px]">Поиск</button>
                 </form>
             </div>
         </div>

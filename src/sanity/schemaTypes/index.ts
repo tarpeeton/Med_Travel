@@ -9,9 +9,36 @@ import team from './team'
 import partners from './partners'
 import tours from './tours'
 import tourscotegory from './tour-cotegory'
+import clinicks from './clinicks'
+import clinickCotegory from './clinick-cotegory'
+
 
 
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [banner , history , blogCotegory  , blog , comment , reviews , team  , partners , tours , tourscotegory ],
+  types: [
+    banner,
+    history,
+    blogCotegory,
+    blog,
+    comment,
+    reviews,
+    team,
+    partners,
+    tours,
+    tourscotegory,
+    clinicks,
+    clinickCotegory
+
+
+
+
+
+
+
+
+
+
+
+  ]
 }

@@ -1,9 +1,18 @@
-
 export interface IClinick {
-    id: number ,
-    name: string ,
-    address: string,
-    services: {id: number, name: string, orderNum: number, active: boolean}[]
-    orderNum: number,
-    active: boolean
-}
+    _id: string;
+    name: string;
+    address: {
+      ru: string;
+      uz: string;
+      en: string;
+    };
+    services: {
+      _id: string;
+      name: {
+        ru: string;
+        uz: string;
+        en: string;
+      };
+    }[];
+  }
+  

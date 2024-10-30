@@ -20,7 +20,7 @@ import { IClinick } from '@/interface/Clinick'
 const MainClinics: FC = () => {
     const [clinics, setClinics] = useState<IClinick[]>([]);
     const contentRef = useRef<HTMLDivElement>(null); // Ref for GSAP animation
-
+    const [filteredData , setFilteredData] = useState<IClinick[]>([]) 
 
 
     useEffect(() => {
@@ -33,10 +33,18 @@ const MainClinics: FC = () => {
         }
     }, [clinics]); // Trigger animation when clinics change
 
+    useEffect(() => {
+        if (filteredData.length === 0) {
+            setFilteredData(clinics);
+        }
+    }, [clinics]);
+
+
+
     return (
         <div>
-            <Banner clinics={clinics} setClinics={setClinics} />
-                <Content clinics={clinics} animation= {contentRef} />
+            <Banner clinics={clinics} setClinics={setClinics}  setFilteredData={setFilteredData}/>
+                <Content clinics={filteredData} animation= {contentRef} />
 
             <ClinickMap />
             <div className='mt-[120px] flex flex-col gap-[120px] 2xl:gap-[200px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
