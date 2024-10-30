@@ -1,5 +1,9 @@
+// interface/Gallery.ts
 export interface IGallery {
-        id: number,
-        url: string,
-   
-}
+        _type: "image";
+        asset: {
+            _ref: string;
+            _type: "reference";
+        };
+    }
+    

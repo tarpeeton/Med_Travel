@@ -1,5 +1,4 @@
 "use client"
-
 import { FC, useState, useEffect } from 'react';
 import Banner from './Banner';
 import Available from './Available';
@@ -25,8 +24,6 @@ const MainTours: FC = () => {
     const [filteredData, setFilteredData] = useState<Tour[]>([]);
     const [types, setTypes] = useState<ITypes[]>([]);
     const [typeId, setTypeID] = useState('');
-    const [isRefresh, setIsRefresh] = useState(false);
-
     const [filters, setFilters] = useState<Filters>({
         fromAddress: '',
         toAddress: '',
@@ -39,17 +36,14 @@ const MainTours: FC = () => {
         typeId: typeId,
     });
 
-
-
-        console.log(filteredData , "FILTereD DATA")
-
+    // MA'LUMOTNI OLISH
     useEffect(() => {
         const fetchTours = async () => {
             try {
                 const toursRes = await client.fetch(`*[_type == "tour"]`);
                 const res = await client.fetch(`*[_type == "torscotegory"]{_id, name}`);
                 setData(toursRes);
-                setFilteredData(toursRes); // Default to showing all data initially
+                setFilteredData(toursRes); // Dastlab barcha ma'lumotlarni ko'rsatamiz
                 setTypes(res);
                 setTypeID(res?.[0]._id || '');
             } catch (err) {
@@ -60,73 +54,73 @@ const MainTours: FC = () => {
         fetchTours();
     }, [locale]);
 
+    // FILTRLASH
     useEffect(() => {
         const applyFilters = () => {
             if (Object.values(filters).every(filter => filter === undefined || filter === '')) {
-                // Если фильтры не применяются, возвращаем все данные по умолчанию
+                // Agar filtrlar qo'llanilmagan bo'lsa, barcha ma'lumotlarni qaytaramiz
                 setFilteredData(data);
                 return;
             }
-    
-            const filteredHotels = data
-                .map((tour) => {
-                    let score = 0;
-    
-                    // Match price range
-                    const matchesPrice = 
-                        (filters.priceFrom === undefined || tour.price >= filters.priceFrom) &&
-                        (filters.priceTo === undefined || tour.price <= filters.priceTo);
-                    if (matchesPrice) {
-                        score += 2; // Высший вес за совпадение цены
-                    }
-    
-                    // Match available dates range
-                    const matchesDateFrom = filters.fromDate 
-                        ? new Date(tour.fromDate) >= new Date(filters.fromDate) 
-                        : true;
-                    const matchesDateTo = filters.toDate 
-                        ? new Date(tour.toDate) <= new Date(filters.toDate) 
-                        : true;
-                    const matchesDateRange = matchesDateFrom && matchesDateTo;
-                    if (matchesDateRange) {
-                        score += 3; // Высший вес за совпадение по дате
-                    }
-    
-                    // Match adults size
-                    const matchesAdults = filters.adultSize 
-                        ? tour.adultSize >= filters.adultSize 
-                        : true;
-                    if (matchesAdults) {
-                        score += 1; // Низший вес за совпадение по количеству взрослых
-                    }
-    
-                    // Match children size
-                    const matchesChildren = filters.childrenSize 
-                        ? tour.childrenSize >= filters.childrenSize 
-                        : true;
-                    if (matchesChildren) {
-                        score += 1; // Низший вес за совпадение по количеству детей
-                    }
-    
-                    // Match typeId if provided
-                    const matchesType = filters.typeId ? tour.category._ref === filters.typeId : true;
-                    if (matchesType) {
-                        score += 1; // Низший вес за совпадение по типу
-                    }
-    
-                    // Возвращаем тур с результатом, если он имеет ненулевой score
-                    return score > 0 ? { ...tour, score } : null;
-                })
-                .filter((tour) => tour !== null) // Сохраняем только туры с ненулевым score
-                .sort((a, b) => (b?.score || 0) - (a?.score || 0)); // Сортируем туры по score в порядке убывания
-    
-            // Если ничего не найдено, возвращаем пустой массив
-            setFilteredData(filteredHotels.length > 0 ? filteredHotels : []);
+
+            const filteredTours = data.filter((tour) => {
+                let matches = true;
+
+                // Narxni tekshiramiz
+                const tourPrice = Number(tour.price);
+                const priceFrom = filters.priceFrom ? Number(filters.priceFrom) : undefined;
+                const priceTo = filters.priceTo ? Number(filters.priceTo) : undefined;
+                if (priceFrom !== undefined && tourPrice < priceFrom) {
+                    matches = false;
+                }
+                if (priceTo !== undefined && tourPrice > priceTo) {
+                    matches = false;
+                }
+
+                // Sanalarni tekshiramiz
+                const tourStart = new Date(tour.fromDate);
+                const tourEnd = new Date(tour.toDate);
+                let filterStart = filters.fromDate ? new Date(filters.fromDate) : null;
+                let filterEnd = filters.toDate ? new Date(filters.toDate) : null;
+
+                // Agar filter sanalari mavjud bo'lsa va noto'g'ri tartibda bo'lsa, ularni almashtiramiz
+                if (filterStart && filterEnd && filterStart > filterEnd) {
+                    const temp = filterStart;
+                    filterStart = filterEnd;
+                    filterEnd = temp;
+                }
+
+                // Sanalar kesishishini tekshiramiz
+                if (filterStart && tourEnd < filterStart) {
+                    matches = false;
+                }
+                if (filterEnd && tourStart > filterEnd) {
+                    matches = false;
+                }
+
+                // Kattalar sonini tekshiramiz
+                if (filters.adultSize && tour.adultSize < filters.adultSize) {
+                    matches = false;
+                }
+
+                // Bolalar sonini tekshiramiz
+                if (filters.childrenSize && tour.childrenSize < filters.childrenSize) {
+                    matches = false;
+                }
+
+                // Tur tipini tekshiramiz
+                if (filters.typeId && tour.category._ref !== filters.typeId) {
+                    matches = false;
+                }
+
+                return matches;
+            });
+
+            setFilteredData(filteredTours);
         };
-    
-        applyFilters(); // Вызываем функцию фильтрации
+
+        applyFilters();
     }, [filters, data]);
-    
 
     return (
         <div className='relative'>
@@ -134,12 +128,11 @@ const MainTours: FC = () => {
                 setFilters={setFilters}
                 filters={filters}
                 types={types}
-                setIsRefresh={setIsRefresh}
                 locale={locale}
             />
             <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] relative mt-[420px] mdl:mt-[370px] 2xl:mt-[180px] flex flex-col gap-[120px] mdl:gap-[180px]'>
                 <Available tours={filteredData} locale={locale} types={types} setTypeID={setTypeID} />
-                <Gallery />
+                <Gallery data={filteredData} />
                 <Map />
                 <HowWork />
                 <Faq />

@@ -15,7 +15,6 @@ interface BannerProps {
   setFilters: (filters: Filters) => void // Ota komponentdan keladigan funksiya
   filters: Filters
   types: { _id: string; name: {ru: string , uz:string , en:string} }[] 
-  setIsRefresh: Dispatch<SetStateAction<boolean>>
   locale: "ru" | "uz" | "en",
 }
 
@@ -28,7 +27,7 @@ const handleOpenChange = (open: boolean, type: "from" | "to") => {
   }
 }
 
-const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh  , locale }) => {
+const Banner: FC<BannerProps> = ({ setFilters, filters, types  , locale }) => {
 
   // State variables initialized with filters prop values
   const [adults, setAdults] = useState(filters.adultSize)
@@ -110,8 +109,6 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types, setIsRefresh  , l
       priceTo: undefined, // Resetting priceTo to undefined
       typeId: '', // Resetting to a default value
     })
-    setIsRefresh(true)
-
   }
 
 

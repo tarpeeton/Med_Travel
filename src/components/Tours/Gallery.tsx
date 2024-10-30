@@ -8,29 +8,44 @@ import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import Image from 'next/image'
-import { RandomGallery } from '@/lib/api'
+import { Tour } from '@/interface/Tour'
+import { urlFor } from '@/sanity/lib/image'
 import { IGallery } from '@/interface/Gallery'
 
-const Gallery: FC = () => {
-    const [gallery, setGallery] = useState<IGallery[]>([])
-    useEffect(() => {
-        const fetchGallery = async () => {
-            try {
-                const res = await RandomGallery(1)
-                setGallery(res.data) 
-            } catch (error) {
-                console.error("Error fetching gallery:", error)
-            }
-        }
 
-        fetchGallery() 
-    }, []) 
+
+
+
+interface IGalleryProps {
+    data: Tour[] | null
+}
+
+
+
+
+
+const Gallery: FC<IGalleryProps> = ({ data }) => {
+    const [gallery, setGallery] = useState<IGallery[]>([])
+
+    useEffect(() => {
+        // Извлекаем данные галереи только если `data` не null
+        setGallery(data ? data.flatMap((tour) => tour.gallery) : [])
+    }, [data])
+
+
+
+
+
+    if (gallery.length <= 0) {
+        return null;
+    }
+    
 
     return (
         <div className='mt-[120px] 2xl:mt-[180px]'>
             <div className='flex flex-col'>
                 <div className='flex flex-col'>
-                    <Title  text={{ru: 'Фотографии из туров' , uz: "" , en: ""}} />
+                    <Title text={{ ru: 'Фотографии из туров', uz: "", en: "" }} />
                     <p className='mt-[5px]  2xl:mt-[10px] font-raleway text-[15px] mdl:text-[18px] 2xl:text-[20px] text-[#7C7C7C] font-medium'>Часть незабываемых моментов с туров</p>
                 </div>
                 {/* SLIDER */}
@@ -51,10 +66,24 @@ const Gallery: FC = () => {
                         }}
                     >
 
-                        {gallery.map((gal) => (
-                            <SwiperSlide key={gal.id} className=' cursor-pointer'>
+                        {gallery?.map((gal , index) => (
+                            <SwiperSlide key={index} className=' cursor-pointer'>
                                 <div className=' h-[220px] mdl:h-[320px] 2xl:h-[390px]'>
-                                    <Image src={gal.url} alt='image slider' width={1000} height={700} quality={100} className='object-cover w-full h-full' />
+
+                                    {gal.asset._ref && (
+                                        <Image
+                                            src={urlFor(gal.asset._ref || "").url()} // Convert to string URL
+                                            alt="toursimage"
+                                            width={1000}
+                                            quality={100}
+                                            height={1000}
+                                            className="object-cover w-full h-full"
+                                        />
+                                    )}
+
+
+
+
                                 </div>
                             </SwiperSlide>
                         ))}
