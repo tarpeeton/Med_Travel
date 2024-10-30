@@ -28,7 +28,6 @@ const Team: FC = () => {
   const [team , setTeam] = useState<TeamMember[] | []>([])
   const locale = useLocale()
 
-  console.log(team)
 
   useEffect(() => {
     const fetchAllTeam = async () => {
