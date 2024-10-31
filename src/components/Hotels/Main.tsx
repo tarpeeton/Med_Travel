@@ -8,25 +8,53 @@ import Contacts from '../Main/Contacts'
 import useLocale from '@/hooks/useLocale'
 import { AllHotels } from '@/lib/api'
 
+import { client } from "@/sanity/lib/client"
 
 
 export interface IHotel {
-    id: number;
+    id: string;
     name: string;
-    location: string;
-    service: { id: number, name: string, orderNum: number, active: boolean  , icon: {id: number , url: string}}[];
+    location: {
+        ru: string;
+        uz: string;
+        en: string;
+    };
+    service: {
+        id: string;
+        name: {
+            ru: string;
+            uz: string;
+            en: string;
+        };
+        icon: {
+            _type: "image";
+            asset: {
+                _type: "reference";
+                _ref: string;
+            };
+        };
+    }[];
     price: number;
     availableFrom: string;
     availableTo: string;
-    photo: { id: number, url: string }
-    adultsSize: 2,
-    childrenSize: 2,
-    orderNum: 0,
-    active: true
-    score?: number,
-    rating?: number,
-
+    photo: {
+        _type: "image";
+        asset: {
+            _type: "reference";
+            _ref: string;
+        };
+    };
+    adultsSize: number;
+    childrenSize: number;
+    orderNum?: number;
+    active?: boolean;
+    score?: number;
+    rating?: number;
+    createdAt: string;
+    updatedAt: string;
 }
+
+
 
 const MainHotels: FC = () => {
     const locale = useLocale();
@@ -43,21 +71,25 @@ const MainHotels: FC = () => {
     const [data, setData] = useState<IHotel[]>([]);
     const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 
+    console.log("stateDATA" , data)
 
     // Fetch hotels
     useEffect(() => {
         const fetchAllHotels = async () => {
             try {
-                const res = await AllHotels(locale);
-                const hotels = res.data;
-                setData(hotels);
+                // const res = await AllHotels(locale);
+                const resDATA = await client.fetch(
+                    `*[_type == "hotels"]`
+                  )
+                // const hotels = res.data;
+                setData(resDATA);
             } catch (error) {
                 console.error(error);
             }
         };
 
         fetchAllHotels();
-    }, [locale]);
+    }, []);
 
     // Handler for "Поиск" button click
     const handleSearch = () => {
@@ -65,41 +97,99 @@ const MainHotels: FC = () => {
     };
 
     const filteredHotels = data
-        .map((hotel) => {
-            // Calculate the "match score" for each hotel based on the number of matched criteria
-            let score = 0;
-
-            // Match price range
-            const matchesPrice = priceFrom && priceTo ? hotel.price >= priceFrom && hotel.price <= priceTo : true;
-            if (matchesPrice) {
-                score += 2; // Give higher weight for price match
-            }
-
-            // Match available dates
-            const matchesDateFrom = availableFrom ? new Date(hotel.availableFrom) >= new Date(availableFrom) : true;
-            const matchesDateTo = availableTo ? new Date(hotel.availableTo) <= new Date(availableTo) : true;
-            if (matchesDateFrom && matchesDateTo) {
-                score += 3; // Give highest weight for date match
-            }
-
-            // Match adults size
-            const matchesAdults = adultsSize ? hotel.adultsSize >= adultsSize : true;
-            if (matchesAdults) {
-                score += 1; // Lower weight for number of adults match
-            }
-
-            // Match children size
-            const matchesChildren = childrenSize ? hotel.childrenSize >= childrenSize : true;
-            if (matchesChildren) {
-                score += 1; // Lower weight for number of children match
-            }
-
-            // Return hotel with its score for ranking
-            return { ...hotel, score };
-        })
-        .filter((hotel) => hotel.score > 0) // Only keep hotels that have at least some matching criteria
-        .sort((a, b) => b.score - a.score); // Sort by the best matches (highest score)
-
+    .filter((hotel) => {
+      // Mandatory filters
+  
+      // Parse hotel and user dates
+      const hotelAvailableFrom = new Date(hotel.availableFrom);
+      const hotelAvailableTo = new Date(hotel.availableTo);
+      const userAvailableFrom = availableFrom ? new Date(availableFrom) : null;
+      const userAvailableTo = availableTo ? new Date(availableTo) : null;
+  
+      // Check availability dates
+      if (userAvailableFrom && userAvailableTo) {
+        if (
+          hotelAvailableFrom > userAvailableFrom ||
+          hotelAvailableTo < userAvailableTo
+        ) {
+          return false; // Hotel is not available in the desired date range
+        }
+      }
+  
+      // Check room capacity for adults
+      if (adultsSize && hotel.adultsSize < adultsSize) {
+        return false; // Not enough capacity for adults
+      }
+  
+      // Check room capacity for children
+      if (childrenSize && hotel.childrenSize < childrenSize) {
+        return false; // Not enough capacity for children
+      }
+  
+      // Check price range
+      if (priceFrom && hotel.price < priceFrom) {
+        return false; // Hotel price is below the minimum
+      }
+  
+      if (priceTo && hotel.price > priceTo) {
+        return false; // Hotel price is above the maximum
+      }
+  
+      return true; // Hotel passes all mandatory filters
+    })
+    .map((hotel) => {
+      // Scoring for ranking
+      let score = 0;
+      let totalWeight = 0;
+  
+      // Price proximity (Weight: 40%)
+      if (priceFrom !== 0 && priceTo !== 0) {
+        const midPrice = (priceFrom + priceTo) / 2;
+        const priceRange = priceTo - priceFrom;
+        const priceDifference = Math.abs(hotel.price - midPrice);
+        const priceScore = 1 - priceDifference / priceRange;
+        score += priceScore * 40;
+        totalWeight += 40;
+      }
+  
+      // Date proximity (Weight: 30%)
+      if (availableFrom && availableTo) {
+        const userStart = new Date(availableFrom).getTime();
+        const userEnd = new Date(availableTo).getTime();
+        const hotelStart = new Date(hotel.availableFrom).getTime();
+        const hotelEnd = new Date(hotel.availableTo).getTime();
+  
+        const userDuration = userEnd - userStart;
+        const hotelDuration = hotelEnd - hotelStart;
+        const dateDifference = Math.abs(userDuration - hotelDuration);
+        const dateScore = 1 - dateDifference / userDuration;
+        score += dateScore * 30;
+        totalWeight += 30;
+      }
+  
+      // Adult capacity surplus (Weight: 15%)
+      if (adultsSize) {
+        const adultSurplus = hotel.adultsSize - adultsSize;
+        const adultScore = 1 - adultSurplus / hotel.adultsSize;
+        score += adultScore * 15;
+        totalWeight += 15;
+      }
+  
+      // Children capacity surplus (Weight: 15%)
+      if (childrenSize) {
+        const childSurplus = hotel.childrenSize - childrenSize;
+        const childScore = 1 - childSurplus / hotel.childrenSize;
+        score += childScore * 15;
+        totalWeight += 15;
+      }
+  
+      // Normalize the score to a percentage
+      const normalizedScore = totalWeight > 0 ? (score / totalWeight) * 100 : 0;
+  
+      return { ...hotel, score: normalizedScore };
+    })
+    .sort((a, b) => b.score - a.score); // Sort hotels by highest score
+  
 
 
     return (

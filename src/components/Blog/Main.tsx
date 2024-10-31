@@ -34,7 +34,7 @@ const MainBlog: FC = () => {
   const [search, setSearch] = useState('')
 
 
-  console.log(blogs, "blogs")
+  
   useEffect(() => {
     const FetchAllTypes = async () => {
       try {
@@ -45,7 +45,7 @@ const MainBlog: FC = () => {
         )
         setTypes(res)
       } catch (error) {
-
+          console.log(error)
       }
     }
     FetchAllTypes()

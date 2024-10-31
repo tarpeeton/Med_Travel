@@ -13,6 +13,7 @@ import clinicks from './clinicks'
 import clinickCotegory from './clinick-cotegory'
 import sanathoryCotegory from './sanathory-cotegory'
 import sanathory from './sanathory'
+import hotels from './hotels'
 
 
 
@@ -32,7 +33,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     clinicks,
     clinickCotegory,
     sanathoryCotegory,
-    sanathory
+    sanathory,
+    hotels
 
 
 

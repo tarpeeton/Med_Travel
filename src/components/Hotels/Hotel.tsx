@@ -6,6 +6,8 @@ import LeanMoreButton from '../ui/more'
 import { IoIosStar } from "react-icons/io"
 import Image from 'next/image'
 import { IHotel } from './Main'
+import useLocale from '@/hooks/useLocale'
+import { urlFor } from '@/sanity/lib/image'
 
 
 
@@ -14,26 +16,26 @@ interface IHoteDataMap {
 }
 
 
-const Hotels: FC<IHoteDataMap> = ({data}) => {
+const Hotels: FC<IHoteDataMap> = ({ data }) => {
     const { sliceNumber, handleSliceNumber } = useSlice(10)
     const [serviceSlice, setServiceSlice] = useState(4)
-
+    const locale = useLocale()
     const handleSerServiceNumber = () => {
         setServiceSlice((prev) => prev + 4)
     }
 
-    const displayedHotels = data.slice(0, sliceNumber);
+    const displayedHotels = data.slice(0, sliceNumber)
 
     return (
         <div className='mt-[380px] 2xl:mt-[180px]'>
-            <Title   text={{ru: 'Доступные гостиницы и отели' , uz: "" , en: ""}} />
+            <Title text={{ ru: 'Доступные гостиницы и отели', uz: "", en: "" }} />
             <div className='mt-[25px] mdl:mt-[30px] 2xl:mt-[35px] flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between'>
                 {
                     displayedHotels.length > 0 ? (
                         displayedHotels.map((t, index) => (
                             <div key={index} className='mdl:w-[48%] mb-[50px] 2xl:w-[32%] cursor-pointer group '>
                                 <div className='h-[199px] w-full overflow-hidden rounded-[15px] relative 2xl:h-[307px]'>
-                                    <Image src={t.photo.url} alt='toursimage' width={1000} height={1000} className='object-cover w-full h-full' />
+                                    <Image src={urlFor(t.photo.asset._ref).url() || ''} alt='toursimage' width={1000} height={1000} className='object-cover w-full h-full' />
                                     {/* RATING */}
                                     <div className='flex flex-row items-center rounded-full bg-titleDark bg-opacity-[80%] py-[10px] px-[20px] absolute gap-[5px] top-[10px] left-[15px]'>
                                         <p className='text-white'>{t.rating}</p>
@@ -46,16 +48,23 @@ const Hotels: FC<IHoteDataMap> = ({data}) => {
                                         <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-raleway font-bold text-titleDark'>{t.name}</p>
                                     </div>
                                     <div className='mt-[8px]'>
-                                        <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium text-[#7C7C7C]'>{t.location}</p>
+                                        <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium text-[#7C7C7C]'>{t.location[locale]}</p>
                                     </div>
                                     <div className='flex flex-row flex-wrap gap-[8px] mt-[16px] mdl:mt-[20px]'>
                                         {t.service.slice(0, serviceSlice).map((ser, index) => (
                                             <div key={index} className='flex flex-row gap-[10px] py-[8px] px-[12px] text-center rounded-[5px] bg-[#F3F7FB]'>
                                                 <div className='w-[24px] h-[24px]'>
-                                                    <Image src={ser?.icon?.url} alt='Service' width={24} height={24} quality={100} className='w-full h-full object-cover' />
+                                                    <Image
+                                                        src={urlFor(ser.icon.asset._ref).url() || ''}
+                                                        alt="Service"
+                                                        width={24}
+                                                        height={24}
+                                                        quality={100}
+                                                        className="w-full h-full object-cover"
+                                                    />
                                                 </div>
                                                 <div>
-                                                    <p className='text-[14px] mdl:text-[15px] 2xl:text-[16px] text-[#7C7C7C] font-semibold'>{ser.name}</p>
+                                                    <p className='text-[14px] mdl:text-[15px] 2xl:text-[16px] text-[#7C7C7C] font-semibold'>{ser.name[locale]}</p>
                                                 </div>
                                             </div>
                                         ))}
@@ -66,7 +75,7 @@ const Hotels: FC<IHoteDataMap> = ({data}) => {
                                         )}
                                     </div>
                                     <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]'>
-                                        <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>от {t.price} /сут</p>
+                                        <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>от {t.price} $ /сут</p>
                                     </div>
                                 </div>
                             </div>
