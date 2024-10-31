@@ -15,8 +15,6 @@ import { IClinick } from '@/interface/Clinick'
 
 
 
-
-
 const MainClinics: FC = () => {
     const [clinics, setClinics] = useState<IClinick[]>([]);
     const contentRef = useRef<HTMLDivElement>(null); // Ref for GSAP animation

@@ -1,4 +1,4 @@
-import { Dispatch , SetStateAction } from 'react'
+import { ICategory } from '@/components/Sanatoriums/Main'
 
 
 
@@ -6,12 +6,11 @@ import { Dispatch , SetStateAction } from 'react'
 
 export interface Filter {
     name?: string
-    goalId?: string
+    _id?: string
 }
 
 export interface IFilterProps {
-    cotegory: {id: string , name: string , orderNum: number , active: boolean}[]
-    setCotegoryID: Dispatch<SetStateAction<string>>
+    cotegory: ICategory[]
     setFilters: (filters: Filter) => void
     filters: Filter,
     Name: string[]
@@ -19,23 +18,27 @@ export interface IFilterProps {
 
 
 export interface ISanathoryData {
-      id: number
-      name: string
-      address: string
-      photo: {
-        id: number
-        url: string
+      _id: number
+      name: {ru: string , uz: string , en:string}
+      fromAddress: {ru: string , uz: string , en:string}
+      toAddress: {ru: string , uz: string , en:string}
+      mainImage: {
+        _type: 'image';
+     asset: {
+       _type: 'reference';
+          _ref: string;
+       };
       }
-      goal: {
-        id: number
-        name: string
-        orderNum: number
-        active: boolean
-      }
+     
       price: number
-      orderNum: number
-      active: boolean
       rating: number
-      cotegory: { id: string, name: string, orderNum: number, active: boolean }[]
+      categories: {
+        _id: string;
+        title: {
+          ru: string;
+          uz: string;
+          en: string;
+        };
+      }[];
   }
   

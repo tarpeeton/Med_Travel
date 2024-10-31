@@ -4,19 +4,20 @@ import TursTitle from '../ui/tursTitle';
 import bgSanathorium from '@/public/gallery/bg.jpg';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { IFilterProps } from '@/interface/Sanathory';
+import useLocale from '@/hooks/useLocale'
 
 
 
 
 
-const Banner: FC<IFilterProps> = ({cotegory , setCotegoryID  , setFilters , filters , Name}) => {
+const Banner: FC<IFilterProps> = ({cotegory ,  setFilters , filters , Name}) => {
     const [inputValue, setInputValue] = useState(filters.name)
-    const [id , setID] = useState('0')
+    const [_id , setID] = useState('0')
     const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [isOpen, setIsOpen] = useState(false); 
-
+    const locale = useLocale()
 
     
     useEffect(() => {
@@ -43,16 +44,17 @@ const Banner: FC<IFilterProps> = ({cotegory , setCotegoryID  , setFilters , filt
         setIsOpen(false);
     };
 
-    const handleCategorySelect = (category: string , id: string) => {
+    const handleCategorySelect = (category: string , _id: string) => {
         setSelectedCategory(category);
-        setCotegoryID(id)
-        setID(id)
+        setID(_id)
         setIsDropdownOpen(false);  // Close category dropdown after selecting
     };
 
     const setFilterToParrent = () => {
-        setFilters({name: inputValue  , goalId: id})
+        setFilters({name: inputValue  , _id: _id})
     }
+
+
     return (
         <div
             style={{
@@ -106,13 +108,13 @@ const Banner: FC<IFilterProps> = ({cotegory , setCotegoryID  , setFilters , filt
                         </div>
                         {isDropdownOpen && (
                             <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto">
-                                {cotegory.map((category, index) => (
+                                {cotegory.map((category) => (
                                     <div
-                                    key={category.id} // Use category.id for a more unique key
-                                    onClick={() => handleCategorySelect(category.name, category.id)} // Pass category.name and category.id
+                                    key={category._id} // Use category.id for a more unique key
+                                    onClick={() => handleCategorySelect(category.title[locale], category._id)} // Pass category.name and category.id
                                     className="py-2 px-4 cursor-pointer hover:bg-[#E8F7F6] text-[#1AB2A6]"
                                     >
-                                        {category.name}
+                                        {category.title[locale]}
                                     </div>
                                 ))}
                             </div>

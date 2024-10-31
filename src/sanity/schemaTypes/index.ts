@@ -11,6 +11,8 @@ import tours from './tours'
 import tourscotegory from './tour-cotegory'
 import clinicks from './clinicks'
 import clinickCotegory from './clinick-cotegory'
+import sanathoryCotegory from './sanathory-cotegory'
+import sanathory from './sanathory'
 
 
 
@@ -28,8 +30,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     tours,
     tourscotegory,
     clinicks,
-    clinickCotegory
-
+    clinickCotegory,
+    sanathoryCotegory,
+    sanathory
 
 
 
