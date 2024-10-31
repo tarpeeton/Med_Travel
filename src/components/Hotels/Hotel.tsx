@@ -5,9 +5,9 @@ import useSlice from '@/hooks/useSlice'
 import LeanMoreButton from '../ui/more'
 import { IoIosStar } from "react-icons/io"
 import Image from 'next/image'
-import { IHotel } from './Main'
 import useLocale from '@/hooks/useLocale'
 import { urlFor } from '@/sanity/lib/image'
+import { IHotel } from '@/interface/Hotel'
 
 
 

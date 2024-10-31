@@ -6,60 +6,16 @@ import HowWork from '../Main/HowWork'
 import Form from '../Form/Form'
 import Contacts from '../Main/Contacts'
 import useLocale from '@/hooks/useLocale'
-import { AllHotels } from '@/lib/api'
+import { IHotel } from '@/interface/Hotel'
 
 import { client } from "@/sanity/lib/client"
 
 
-export interface IHotel {
-    id: string;
-    name: string;
-    location: {
-        ru: string;
-        uz: string;
-        en: string;
-    };
-    service: {
-        id: string;
-        name: {
-            ru: string;
-            uz: string;
-            en: string;
-        };
-        icon: {
-            _type: "image";
-            asset: {
-                _type: "reference";
-                _ref: string;
-            };
-        };
-    }[];
-    price: number;
-    availableFrom: string;
-    availableTo: string;
-    photo: {
-        _type: "image";
-        asset: {
-            _type: "reference";
-            _ref: string;
-        };
-    };
-    adultsSize: number;
-    childrenSize: number;
-    orderNum?: number;
-    active?: boolean;
-    score?: number;
-    rating?: number;
-    createdAt: string;
-    updatedAt: string;
-}
 
 
 
 const MainHotels: FC = () => {
-    const locale = useLocale();
 
-    // States for filter criteria
     const [availableFrom, setAvailableFrom] = useState<string>('');
     const [availableTo, setAvailableTo] = useState<string>('');
     const [adultsSize, setAdultsSize] = useState<number>(0);
@@ -67,11 +23,9 @@ const MainHotels: FC = () => {
     const [priceTo, setPriceTo] = useState<number>(0);
     const [priceFrom, setPriceFrom] = useState<number>(0);
 
-    // State for hotels data and filter flag
     const [data, setData] = useState<IHotel[]>([]);
     const [isFilterApplied, setIsFilterApplied] = useState<boolean>(false);
 
-    console.log("stateDATA" , data)
 
     // Fetch hotels
     useEffect(() => {
@@ -203,7 +157,6 @@ const MainHotels: FC = () => {
             setPriceTo = {setPriceTo}
             onSearch={handleSearch}
             />
-
             <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] flex flex-col gap-[120px] mdl:gap-[200px]'>
                 <Hotels  data={isFilterApplied ? filteredHotels : data}/>
                 <HowWork />

@@ -1,7 +1,6 @@
 "use client"
-import { FC, useEffect, useState  , useCallback} from "react"
+import { FC, useEffect, useState, useCallback } from "react"
 import { Link } from '@/i18n/routing'
-import { AllTours, AllSanathoriums } from '@/lib/api'
 import { Tour } from '@/interface/Tour'
 import { mixedData } from '@/constants/Mixed/TourSanathory'
 import useLocale from '@/hooks/useLocale'
@@ -11,6 +10,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
+import { client } from "@/sanity/lib/client"
+import { urlFor } from '@/sanity/lib/image'
+
+
 
 const Tours: FC = () => {
     const [data, setData] = useState<Tour[]>([])
@@ -18,23 +21,46 @@ const Tours: FC = () => {
     const [active, setActive] = useState(0)
     const locale = useLocale()
 
+
+
+
+
+
     const FetchData = useCallback(async () => {
         try {
             if (active === 0) {
-                const res = await AllTours(locale)
-                setData(res.data)
+                const toursRes = await client.fetch(`*[_type == "tour"]`)
+                setData(toursRes)
             } else {
-                const res = await AllSanathoriums(locale)
-                setSanathory(res.data)
+                const sanathoryRes = await client.fetch(`
+                    *[_type == "sanatoriums"]{ _id,name,
+          fromAddress,
+          toAddress,
+           categories[]->{
+                _id,
+                title
+              },
+          price,
+          rating,
+          mainImage,}`)
+                setSanathory(sanathoryRes)
             }
         } catch (error) {
             console.error(error)
-        } 
+        }
     }, [active, locale])
 
     useEffect(() => {
         FetchData()
     }, [FetchData])
+
+
+
+
+
+
+
+
 
     return (
         <div className='mt-[120px] mx-[16px] 2xl:ml-[200px]'>
@@ -62,29 +88,32 @@ const Tours: FC = () => {
                             spaceBetween={30}
                             slidesPerView={1}
                             breakpoints={{
-                                1024: { slidesPerView: 4.2 },
+                                1024: { slidesPerView: 3 },
                                 700: { slidesPerView: 1 },
-                                1200: { slidesPerView: 4.2 }
+                                1200: { slidesPerView: 2.9 }
                             }}
                         >
                             {data.map((data) => (
-                                <SwiperSlide key={data.id} >
+                                <SwiperSlide key={data._id} >
                                     <div
                                         className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] mdl:pb-[25px] 2xl:w-[100%]'
                                         style={{
                                             backgroundImage: data.mainPhoto
-                                                ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${data.mainPhoto.url})`
+                                                ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${urlFor(data.mainPhoto.asset._ref)})`
                                                 : 'linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35))',
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
                                         }}
+                                        
                                     >
                                         <div>
                                             <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-white rounded-full font-raleway text-[15px] text-white'>
-                                                {data.fromAddress}
+                                                {data.fromAddress[locale]}
                                             </button>
                                         </div>
                                         <div>
                                             <p className='text-white text-[22px] mdl:text-[25px] 2xl:text-[30px] font-bold'>
-                                                {data.toAddress}
+                                                {data.toAddress[locale]}
                                             </p>
                                         </div>
                                     </div>
@@ -93,28 +122,28 @@ const Tours: FC = () => {
                         </Swiper>
                     ) : (
                         <Swiper
-						modules={[Navigation]}
-						spaceBetween={30}
-						slidesPerView={1}
-						breakpoints={{
-							1024: { slidesPerView: 4.2 },
-							700: { slidesPerView: 1 },
-							1200: { slidesPerView: 4.2 }
-						}}
+                            modules={[Navigation]}
+                            spaceBetween={30}
+                            slidesPerView={1}
+                            breakpoints={{
+                                1024: { slidesPerView: 3 },
+                                700: { slidesPerView: 1 },
+                                1200: { slidesPerView: 2.9 }
+                            }}
                         >
                             {sanathory.map((data) => (
-                                <SwiperSlide key={data.id}>
+                                <SwiperSlide key={data._id}>
                                     <div
                                         className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] mdl:pb-[25px]'
                                         style={{
-                                            backgroundImage: data.photo
-                                                ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${data.photo.url})`
+                                            backgroundImage: data.mainImage
+                                                ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${urlFor(data.mainImage.asset._ref)})`
                                                 : 'linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35))',
                                         }}
                                     >
                                         <div>
                                             <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-white rounded-full font-raleway text-[15px] text-white'>
-                                                {data.address}
+                                                {data.toAddress[locale]}
                                             </button>
                                         </div>
                                         <div>

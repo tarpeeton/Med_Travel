@@ -29,7 +29,6 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
   const [filteredData, setFilteredData] = useState(data)
   const locale = useLocale()
 
-  console.log(filteredData, 'FFF')
 
 
 
