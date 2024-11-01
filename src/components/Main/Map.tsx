@@ -9,7 +9,7 @@ const Sanatoriums: FC = () => {
 	const [mapLoaded, setMapLoaded] = useState(false) 
 	const [mapInstance, setMapInstance] = useState<any>(null) 
 	const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics") 
-
+	const [activeData, setActiveData] = useState<number | null>(null) 
 
 
 
@@ -32,9 +32,9 @@ const Sanatoriums: FC = () => {
 	  
 	// Function to load Yandex Map script and initialize the map
 	const loadYandexMap = () => {
-		if (typeof window !== "undefined" && !document.getElementById("yandex-map-script")) {
+		if (typeof window !== "undefined" && !document.getElementById("my-filtered-script")) {
 			const script = document.createElement("script")
-			script.id = "yandex-map-script"
+			script.id = "my-filtered-script"
 			script.src = `https://api-maps.yandex.ru/2.1/?apikey=5771415d-001f-4699-b102-0fb2f6af965a&lang=ru_RU`
 			script.async = true
 			script.defer = true
@@ -117,7 +117,8 @@ const Sanatoriums: FC = () => {
 	}, [mapInstance, activeTab])
 
 	// Function to render location details based on the active tab
-	const handleLocationClick = (coords: [number, number]) => {
+	const handleLocationClick = (id: number, coords: [number, number]) => {
+		setActiveData(id)
 		if (mapInstance) {
 			// Center the map on the clicked location's coordinates
 			mapInstance.setCenter(coords, 14, { duration: 300 })
@@ -137,9 +138,11 @@ const Sanatoriums: FC = () => {
 		return locations.map((location) => (
 			<div
 				key={location.id}
-				className='rounded-[25px] bg-[#F3F7FB] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px]'
-				onClick={() => handleLocationClick(location.coords)} // Call the map center function on click
-				style={{ cursor: 'pointer' }} // Make the div look clickable
+				className={`rounded-[25px] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px] ${
+					activeData === location.id ? 'border border-[#168CE6]' : 'bg-[#F3F7FB]'
+				}`}
+				onClick={() => handleLocationClick(location.id, location.coords)}
+				style={{ cursor: 'pointer' }}
 			>
 				<div>
 					<p className='text-[25px] font-raleway font-semibold text-titleDark'>{location.name}</p>
@@ -156,7 +159,6 @@ const Sanatoriums: FC = () => {
 			</div>
 		))
 	}
-
 	return (
 		<div className="mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] mt-[120px] 2xl:mt-[120px]">
 			<div className="flex flex-col">
@@ -172,13 +174,13 @@ const Sanatoriums: FC = () => {
 						>
 							Медицинские клиники
 						</button>
-						<button
+						{/* <button
 							className={`font-semibold w-[40%] text-[14px] py-[12px] 2xl:text-[17px] px-[20px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"
 								}`}
 							onClick={() => setActiveTab("tours")}
 						>
 							Туры
-						</button>
+						</button> */}
 					</div>
 				</div>
 

@@ -16,7 +16,6 @@ const MainContent: FC = () => {
 			<Banner />
 			<Services />
 			<Stock />
-
 			<Map />
 			<div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] mt-[120px]'>
 				<HowWork />

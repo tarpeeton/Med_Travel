@@ -52,12 +52,12 @@ const LanguageSwitcher = ({ locale, menu }: { locale: string; menu: boolean }) =
       {/* Button to toggle dropdown */}
       <button
         id="dropdownDefaultButton"
-        className="text-black rounded-lg text-[15px] text-center inline-flex items-center gap-[4px] 2xl:gap-[8px]"
+        className="text-black rounded-lg text-[15px] text-center inline-flex items-center gap-[4px] "
         type="button"
         onClick={toggleDropdown}
       >
-        <CiGlobe className={`text-black ${menu ? '2xl:text-[#1AB2A6]' : 'text-black'}`} size={24} />
-        <p className={`text-[15px] md:text-[18px] text-black font-medium ${menu ? '2xl:text-[#1AB2A6]' : 'text-black'}`}>
+        <CiGlobe className={`text-black font-raleway ${menu ? '2xl:text-[#1AB2A6]' : 'text-black'}`} size={24} />
+        <p className={`text-[15px] md:text-[18px] text-black font-raleway font-medium ${menu ? '2xl:text-[#1AB2A6]' : 'text-black'}`}>
           {locale === "ru" ? "Ру" : locale === "uz" ? "Oʻz" : "Eng"}
         </p>
       </button>
@@ -71,10 +71,10 @@ const LanguageSwitcher = ({ locale, menu }: { locale: string; menu: boolean }) =
         >
           <ul className="py-2">
             {languages.map((lang) => (
-              <li key={lang.code} className='text-[15px] slg:text-[18px] font-medium text-black'>
+              <li key={lang.code} className='text-[15px] slg:text-[18px] font-raleway font-medium text-black'>
                 <Link
                   href={generateLocalizedPath(lang.code)}
-                  className="px-[8px] py-2 hover:bg-gray-400 flex flex-row gap-[5px] items-center dark:hover:text-white"
+                  className="px-[8px] py-2 hover:bg-gray-400 flex font-raleway flex-row gap-[5px] items-center dark:hover:text-white"
                   onClick={() => setDropdownOpen(false)}
                 >
                   <span className={`fi ${lang.icon} w-4 h-4`} /> {lang.name}

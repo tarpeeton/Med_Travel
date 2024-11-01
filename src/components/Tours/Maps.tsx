@@ -208,12 +208,10 @@ const Map: FC<IMapProps> = ({ coordinates, types }) => {
             ))}
           </div>
         </div>
-
         <div className="flex flex-row mt-[20px] mdl:mt-[40px]">
           <div className='hidden w-[30%] 2xl:flex 2xl:flex-col bg-white overflow-y-auto 2xl:h-[600px] mr-[10px]'>
             {renderLocations()}
           </div>
-
           <div className="map-container rounded-[30px] overflow-hidden w-full 2xl:w-[70%]">
             <div className="w-full h-[350px] mdl:h-[400px] 2xl:h-[600px]">
               <div id="yandexMap" className="w-full h-full rounded-[20px]" />

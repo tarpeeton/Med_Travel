@@ -45,7 +45,7 @@ const Header = ({ locale }: { locale: string }) => {
 
   return (
     <React.Fragment>
-      <div className='flex flex-row justify-between bg-white px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
+      <div className='flex flex-row justify-between bg-[#FFFFFF] px-[16px] slg:px-[20px] 2xl:px-[200px] z-[9999]'>
         <Link href='/' className='logo flex items-center'>
           <Image src={'https://ucarecdn.com/0127b73e-4ec4-47b9-ae5c-a3e603ee4622/-/preview/499x499/'} alt='Logo' width={80} height={80} quality={100} className='object-cover' />
         </Link>
@@ -75,7 +75,7 @@ const Header = ({ locale }: { locale: string }) => {
 
         {/* SWITCHER AND HAMBURGER MENU */}
         <div className='flex flex-row items-center gap-[16px] 2xl:gap-[30px]'>
-          <div className=''>
+          <div>
             <LanguageSwitcher locale={locale} menu={false} />
           </div>
           <button onClick={toggleMenuOpen}>
@@ -87,19 +87,19 @@ const Header = ({ locale }: { locale: string }) => {
       {service && (
         <div>
           <div className='flex flex-col z-[9999999]'>
-            <Link href='/tours' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
+            <Link href='/tours' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Туры
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/clinics' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
+            <Link href='/clinics' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Клиники
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/sanatoriums' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
+            <Link href='/sanatoriums' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Санатории
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
-            <Link href='/hotels' className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
+            <Link href='/hotels' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
               Гостиницы
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
