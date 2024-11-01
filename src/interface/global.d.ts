@@ -36,9 +36,7 @@ interface PlacemarkOptions {
 	iconColor?: string;
 }
 
-interface PlacemarkInstance {
-	// Instance returned when creating a placemark
-}
+
 
 interface MultiRouteOptions {
 	referencePoints: [number, number][];

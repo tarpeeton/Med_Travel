@@ -18,6 +18,11 @@ export interface Tour {
     fromDate: string;
     toDate: string;
     price: number;
+   
+    fromAddressLatitude:string
+fromAddressLongitude:string
+toAddressLatitude:string
+toAddressLongitude:string
     mainPhoto: {
         _type: "image";
         asset: {

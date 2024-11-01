@@ -22,7 +22,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
     const locale = useLocale()
 
     return (
-        <div className='flex flex-col  mt-[120px] mdl:w-[50%] 2xl:w-[35%]'>
+        <div className='flex flex-col  mt-[120px] mdl:w-[50%] 2xl:w-[45%]'>
             <div>
                 <Title text={{ru: 'Статьи' , uz: "" , en: ""}} />
             </div>
@@ -77,7 +77,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                   typeID === "all"
                     ? "bg-green100 text-white"
                     : "border border-borderColor"
-                } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}
+                } text-center flex items-center justify-center rounded-full font-raleway text-[17px] w-[170px]`}
               >Все категории</button>
 
 
@@ -86,7 +86,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                             typeID === type._id
                               ? "bg-green100 text-white"
                               : "border border-borderColor"
-                          } text-center flex items-center justify-center rounded-full font-raleway text-[15px] w-[100%]`}>{type.title[locale]}</button>
+                          } text-center flex items-center justify-center rounded-full font-raleway text-[17px] w-[170px]`}>{type.title[locale]}</button>
                     ))}
 
 

@@ -1,4 +1,3 @@
-// schemas/tour.js
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
@@ -66,6 +65,18 @@ export default defineType({
             })
         }),
         defineField({
+            name: 'fromAddressLatitude',
+            type: 'number',
+            title: 'Широта адреса отправления',
+            validation: Rule => Rule.required().min(-90).max(90).error('Широта должна быть от -90 до 90')
+        }),
+        defineField({
+            name: 'fromAddressLongitude',
+            type: 'number',
+            title: 'Долгота адреса отправления',
+            validation: Rule => Rule.required().min(-180).max(180).error('Долгота должна быть от -180 до 180')
+        }),
+        defineField({
             name: 'toAddress',
             type: 'object',
             title: 'Адрес назначения',
@@ -80,6 +91,18 @@ export default defineType({
                 }
                 return 'Адрес назначения обязателен хотя бы на одном языке';
             })
+        }),
+        defineField({
+            name: 'toAddressLatitude',
+            type: 'number',
+            title: 'Широта адреса назначения',
+            validation: Rule => Rule.required().min(-90).max(90).error('Широта должна быть от -90 до 90')
+        }),
+        defineField({
+            name: 'toAddressLongitude',
+            type: 'number',
+            title: 'Долгота адреса назначения',
+            validation: Rule => Rule.required().min(-180).max(180).error('Долгота должна быть от -180 до 180')
         }),
         defineField({
             name: 'fromDate',

@@ -50,7 +50,7 @@ const Latests: FC<Latest> = ({ blogs }) => {
                                 </p>
                             </div>
                             <div className='mt-[16px] mdl:mt-[25px] 2xl:mt-[30px]'>
-                                <Link href={`/blogs/${blog._id}`} className='flex flex-row items-center font-bold text-green100 text-[14px] mdl:text-[18px] 2xl:text-[18px] '>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
+                                <Link href={`/blog/${blog._id}`} className='flex flex-row items-center font-bold text-green100 text-[14px] mdl:text-[18px] 2xl:text-[18px] '>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
                             </div>
                         </div>
                     </div>

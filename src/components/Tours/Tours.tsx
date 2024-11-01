@@ -6,11 +6,11 @@ import LeanMoreButton from '../ui/more'
 import { Tour } from '@/interface/Tour'
 import useLocale from '@/hooks/useLocale'
 import { urlFor } from '@/sanity/lib/image'
+import { formatDate } from '@/hooks/fotmatDate'
 
 
 const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
     const locale = useLocale()
-
 
     const { sliceNumber, handleSliceNumber } = useSlice(9)
     if (!tours || tours.length === 0) {
@@ -29,7 +29,6 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
                     tours.slice(0, sliceNumber).map(t => (
                         <div key={t._id} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group'>
                             <div className='h-[199px] w-full overflow-hidden rounded-[15px]'>
-
                                 {t.mainPhoto?.asset?._ref && (
                                     <Image
                                         src={urlFor(t.mainPhoto.asset._ref || "").url()} // Convert to string URL
@@ -39,19 +38,14 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
                                         className="object-cover w-full h-full"
                                     />
                                 )}
-
-
-
-
-
                                 <div className='mt-[-70px] ml-[15px] transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-[100] p-[16px] text-center justify-center bg-white z-[999] text-green100 relative w-[200px] rounded-[10px] font-bold hover:group-[]:'>Быстрая заявка</div>
                             </div>
                             <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]  flex flex-col'>
-                                <div className=''>
+                                <div className='rustam'>
                                     <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-raleway font-bold text-titleDark'>{t.name[locale]}</p>
                                 </div>
-                                <div className=''>
-                                    <p className='text-[14px] text-[#7C7C7C] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium '>{t.fromAddress[locale]} - {t.toAddress[locale]} • {t.fromDate} - {t.toDate}</p>
+                                <div className='rustam'>
+                                    <p className='text-[14px] text-[#7C7C7C] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium '>{t.fromAddress[locale]} - {t.toAddress[locale]} • {formatDate(t.fromDate)} — {formatDate(t.toDate)}</p>
                                 </div>
                                 <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]'>
                                     <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>{t.price}$</p>
@@ -61,7 +55,6 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
                     ))
                 }
             </div>
-
             {sliceNumber < tours.length && (
                 <LeanMoreButton sliceCounterUp={handleSliceNumber} />
             )}

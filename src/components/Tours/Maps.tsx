@@ -3,24 +3,77 @@
 import Link from 'next/link'
 import { FC, useEffect, useState } from "react"
 import { MdNavigateNext } from "react-icons/md"
-import { Location } from '@/interface/location'
-import { tours, medicalTours } from '@/constants/Coordinates'
-import { gsap } from 'gsap'
+import { Tour } from '@/interface/Tour'
+import useLocale from '@/hooks/useLocale'
+import { formatDate } from '@/hooks/fotmatDate'
 
-const Map: FC = () => {
+
+interface IMapProps {
+  coordinates: Tour[]
+  types: { _id: string; name: { ru: string, uz: string, en: string } }[]
+}
+
+
+const Map: FC<IMapProps> = ({ coordinates, types }) => {
   const [mapLoaded, setMapLoaded] = useState(false)
   const [mapInstance, setMapInstance] = useState<any>(null)
-  const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics")
-  const [clinicRoutes, setClinicRoutes] = useState<any[]>([])
-  const [tourRoutes, setTourRoutes] = useState<any[]>([])
+  const [activeTab, setActiveTab] = useState<string | null>(null)
+
+
+
+
+  useEffect(() => {
+    if (types.length > 0) {
+      setActiveTab(types[0]._id) // types ning birinchi elementining _id sini o'rnatamiz
+    }
+  }, [types])
+
+
+
+  const locale = useLocale()
+
+  const [data, setData] = useState<Array<{
+    fromAddress: { ru: string, uz: string, en: string },
+    toAddress: { ru: string, uz: string, en: string },
+    price: number,
+    fromDate: string,
+    toDate: string,
+    fromAddressLatitude: number,
+    category: string,
+    fromAddressLongitude: number,
+    toAddressLatitude: number,
+    toAddressLongitude: number
+  }>>([])
+
+
+
+
+  useEffect(() => {
+    const filteredData = coordinates.map((item) => ({
+      fromAddress: item.fromAddress,
+      toAddress: item.toAddress,
+      price: item.price,
+      fromDate: item.fromDate,
+      toDate: item.toDate,
+      fromAddressLatitude: Number(item.fromAddressLatitude),
+      fromAddressLongitude: Number(item.fromAddressLongitude),
+      toAddressLatitude: Number(item.toAddressLatitude),
+      toAddressLongitude: Number(item.toAddressLongitude),
+      category: item.category._ref,
+
+    }))
+    setData(filteredData)
+  }, [coordinates])
+
+
+
+
+
+
 
   const fromLocationCoords: [number, number] = [41.351473, 69.289052] // Начальная точка
 
-  const currentLocations = activeTab === "clinics" ? medicalTours : tours
 
-  // Цвета для маршрутов
-  const clinicRouteColors = ["#32CD32", "#008000", "#00FF00", "#006400"] // Цвета для клиник
-  const tourRouteColors = ["#FF8C00", "#FFA500", "#FF4500", "#FF6347"]  // Цвета для туров
 
   const loadYandexMap = () => {
     if (typeof window !== "undefined" && !document.getElementById("yandex-map-script")) {
@@ -40,8 +93,7 @@ const Map: FC = () => {
               controls: ['typeSelector', 'fullscreenControl'],
             })
             setMapInstance(map)
-            createClinicRoutes(map)
-            createTourRoutes(map)
+            createRoutes()
           })
         }
       }
@@ -53,103 +105,81 @@ const Map: FC = () => {
           controls: ['typeSelector', 'fullscreenControl'],
         })
         setMapInstance(map)
-        createClinicRoutes(map)
-        createTourRoutes(map)
+        createRoutes()
       })
     }
   }
 
-  const createClinicRoutes = (map: any) => {
-    const routes = medicalTours.map((location, index) => {
+
+  const createRoutes = () => {
+    if (!mapInstance || data.length === 0) return
+
+    // Clear existing routes
+    mapInstance.geoObjects.removeAll()
+
+    // Filter data based on activeTab (category)
+    const filteredData = data.filter(item => item.category === activeTab)
+
+    filteredData.forEach((location, index) => {
       const multiRoute = new window.ymaps.multiRouter.MultiRoute({
-        referencePoints: [fromLocationCoords, location.coords],
-        params: { routingMode: 'auto' }
+        referencePoints: [
+          [location.fromAddressLatitude, location.fromAddressLongitude],
+          [location.toAddressLatitude, location.toAddressLongitude],
+        ],
+        params: { routingMode: 'auto' },
       }, {
         boundsAutoApply: true,
         routeActiveStrokeWidth: 7,
-        routeActiveStrokeColor: clinicRouteColors[index % clinicRouteColors.length], // Применяем цвета
       })
-      map.geoObjects.add(multiRoute)
-      return multiRoute
+      mapInstance.geoObjects.add(multiRoute)
     })
-    setClinicRoutes(routes)
-  }
-
-  const createTourRoutes = (map: any) => {
-    const routes = tours.map((location, index) => {
-      const multiRoute = new window.ymaps.multiRouter.MultiRoute({
-        referencePoints: [fromLocationCoords, location.coords],
-        params: { routingMode: 'auto' }
-      }, {
-        boundsAutoApply: true,
-        routeActiveStrokeWidth: 7,
-        routeActiveStrokeColor: tourRouteColors[index % tourRouteColors.length], // Применяем цвета
-      })
-      map.geoObjects.add(multiRoute)
-      return multiRoute
-    })
-    setTourRoutes(routes)
-  }
-
-  const toggleRoutesVisibility = () => {
-    // Скрыть или показать маршруты в зависимости от активной вкладки
-    clinicRoutes.forEach(route => {
-      if (activeTab === "clinics") {
-        route.options.set('visible', true)
-      } else {
-        route.options.set('visible', false)
-      }
-    })
-
-    tourRoutes.forEach(route => {
-      if (activeTab === "tours") {
-        route.options.set('visible', true)
-      } else {
-        route.options.set('visible', false)
-      }
-    })
-
-    // Анимация переключения вкладок
-    gsap.to(".map-container", { opacity: 0, duration: 0.3, onComplete: () => {
-      gsap.to(".map-container", { opacity: 1, duration: 0.6 })
-    }})
   }
 
   useEffect(() => {
     if (!mapLoaded) {
       loadYandexMap()
       setMapLoaded(true)
-    } else if (mapInstance) {
-      toggleRoutesVisibility()
     }
-  }, [mapLoaded, activeTab, clinicRoutes, tourRoutes])
+  }, [mapLoaded])
 
-  const handleLocationClick = (location: Location) => {
-    if (mapInstance) {
-      mapInstance.setCenter(location.coords, 14, { duration: 2000 })
-
-      // Анимация для перемещения карты
-      gsap.to(mapInstance, { duration: 2, ease: "power2.out", onComplete: () => {
-        // Дополнительная анимация после перемещения
-        gsap.fromTo(".location-info", { opacity: 0 }, { opacity: 1, duration: 0.8 })
-      }})
+  useEffect(() => {
+    if (mapInstance && data.length > 0) {
+      createRoutes()
     }
-  }
+  }, [mapInstance, data, activeTab])
+
+
+
+
+  useEffect(() => {
+    if (!mapLoaded) {
+      loadYandexMap()
+      setMapLoaded(true)
+    }
+  }, [mapLoaded])
+
+  useEffect(() => {
+    if (mapInstance && data.length > 0) {
+      createRoutes()
+    }
+  }, [mapInstance, data, activeTab])
+
 
   const renderLocations = () => {
+    const filteredData = data.filter(item => item.category === activeTab)
     return (
       <div>
-        {currentLocations.map((location) => (
-          <div key={location.id} className='location-info rounded-[25px] bg-[#F3F7FB] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px]' onClick={() => handleLocationClick(location)} style={{ cursor: 'pointer' }}>
+        {filteredData.map((location, index) => (
+          <div key={index} className='location-info rounded-[25px] relative 2xl:h-[182px] bg-[#F3F7FB] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px]' style={{ cursor: 'pointer' }}>
             <div>
-              <p className='text-[20px] font-raleway font-semibold text-titleDark'>{location.name}</p>
+              <p className='text-[20px] font-raleway font-semibold text-titleDark'>{location.fromAddress[locale]} -{location.toAddress[locale]} </p>
             </div>
             <div className='mt-[5px]'>
-              <p className='text-[16px] text-[#7C7C7C] font-raleway'>{location.address || location.description}</p>
+              <p className='text-[16px] text-[#7C7C7C] font-raleway'>{location.price}$ • {formatDate(location.fromDate)}—{formatDate(location.toDate)}</p>
             </div>
-            <div className='mt-[5px]'>
-              <Link href={location.url} className='flex items-center text-[#168CE6] font-semibold font-raleway'>
-                <p className='text-[17px]'>{location.link}</p>
+            <div className='mt-[5px] absolute bottom-[20px]'>
+              <Link href={location.toAddress[locale]} className='flex items-center text-[#168CE6] font-semibold font-raleway'>
+                <p className='text-[17px]'>Подробнее</p>
                 <MdNavigateNext size={20} />
               </Link>
             </div>
@@ -162,17 +192,20 @@ const Map: FC = () => {
   return (
     <div>
       <div className="flex flex-col">
-        <div className='mdl:w-[50%]'>
-          <p className="text-[25px] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px] font-raleway">
+        <div className='xx'>
+          <p className="text-[25px] mdl:w-[50%] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px] font-raleway">
             Туры и медицинские клиники Узбекистана
           </p>
           <div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px] mdl:w-[80%] 2xl:w-[70%] 2xl:justify-normal 2xl:gap-[8px]">
-            <button className={`font-semibold text-[14px] py-[12px] px-[20px] rounded-full ${activeTab === "clinics" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("clinics")}>
-            Медицинские туры
-            </button>
-            <button className={`font-semibold w-[40%] text-[14px] py-[12px] px-[18px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`} onClick={() => setActiveTab("tours")}>
-            Обычные туры
-            </button>
+            {types.map((item) => (
+              <button
+                key={item._id}
+                className={`font-semibold 2xl:w-[200px] text-[14px] 2xl:text-[17px] py-[12px] px-[20px] rounded-full ${activeTab === item._id ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"}`}
+                onClick={() => setActiveTab(item._id)}
+              >
+                {item.name[locale]}
+              </button>
+            ))}
           </div>
         </div>
 
