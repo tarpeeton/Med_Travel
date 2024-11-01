@@ -1,5 +1,5 @@
 "use client"
-import { FC , useEffect } from 'react'
+import { FC , useEffect  , useCallback} from 'react'
 import Banner from './Banner'
 import Available from './Available'
 import Gallery from './Gallery'
@@ -11,6 +11,12 @@ import Contacts from '../Main/Contacts'
 import useLocale from '@/hooks/useLocale'
 import { client } from "@/sanity/lib/client"
 import { useTourState } from '@/hooks/useTourState'
+import { Tour } from '@/interface/Tour'
+
+
+interface IMianTours {
+    initialData: Tour[]
+}
 
 
 
@@ -32,22 +38,22 @@ const MainTours: FC = () => {
 
 
     // MA'LUMOTNI OLISH
-    useEffect(() => {
-        const fetchTours = async () => {
-            try {
-                const toursRes = await client.fetch(`*[_type == "tour"]`)
-                const res = await client.fetch(`*[_type == "torscotegory"]{_id, name}`)
-                setData(toursRes)
-                setFilteredData(toursRes) // Dastlab barcha ma'lumotlarni ko'rsatamiz
-                setTypes(res)
-                setTypeID(res?.[0]._id || '')
-            } catch (err) {
-                console.error('Error fetching tours:', err)
-            }
+    const fetchTours = useCallback(async () => {
+        try {
+            const toursRes = await client.fetch(`*[_type == "tour"]`);
+            const typesRes = await client.fetch(`*[_type == "torscotegory"]{_id, name}`);
+            setData(toursRes);
+            setFilteredData(toursRes); // Initially show all data
+            setTypes(typesRes);
+            setTypeID(typesRes?.[0]._id || '');
+        } catch (err) {
+            console.error('Error fetching tours:', err);
         }
+    }, [setData, setFilteredData, setTypes, setTypeID]);
 
-        fetchTours()
-    }, [locale])
+    useEffect(() => {
+        fetchTours(); // Run once on mount
+    }, [fetchTours]);
 
     // FILTRLASH
     useEffect(() => {
@@ -114,14 +120,6 @@ const MainTours: FC = () => {
         }
         applyFilters()
     }, [filters, data])
-
-
-
-
-
-
-
-
 
 
 

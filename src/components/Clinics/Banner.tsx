@@ -16,15 +16,15 @@ interface BannerProps {
 }
 
 interface SelectService {
-    _id: string ,
+    _id: string,
     name: {
-        ru: string ,
-        uz:string,
-        en:string,
+        ru: string,
+        uz: string,
+        en: string,
     }
 }
 
-const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
+const Banner: FC<BannerProps> = ({ clinics, setClinics, setFilteredData }) => {
     const locale = useLocale()
     const [inputValue, setInputValue] = useState('')
     const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([])
@@ -33,16 +33,17 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
     const [selectedCategories, setSelectedCategories] = useState<SelectService[]>([])
     const [categories, setCategories] = useState<SelectService[]>([])
     const dropdownRef = useRef<HTMLDivElement | null>(null)
+    const suggestionDropdownRef = useRef<HTMLDivElement | null>(null) // Tavsiyalar uchun yangi ref
 
-    console.log(selectedCategories , "SELECTED CCC")
-
+    // Tavsiyalarni tanlaganda
     const handleSuggestionClick = (suggestion: string) => {
         setInputValue(suggestion)
         setIsSuggestionDropdownOpen(false)
         setIsDropdownOpen(false)
     }
 
-    // Fetch clinics based on the locale
+
+    // FETCH ALL CLINICK
     useEffect(() => {
         const fetchClinics = async () => {
             try {
@@ -56,10 +57,8 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
                         name
                       }
                     }
-                  `);
-                  
-                
-                setClinics(clinickResponse )
+                `)
+                setClinics(clinickResponse)
             } catch (error) {
                 console.error("Error fetching clinics:", error)
             }
@@ -67,15 +66,13 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
         fetchClinics()
     }, [locale])
 
-    // Fetch categories based on the locale
+    // FETCH ALL COTEGORIES
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const clinickService = await client.fetch(`
                     *[_type == "service"]{_id , name}
-                  `);
-
-                  console.log("ALL TYPES CL" , clinickService)
+                `)
                 setCategories(clinickService || [])
             } catch (error) {
                 console.error("Error fetching categories:", error)
@@ -84,28 +81,17 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
         fetchCategories()
     }, [locale])
 
-    // Optimize input change handling and filtering suggestions
-    useEffect(() => {
-        if (inputValue) {
-            const filtered = clinics
-                .map(clinic => clinic.name)
-                .filter(name => name.toLowerCase().includes(inputValue.toLowerCase()))
-
-            setFilteredSuggestions(filtered)
-            setIsSuggestionDropdownOpen(filtered.length > 0)
-        } else {
-            setFilteredSuggestions([])
-            setIsSuggestionDropdownOpen(false)
-        }
-    }, [inputValue, clinics])
-
+    // INPUT CHANGER 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
+        const filteredSuggestions = clinics
+            .map(clinic => clinic.name) // Locale ga mos keladigan nomlarni olish
+            .filter(name => name.toLowerCase().includes(e.target.value.toLowerCase())) // Filtrlash
+        setFilteredSuggestions(filteredSuggestions)
+        setIsSuggestionDropdownOpen(true) // Tavsiyalarni ko'rsatish
     }
 
-      
-
-
+    // Kotegoriyani Tanlash uchun 
     const handleCategorySelect = (category: SelectService) => {
         setSelectedCategories(prevSelected => {
             const isSelected = prevSelected.some(item => item._id === category._id)
@@ -118,41 +104,46 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
         setIsSuggestionDropdownOpen(false)
     }
 
+
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutsideSuggestion = (event: MouseEvent) => {
+            if (suggestionDropdownRef.current && !suggestionDropdownRef.current.contains(event.target as Node)) {
+                setIsSuggestionDropdownOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutsideSuggestion)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideSuggestion)
+        }
+    }, [suggestionDropdownRef])
+
+
+    useEffect(() => {
+        const handleClickOutsideDropdown = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsDropdownOpen(false)
             }
         }
-        document.addEventListener('mousedown', handleClickOutside)
+
+        document.addEventListener('mousedown', handleClickOutsideDropdown)
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('mousedown', handleClickOutsideDropdown)
         }
     }, [dropdownRef])
-
-
-
+    // Klinikalarni filtrlashtirish
     const FilterData = () => {
-        // Фильтрация клиник по названию и выбранным категориям
         const filtered = clinics.filter(clinic => {
-            // Проверка, совпадает ли название клиники с inputValue (учитываем регистр)
-            const matchesName = clinic.name.toLowerCase().includes(inputValue.toLowerCase());
-    
-            // Проверка, совпадает ли хотя бы одна из услуг клиники с выбранными категориями
-            const matchesCategories = selectedCategories.length === 0 || 
-                clinic.services.some(service => 
+            const matchesName = clinic.name.toLowerCase().includes(inputValue.toLowerCase())
+            const matchesCategories = selectedCategories.length === 0 ||
+                clinic.services.some(service =>
                     selectedCategories.some(selected => selected._id === service._id)
-                );
-    
-            // Возвращаем клиники, соответствующие и названию, и выбранным категориям
-            return matchesName && matchesCategories;
-        });
-    
-        // Обновление состояния filteredData
-        setFilteredData(filtered);
+                )
+            return matchesName && matchesCategories
+        })
+        setFilteredData(filtered)
     }
-    
-    
+
 
     return (
         <div
@@ -217,9 +208,8 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
                             </div>
                         )}
                     </div>
-
                     {isSuggestionDropdownOpen && filteredSuggestions.length > 0 && (
-                        <div className="absolute z-10 w-[88%] top-[80px] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:w-[40%] 2xl:top-[90px]">
+                        <div ref={suggestionDropdownRef} className="absolute z-10 w-[88%] top-[80px] bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto 2xl:w-[40%] 2xl:top-[90px]">
                             {filteredSuggestions.map((suggestion, index) => (
                                 <div
                                     key={index}
@@ -231,7 +221,6 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics , setFilteredData }) => {
                             ))}
                         </div>
                     )}
-
                     <button type='button' onClick={FilterData} className="greenButton 2xl:py-[13.5px] 2xl:w-[17%] w-full 2xl:mt-0 font-bold p-[16px] mdl:w-[35%] mdl:py-[10px] mdl:px-[20px] mt-[25px]">Поиск</button>
                 </form>
             </div>

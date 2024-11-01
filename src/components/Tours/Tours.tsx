@@ -22,6 +22,11 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
             </div>
         )
     }
+
+
+
+
+    
     return (
         <div >
             <div className='mt-[16px] mdl:mt-[20px] 2xl:mt-[25px] flex flex-col gap-[20px] mdl:flex-wrap mdl:flex-row'>

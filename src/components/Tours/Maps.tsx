@@ -49,7 +49,7 @@ const Map: FC<IMapProps> = ({ coordinates, types }) => {
 
 
   useEffect(() => {
-    const filteredData = coordinates.map((item) => ({
+    const filteredData = coordinates?.map((item) => ({
       fromAddress: item.fromAddress,
       toAddress: item.toAddress,
       price: item.price,
@@ -112,15 +112,16 @@ const Map: FC<IMapProps> = ({ coordinates, types }) => {
 
 
   const createRoutes = () => {
+    
     if (!mapInstance || data.length === 0) return
 
     // Clear existing routes
     mapInstance.geoObjects.removeAll()
 
     // Filter data based on activeTab (category)
-    const filteredData = data.filter(item => item.category === activeTab)
+    const filteredData = data?.filter(item => item.category === activeTab)
 
-    filteredData.forEach((location, index) => {
+    filteredData?.forEach((location, index) => {
       const multiRoute = new window.ymaps.multiRouter.MultiRoute({
         referencePoints: [
           [location.fromAddressLatitude, location.fromAddressLongitude],

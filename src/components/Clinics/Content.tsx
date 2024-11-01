@@ -14,19 +14,11 @@ interface BannerContent {
 
 const Content: FC<BannerContent> = ({ clinics, animation }) => {
   const { sliceNumber, handleSliceNumber } = useSlice(10)
-  const [loading, setLoading] = useState(true)
   const [serviceVison, setServiceVision] = useState(4)
   const handleAllServiceVision = () => setServiceVision(Number.MAX_SAFE_INTEGER)
   const locale = useLocale()
 
-  useEffect(() => {
-    setLoading(true)
-    const timeout = setTimeout(() => {
-      setLoading(false)
-    }, 600) // Simulate a data fetch
-
-    return () => clearTimeout(timeout)
-  }, [clinics])
+ 
 
   return (
     <div className='mt-[310px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] 2xl:mt-[160px]'>
@@ -66,7 +58,7 @@ const Content: FC<BannerContent> = ({ clinics, animation }) => {
         }
       </div>
 
-      {!loading && sliceNumber < (clinics.length || 0) && (
+      {sliceNumber < (clinics.length || 0) && (
         <LeanMoreButton sliceCounterUp={handleSliceNumber} aria-label="Load more clinics" />
       )}
 
