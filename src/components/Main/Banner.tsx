@@ -97,6 +97,7 @@ const MainBanner: FC = () => {
                   alt={banner.title[locale]}
                   width={1500}
                   height={666}
+                  priority
                   className="w-full h-[500px] mdl:h-[600px] object-cover"
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-35" />

@@ -25,7 +25,6 @@ const Tours: FC = () => {
 
 
 
-
     const FetchData = useCallback(async () => {
         try {
             if (active === 0) {
@@ -74,7 +73,7 @@ const Tours: FC = () => {
                             key={m.id}
                             onClick={() => setActive(m.id)}
                             aria-label={`Select category: ${m.name[locale]}`}
-                            className={`py-[12px] px-[25px] text-center flex items-center justify-center rounded-full font-raleway text-[15px] 
+                            className={`py-[12px]  px-[25px] text-center flex items-center justify-center rounded-full font-raleway text-[15px] 
                             ${active === m.id ? 'bg-green100 text-white' : 'border border-borderColor text-[#505050]'}`}>
                             {m.name[locale]}
                         </button>
