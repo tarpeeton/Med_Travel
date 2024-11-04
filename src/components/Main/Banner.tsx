@@ -65,25 +65,17 @@ const MainBanner: FC = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 900,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1900,
+    autoplaySpeed: 1500,
     arrows: false,
+    
   }
 
-  const handlePrev = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev()
-    }
-  }
-
-  const handleNext = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext()
-    }
-  }
+  const handlePrev = () => sliderRef.current?.slickPrev();
+  const handleNext = () => sliderRef.current?.slickNext();
 
   return (
     <div className="relative ">
@@ -91,14 +83,14 @@ const MainBanner: FC = () => {
         {dataBanner.map((banner) => (
           <div key={banner._id} className="flex justify-between">
             <div className="flex w-full cursor-pointer">
-              <div className="w-full relative h-[500px] mdl:h-[600px] ">
+              <div className="w-full relative h-[500px] mdl:h-[600px] 2xl:h-[750px] ">
               <Image
                   src={urlFor(banner.backgroundImage).url()}
                   alt={banner.title[locale]}
                   width={1500}
                   height={666}
                   priority
-                  className="w-full h-[500px] mdl:h-[600px] object-cover"
+                  className="w-full h-[500px] mdl:h-[600px] object-cover 2xl:h-[750px] "
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-35" />
                 <div className="absolute bottom-[40px] w-full text-white px-[16px] mdl:px-[20px] 2xl:px-[200px] 2xl:bottom-[80px]">

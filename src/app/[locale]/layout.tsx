@@ -1,13 +1,18 @@
 import Header from '@/components/Header'
 import '../globals.css'
-import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 import {NextIntlClientProvider} from 'next-intl';
-// Sample messages for each locale (you'll need to import your actual messages here)
+import dynamic from 'next/dynamic'
+
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
+
+
+
 import messages_en from '@/translation/en.json';
 import messages_ru from '@/translation/ru.json';
 import messages_uz from '@/translation/uz.json';
 import { LoaderProvider } from '@/context/LoaderContext';
+
 export const metadata: Metadata = {
   title: 'Med Travel',
   description: 'Med Travel - Sog\'liqni saqlash va sayohat bo\'yicha professional xizmatlar. Biz tibbiyot va sayohat sohasida yuqori sifatli xizmatlarni taqdim etamiz.',

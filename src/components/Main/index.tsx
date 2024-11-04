@@ -1,13 +1,15 @@
 import { FC } from 'react'
+import dynamic from 'next/dynamic'
 import Banner from './Banner'
-import Services from './Services'
-import Stock from './Stock'
-import Tours from './Tours'
-import HowWork from './HowWork'
-import Reviews from './Reviews'
-import Map from './Map'
-import Form from '../Form/Form'
-import Contacts from './Contacts'
+
+const Services = dynamic(() => import('./Services'), { ssr: false })
+const Stock = dynamic(() => import('./Stock'), { ssr: false })
+const Tours = dynamic(() => import('./Tours'), { ssr: false })
+const HowWork = dynamic(() => import('./HowWork'), { ssr: false })
+const Reviews = dynamic(() => import('./Reviews'), { ssr: false })
+const Map = dynamic(() => import('./Map'), { ssr: false })
+const Form = dynamic(() => import('../Form/Form'), { ssr: false })
+const Contacts = dynamic(() => import('./Contacts'), { ssr: false })
 
 
 const MainContent: FC = () => {

@@ -48,8 +48,9 @@ const Services: FC = () => {
 								height={1365}
 								alt='Туры по Узбекистану'
 								className='object-cover w-full 2xl:w-[50%] rounded-[20px]'
-								loading="lazy"
 								quality={100}
+								loading="lazy"
+                				
 							/>
 							<div className='flex flex-col mt-[25px] mdl:mt-[30px] 2xl:w-[50%] 2xl:mt-0'>
 								<p className='text-[22px] font-semibold  2xl:text-[30px] mdl:w-[20%] 2xl:w-[30%] mdl:text-[30px]'>Туры по Узбекистану</p>
