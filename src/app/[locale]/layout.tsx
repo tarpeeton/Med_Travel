@@ -57,9 +57,17 @@ export default async function LocaleLayout({
     default:
       messages = messages_en;
   }
+  
+  const clientId = "145832671cce98f22847de5fbecf6e9090dfc7";
 
   return (
     <html lang={locale}>
+      <head>
+      <Script
+        src={`//tourvisor.ru/module/init.js?clientId=${clientId}`}
+        strategy="afterInteractive"
+      />
+      </head>
       <body>
         <LoaderProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>

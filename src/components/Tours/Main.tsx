@@ -133,6 +133,9 @@ const MainTours: FC = () => {
             />
             <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] relative mt-[420px] mdl:mt-[370px] 2xl:mt-[180px] flex flex-col gap-[120px] mdl:gap-[180px]'>
                 <Available tours={filteredData} locale={locale} types={types} setTypeID={setTypeID} />
+
+
+                
                 <Gallery data={filteredData} />
                 <Map  coordinates={data} types={types}/>
                 <HowWork />

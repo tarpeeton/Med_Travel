@@ -61,7 +61,7 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID , locale }) => 
     <div className='relative'>
       <div className='flex flex-col'>
         <Title  text={{ru: 'Доступные туры' , uz: "" , en: ""}}  />
-        <div className='flex 2xl:w-[30%] flex-row justify-between mt-[20px] mdl:mt-[30px]'>
+        {/* <div className='flex 2xl:w-[30%] flex-row justify-between mt-[20px] mdl:mt-[30px]'>
           {types.map((type) => (
             <button
               key={type._id}
@@ -74,7 +74,7 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID , locale }) => 
               {type.name[locale]}
             </button>
           ))}
-        </div>
+        </div> */}
         <div ref={toursRef}>
           <Tours tours={filteredTours} />
         </div>

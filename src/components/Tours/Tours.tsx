@@ -30,7 +30,9 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
     return (
         <div >
             <div className='mt-[16px] mdl:mt-[20px] 2xl:mt-[25px] flex flex-col gap-[20px] mdl:flex-wrap mdl:flex-row'>
-                {
+
+            <div className="tv-hot-tours tv-moduleid-9975747"></div>
+                {/* {
                     tours.slice(0, sliceNumber).map(t => (
                         <div key={t._id} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group'>
                             <div className='h-[199px] w-full overflow-hidden rounded-[15px]'>
@@ -58,11 +60,11 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
                             </div>
                         </div>
                     ))
-                }
+                } */}
             </div>
-            {sliceNumber < tours.length && (
+            {/* {sliceNumber < tours.length && (
                 <LeanMoreButton sliceCounterUp={handleSliceNumber} />
-            )}
+            )} */}
 
         </div>
     )
