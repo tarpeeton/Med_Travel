@@ -100,7 +100,7 @@ const Header = ({ locale }: { locale: string }) => {
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
             <Link href='/hotels' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
-              Гостиницы
+            Страны и Отели
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
           </div>
