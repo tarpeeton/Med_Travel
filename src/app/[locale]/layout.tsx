@@ -1,17 +1,15 @@
-import Header from '@/components/Header'
-import '../globals.css'
-import type { Metadata } from 'next'
-import {NextIntlClientProvider} from 'next-intl';
-import dynamic from 'next/dynamic'
-
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
-
-
-
+import Header from '@/components/Header';
+import '../globals.css';
+import type { Metadata } from 'next';
+import { NextIntlClientProvider } from 'next-intl';
+import dynamic from 'next/dynamic';
+import Script from 'next/script'; // Import Script component
 import messages_en from '@/translation/en.json';
 import messages_ru from '@/translation/ru.json';
 import messages_uz from '@/translation/uz.json';
 import { LoaderProvider } from '@/context/LoaderContext';
+
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
 export const metadata: Metadata = {
   title: 'Med Travel',
@@ -19,16 +17,16 @@ export const metadata: Metadata = {
   keywords: 'sayohat, sog\'liq, tibbiyot, Med Travel, sog\'liqni saqlash, sayohat xizmatlari',
   authors: [{ name: 'Rustam Kidiraliyev + RESULT AGENCY', url: 'https://my-works-ten.vercel.app/' }],
   icons: {
-    icon: 'https://ucarecdn.com/42c864e6-2a67-4e47-b576-93b3cb92071b/-/preview/499x499/', // Favicon fayli yo'li
+    icon: 'https://ucarecdn.com/42c864e6-2a67-4e47-b576-93b3cb92071b/-/preview/499x499/', // Favicon
   },
   openGraph: {
     title: 'Med Travel - Sog\'liqni saqlash va sayohat xizmatlari',
-    description: 'Biz sog\'liqni saqlash va sayohat bo\'yicha professional xizmatlar taqdim etamiz.',
-    url: 'https://yourwebsite.com', // Saytning to'liq URL manzili
+    description: 'Biz sog\'liqni saqlash ва sayohat bo\'yicha professional xizmatlar taqdim etamiz.',
+    url: 'https://yourwebsite.com',
     siteName: 'Med Travel',
     images: [
       {
-        url: 'https://ucarecdn.com/42c864e6-2a67-4e47-b576-93b3cb92071b/-/preview/499x499/', // Saytni ifodalovchi rasm
+        url: 'https://ucarecdn.com/42c864e6-2a67-4e47-b576-93b3cb92071b/-/preview/499x499/',
         width: 800,
         height: 600,
         alt: 'Med Travel rasm',
@@ -36,8 +34,7 @@ export const metadata: Metadata = {
     ],
     type: 'website',
   },
-}
-
+};
 
 export default async function LocaleLayout({
   children,
@@ -46,7 +43,6 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Use a dynamic import or a switch statement to load the correct messages based on the locale
   let messages;
   switch (locale) {
     case 'en':
@@ -58,20 +54,19 @@ export default async function LocaleLayout({
     case 'uz':
       messages = messages_uz;
       break;
-    // Add other locales as necessary
     default:
-      messages = messages_en; // Fallback
+      messages = messages_en;
   }
 
   return (
     <html lang={locale}>
       <body>
         <LoaderProvider>
-        <NextIntlClientProvider  locale={locale} messages={messages}>
-          <Header locale={locale} />
-          {children}
-          <Footer />
-        </NextIntlClientProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header locale={locale} />
+            {children}
+            <Footer />
+          </NextIntlClientProvider>
         </LoaderProvider>
       </body>
     </html>
