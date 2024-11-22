@@ -76,7 +76,7 @@ const Available: FC<AvailableProps> = ({ tours, types, setTypeID , locale }) => 
           ))}
         </div> */}
         <div ref={toursRef}>
-          <Tours tours={filteredTours} />
+          <Tours  />
         </div>
       </div>
     </div>
