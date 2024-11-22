@@ -1,12 +1,14 @@
 "use client"
 import { FC, useState, useEffect, Dispatch, SetStateAction } from "react"
 import TursTitle from "../ui/tursTitle"
-import TursBg from "@/public/tours/banner.png"
 import { DatePicker, Select } from "antd"
 import { LuDollarSign } from "react-icons/lu"
 const { Option } = Select
 import { Filters } from '@/interface/ToursFilter'
 import moment from "moment"; // Import moment
+
+import NewTurs from '@/public/newTours.jpeg'
+
 
 import Script from 'next/script'
 
@@ -117,7 +119,7 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types  , locale }) => {
   return (
     <div
       style={{
-        backgroundImage: `url(${TursBg.src})`,
+        backgroundImage: `url(${NewTurs.src})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative", // Ensure relative positioning for the overlay
@@ -137,9 +139,9 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types  , locale }) => {
         }}
       ></div>
       <div className="py-[40px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
-        <TursTitle title="Туры по Узбекистану" />
+        <TursTitle title="Путешествуйте по всему миру с нашими уникальными турами!" />
         <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-semibold font-raleway mt-[8px] mdl:mt-[10px]">
-          Незабываемые туры по Узбекистану
+        Путешествуйте по всему миру с нами!
         </p>
       </div>
       <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px] shadow-[0px_4px_15px_rgba(0,0,0,0.1)]">
