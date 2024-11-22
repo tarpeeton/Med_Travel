@@ -7,7 +7,7 @@ import { Tour } from '@/interface/Tour'
 import useLocale from '@/hooks/useLocale'
 import { urlFor } from '@/sanity/lib/image'
 import { formatDate } from '@/hooks/fotmatDate'
-
+import Script from 'next/script'
 
 const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
     const locale = useLocale()
@@ -24,6 +24,7 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
     }
 
 
+    const clientId = "145832671cce98f22847de5fbecf6e9090dfc7";
 
 
     
@@ -31,7 +32,14 @@ const Tours: FC<{ tours: Tour[] }> = ({ tours }) => {
         <div >
             <div className='mt-[16px] mdl:mt-[20px] 2xl:mt-[25px] flex flex-col gap-[20px] mdl:flex-wrap mdl:flex-row'>
 
-            <div className="tv-hot-tours tv-moduleid-9975747"></div>
+
+            <div className="tv-hot-tours tv-moduleid-9975748"></div>
+<Script
+        src={`//tourvisor.ru/module/init.js?clientId=${clientId}`}
+        strategy="afterInteractive"
+      />
+
+
                 {/* {
                     tours.slice(0, sliceNumber).map(t => (
                         <div key={t._id} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group'>
