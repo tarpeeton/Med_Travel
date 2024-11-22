@@ -62,7 +62,7 @@ const Header = ({ locale }: { locale: string }) => {
             Санатории
           </Link>
           <Link href='/hotels' className='flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-            Гостиницы
+          Страны и Отели
           </Link>
         </div>
 
