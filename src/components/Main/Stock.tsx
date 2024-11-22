@@ -12,6 +12,7 @@ import Stories from 'react-insta-stories'
 import { client } from "@/sanity/lib/client";
 import { urlFor } from '@/sanity/lib/image'
 
+import Script from "next/script"; // Script komponentini import qilish
 
 interface IHistoryData {
   title: {
@@ -158,71 +159,17 @@ const Stock: FC = () => {
     },
   })), [stocks, locale]);
   
-  
+  const clientId = "145832671cce98f22847de5fbecf6e9090dfc7";
 
   return (
     <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:ml-[200px] mt-[120px] relative cursor-pointer'>
       <p className='w-[50%] font-bold text-[25px] text-[#242424] mdl:text-[35px] 2xl:text-[40px] mdl:w-full'>Акции и спецпредложения</p>
 
-      {/* Arrows, visible on larger screens */}
-      <div className='hidden absolute top-[250px] z-[999] bg-white 2xl:flex 2xl:items-center rounded-full w-[55px] h-[55px] 2xl:justify-center cursor-pointer' onClick={handlePrev} aria-label="Previous slide">
-        <GrLinkPrevious size={20} />
-      </div>
-      <div className='hidden absolute top-[250px] right-[50px] z-[999] bg-white 2xl:flex 2xl:items-center rounded-full w-[55px] h-[55px] 2xl:justify-center cursor-pointer' onClick={handleNext} aria-label="Next slide">
-        <GrLinkNext size={20} />
-      </div>
-
-      <Slider {...settings} ref={sliderRef} className='mt-[20px] mdl:mt-[30px] 2xl:mt-[40px]'>
-        {stocks.map((stock, index) => (
-          <div className='w-[40%]' key={index} onClick={() => handleStoryOpen(index)}>
-            <div className='flex flex-col w-[98%]'>
-              <div className='h-[230px] mdl:h-[230px] 2xl:h-[300px]'>
-                 {stock.media[0] && (
-                  <Image 
-                    src={urlFor(stock.media[0].asset).url()} 
-                    width={1000} 
-                    height={700} 
-                    alt={`Акция: ${stock.title[locale]}`} 
-                    className='rounded-[20px] mdl:w-[100%] w-full h-full object-cover' 
-                  />
-                )}
-              </div>
-              <div className='flex flex-col mt-[12px] relative justify-between   2xl:pb-[40px] 2xl:h-[175px]'>
-                <p className='text-[15px] font-semibold text-[#242424] font-raleway w-[80%] mb-[25px] mdl:text-[20px] h-auto break-words 2xl:text-[18px] 2xl:w-full  '>
-                {stock.title[locale].length > 27 ? `${stock.title[locale].slice(0, 27)}...` : stock.title[locale]}
-
-                </p>
-                <p className='text-[#7C7C7C] text-[14px] 2xl:text-[17px] 2xl:absolute 2xl:bottom-[80px]'>
-                  {formatDate(stock.createdAt)}
-                  </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Slider>
-
-      {storiesVisible && (
-        <div ref={storyModalRef} className='fixed top-0 z-[99999999] left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-75'>
-          <div className='relative rounded-[20px]'>
-            <Stories
-              stories={[stories[currentStoryIndex]]}
-              defaultInterval={5000}
-              onStoryEnd={handleStoryNext}
-              loop={true}
-              storyContainerStyles={{ backgroundColor: "black"  }} // Optional styles for the story container
-            />
-            <button onClick={handleStoryClose} className='absolute top-[-40px] mdl:top-[-25px]  mdl:right-[-50px]'>
-              <IoClose  className='text-white' size={30}/>
-              </button>
-            <div className='absolute top-[50%] hidden mdl:left-[-60px] bg-white  w-[40px] h-[40px] mdl:flex items-center justify-center rounded-full transform -translate-y-1/2 cursor-pointer' onClick={handleStoryPrev}>
-              <GrLinkPrevious size={19} className="text-titleDark" />
-            </div>
-            <div className='absolute top-[50%] hidden mdl:right-[-60px] transform bg-white w-[40px] h-[40px] mdl:flex items-center justify-center  rounded-full -translate-y-1/2 cursor-pointer' onClick={handleStoryNext}>
-              <GrLinkNext size={19} className="text-titleDark" />
-            </div>
-          </div>
-        </div>
-      )}
+      <div className="tv-hot-tours tv-moduleid-9975745"></div>
+      <Script
+        src={`//tourvisor.ru/module/init.js?clientId=${clientId}`}
+        strategy="afterInteractive"
+      />
     </div>
   )
 }
