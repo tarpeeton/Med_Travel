@@ -29,7 +29,7 @@ const Banner: FC = () => {
         backgroundPosition: "center",
         position: "relative", // Ensure relative positioning for the overlay
       }}
-      className="h-[180px] mdl:h-[240px] 2xl:h-[740px] shadow-inner"
+      className="h-[180px] mdl:h-[240px] 2xl:h-[340px] shadow-inner"
     >
       {/* Overlay to darken the background */}
       <div
