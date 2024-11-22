@@ -5,12 +5,10 @@ import { IHotel } from '@/interface/Hotel'
 import Script from 'next/script'
 
 
-interface IHoteDataMap {
-    data: IHotel[]
-}
 
 
-const Hotels: FC<IHoteDataMap> = ({ data }) => {
+
+const Hotels: FC = () => {
   
     const clientId = "145832671cce98f22847de5fbecf6e9090dfc7"
 
