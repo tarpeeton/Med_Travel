@@ -163,7 +163,7 @@ const Stock: FC = () => {
 
   return (
     <div className='flex flex-col mx-[16px] mdl:mx-[20px] 2xl:ml-[200px] mt-[120px] relative cursor-pointer'>
-      <p className='w-[50%] mb-[20px] 2xl:mb-[30px] font-bold text-[25px] text-[#242424] mdl:text-[35px] 2xl:text-[40px] mdl:w-full'>Горящие туры</p>
+      <p className='w-[50%] mb-[20px] 2xl:mb-[30px] font-bold text-[25px] text-[#242424] mdl:text-[35px] 2xl:text-[40px] mdl:w-full'>Горячие туры</p>
 
       <div className="tv-hot-tours tv-moduleid-9975745"></div>
       <Script

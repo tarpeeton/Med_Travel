@@ -136,7 +136,7 @@ const MainTours: FC = () => {
 
 
                 
-                {/* <Gallery data={filteredData} /> */}
+                <Gallery  />
                 <Map  coordinates={data} types={types}/>
                 <HowWork />
                 <Faq />

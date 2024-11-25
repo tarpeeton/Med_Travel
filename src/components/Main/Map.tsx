@@ -138,21 +138,21 @@ const Sanatoriums: FC = () => {
 		return locations.map((location) => (
 			<div
 				key={location.id}
-				className={`rounded-[25px] py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px] ${
+				className={`rounded-[25px]  py-[20px] px-[30px] flex flex-col mx-[12px] mb-[20px] ${
 					activeData === location.id ? 'border border-[#168CE6]' : 'bg-[#F3F7FB]'
 				}`}
 				onClick={() => handleLocationClick(location.id, location.coords)}
 				style={{ cursor: 'pointer' }}
 			>
 				<div>
-					<p className='text-[25px] font-raleway font-semibold text-titleDark'>{location.name}</p>
+					<p className='text-[22px] font-raleway font-semibold text-titleDark'>{location.name}</p>
 				</div>
-				<div className='mt-[5px]'>
-					<p className='text-[17px] text-[#7C7C7C] font-raleway'>{location.address || location.description}</p>
+				<div className='mt-[5px] 2xl:min-h-[76.5px]'>
+					<p className='text-[15px] text-[#7C7C7C] font-raleway'>{location.address || location.description}</p>
 				</div>
 				<div className='mt-[5px]'>
 					<Link href={location.url} className='flex items-center text-[#168CE6] font-semibold font-raleway'>
-						<p className='text-[18px]'>{location.link}</p>
+						<p className='text-[16px]'>{location.link}</p>
 						<MdNavigateNext size={20} />
 					</Link>
 				</div>

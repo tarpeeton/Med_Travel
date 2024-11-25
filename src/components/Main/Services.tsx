@@ -68,8 +68,8 @@ const Services: FC = () => {
 									Мы обеспечиваем комфортные условия проживания, профессиональное сопровождение и безопасность на протяжении всего тура
 								</p>
 								<div className="flex flex-row items-center justify-between mt-[30px]">
-									<Link href='/tours' className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway flex flex-row  justify-center gap-[8px]">
-										Найти тур <GiCommercialAirplane />
+									<Link href='tel:+998938019101' className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway flex flex-row  justify-center gap-[8px]">
+									Позвонить <GiCommercialAirplane />
 									</Link>
 
 								</div>
@@ -87,7 +87,6 @@ const Services: FC = () => {
 					>
 						<GrLinkPrevious size={20} className="text-black" />
 					</button>
-
 					<button
 						onClick={handleNext}
 						className="flex border border-[#E8E8E8] w-[55px] h-[55px] rounded-full items-center justify-center mdl:w-[70px] mdl:h-[70px]  2xl:w-[78px] 2xl:h-[78px]"

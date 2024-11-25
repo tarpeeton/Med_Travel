@@ -1,51 +1,51 @@
-"use client";
+"use client"
 
-import { FC, useEffect, useState } from 'react';
-import { FaInstagram, FaTelegramPlane } from 'react-icons/fa';
-import Link from 'next/link';
+import { FC, useEffect, useState } from 'react'
+import { FaInstagram, FaTelegramPlane } from 'react-icons/fa'
+import Link from 'next/link'
 
 const Contacts: FC = () => {
-  const [mapLoaded, setMapLoaded] = useState(false); // State to ensure the map is loaded once
-  const [mapInstance, setMapInstance] = useState<any>(null); // Store the map instance
+  const [mapLoaded, setMapLoaded] = useState(false) // State to ensure the map is loaded once
+  const [mapInstance, setMapInstance] = useState<any>(null) // Store the map instance
 
   useEffect(() => {
     const loadYandexMap = () => {
       // Check if the script is already loaded
       if (window.ymaps && !mapLoaded) {
-        setMapLoaded(true);
+        setMapLoaded(true)
         if (!mapInstance) {
-          initializeMap();
+          initializeMap()
         }
-        return;
+        return
       }
 
       // Load the Yandex Maps script
-      const script = document.createElement('script');
-      script.src = `https://api-maps.yandex.ru/2.1/?apikey=5771415d-001f-4699-b102-0fb2f6af965a&lang=ru_RU`;
-      script.async = true;
+      const script = document.createElement('script')
+      script.src = `https://api-maps.yandex.ru/2.1/?apikey=5771415d-001f-4699-b102-0fb2f6af965a&lang=ru_RU`
+      script.async = true
       script.defer = true
       script.onload = () => {
         window.ymaps.ready(() => {
-          initializeMap();
-        });
-      };
+          initializeMap()
+        })
+      }
       script.onerror = () => {
-        console.error("Failed to load Yandex Maps API");
-      };
-      document.body.appendChild(script);
-    };
+        console.error("Failed to load Yandex Maps API")
+      }
+      document.body.appendChild(script)
+    }
 
     const initializeMap = () => {
       // Check if Yandex Maps API is loaded and ready
       if (window.ymaps) {
         const map = new window.ymaps.Map('map', {
-          center: [41.351469, 69.289004],
+          center: [41.350877, 69.290993],
           zoom: 17,
           controls: [],
-        });
+        })
 
         const placemark = new window.ymaps.Placemark(
-          [41.351469, 69.289004],
+          [41.350877, 69.290993],
           {
             hintContent: 'Ташкент',
             balloonContent: 'Чинобод 2, метро Шахристан',
@@ -53,21 +53,21 @@ const Contacts: FC = () => {
           {
             iconColor: '#1AB2A6',
           }
-        );
+        )
 
-        map.geoObjects.add(placemark);
-        setMapInstance(map); // Store the map instance
-        setMapLoaded(true);
+        map.geoObjects.add(placemark)
+        setMapInstance(map) // Store the map instance
+        setMapLoaded(true)
       } else {
-        console.error("Yandex Maps API is not available.");
+        console.error("Yandex Maps API is not available.")
       }
-    };
+    }
 
     // Load the map if it's not loaded
     if (!mapLoaded) {
-      loadYandexMap();
+      loadYandexMap()
     }
-  }, [mapLoaded, mapInstance]);
+  }, [mapLoaded, mapInstance])
 
   return (
     <div>
@@ -86,7 +86,7 @@ const Contacts: FC = () => {
                 Адрес
               </p>
               <p className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[4px]">
-                Ташкент, Юнусабадский район, ул. Чинобод 2. Ориентир метро Шахристан
+                Ташкент, ул. Чинабад, 10А
               </p>
             </div>
             {/* Phone */}
@@ -103,7 +103,8 @@ const Contacts: FC = () => {
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold cursor-pointer">
                 Соц.сети
               </p>
-              <Link href="/instagram" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
+              <Link target="_blank"
+                rel="noopener noreferrer" href="https://www.instagram.com/medtraveltreatment/" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
                 <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center bg-[#F00073] 2xl:w-[35px] 2xl:h-[35px]">
                   <FaInstagram className="text-white" size={20} />
                 </div>
@@ -114,9 +115,10 @@ const Contacts: FC = () => {
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold cursor-pointer">
                 Соц.сети
               </p>
-              <Link href="/telegram" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
+              <Link target="_blank"
+                rel="noopener noreferrer" href="https://t.me/MedTravelAssociation" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
                 <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center bg-[#0088CC] 2xl:w-[35px] 2xl:h-[35px]">
-                  <FaTelegramPlane className="text-white"  size={20}/>
+                  <FaTelegramPlane className="text-white" size={20} />
                 </div>
                 Telegram
               </Link>
@@ -132,7 +134,7 @@ const Contacts: FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Contacts;
+export default Contacts

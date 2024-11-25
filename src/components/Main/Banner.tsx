@@ -18,7 +18,6 @@ const MainBanner: FC = () => {
         strategy="afterInteractive"
       />
    <div className="tv-image-slider tv-moduleid-9975743"></div>
-     
     </div>
   );
 };

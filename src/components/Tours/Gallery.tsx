@@ -9,29 +9,34 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import Image from 'next/image'
 import { Tour } from '@/interface/Tour'
-import { urlFor } from '@/sanity/lib/image'
 import { IGallery } from '@/interface/Gallery'
+import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 
 
 
 
 
-interface IGalleryProps {
-    data: Tour[] | null
-}
 
 
-
-
-
-const Gallery: FC<IGalleryProps> = ({ data }) => {
+const Gallery: FC = () => {
     const [gallery, setGallery] = useState<IGallery[]>([])
 
-    useEffect(() => {
-        // Извлекаем данные галереи только если `data` не null
-        setGallery(data ? data.flatMap((tour) => tour.gallery) : [])
-    }, [data])
 
+
+    useEffect(() => {
+        const fetchGallery = async () => {
+            try {
+                // Fetch data from Sanity using GROQ query
+                const data: IGallery[] = await client.fetch(`*[_type == "tourPhotos"]`)
+                console.log(data)
+                setGallery(data)
+            } catch (error) {
+                console.error('Error fetching gallery:', error)
+            }
+        }
+        fetchGallery()
+    }, [])
 
 
 
@@ -70,9 +75,9 @@ const Gallery: FC<IGalleryProps> = ({ data }) => {
                             <SwiperSlide key={index} className=' cursor-pointer'>
                                 <div className=' h-[220px] mdl:h-[320px] 2xl:h-[390px]'>
 
-                                    {gal.asset._ref && (
+                                    {gal.photo.asset && (
                                         <Image
-                                            src={urlFor(gal.asset._ref || "").url()} // Convert to string URL
+                                            src={urlFor(gal.photo.asset._ref || "").url()} // Convert to string URL
                                             alt="toursimage"
                                             width={1000}
                                             quality={100}
