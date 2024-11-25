@@ -30,7 +30,7 @@ const handleOpenChange = (open: boolean, type: "from" | "to") => {
 }
 
 const Banner: FC<BannerProps> = ({ setFilters, filters, types  , locale }) => {
-  const clientId = "145832671cce98f22847de5fbecf6e9090dfc7";
+  const clientId = "145340d2c41ddb0af95a6a10d7be041cbc229a";
 
   // State variables initialized with filters prop values
   const [adults, setAdults] = useState(filters.adultSize)
@@ -145,7 +145,10 @@ const Banner: FC<BannerProps> = ({ setFilters, filters, types  , locale }) => {
         </p>
       </div>
       <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99]  2xl:mx-[200px] shadow-[0px_4px_15px_rgba(0,0,0,0.1)]">
-      <div className="tv-search-form tv-moduleid-9968196"></div>
+
+
+
+      <div className="tv-search-form tv-moduleid-9968219"></div>
       <Script
         src={`//tourvisor.ru/module/init.js?clientId=${clientId}`}
         strategy="afterInteractive"
