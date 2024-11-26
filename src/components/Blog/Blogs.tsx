@@ -22,7 +22,7 @@ interface iBlogs {
 const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
     const [blogsName, setBlogsName] = useState<string[]>([])
     const locale = useLocale()
-
+    console.log(typeID , 'TYPE ID KELDI')
     useEffect(() => {
         const titles = blogs.map((e) => e.sections[0].title[locale])
         setBlogsName(titles)
@@ -32,8 +32,11 @@ const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
 
     // Bloglarni filterlash (typeID orqali)
     const filteredBlogs = useMemo(() => {
-        return typeID === 'all' ? blogs : blogs.filter(blog => blog.categories.some(category => category._ref === typeID))
-    }, [blogs, typeID])
+        return typeID === 'all' ? blogs : blogs.filter(blog => 
+            Array.isArray(blog.categories) && blog.categories.some(category => category._ref === typeID)
+        );
+    }, [blogs, typeID]);
+    
 
     // Qidiruv bo'yicha filterlangan bloglar
     const searchFilteredBlogs = useMemo(() => {
@@ -66,13 +69,14 @@ const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
 
                             <div className='px-[16px] mt-[20px] mdl:px-[20px] flex flex-col mdl:justify-center'>
                                 <div>
-                                    <p className='text-[20px] mdl:text-[22px] 2xl:text-[25px] font-semibold text-titleDark'>
+                                    <p className='text-[20px] mdl:text-[22px] 2xl:text-[22px] font-semibold text-titleDark'>
                                         {item.sections[0].title[locale]}
                                     </p>
                                 </div>
                                 <div className='mt-[8px]'>
-                                    <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px] font-medium text-[#7C7C7C]'>
-                                        {item.sections[0].description[locale]}
+                                    <p className='text-[14px] mdl:text-[17px] 2xl:text-[17px] font-medium text-[#7C7C7C]'>
+                                    {item.sections[0].description[locale].length > 100 ? item.sections[0].description[locale].slice(0, 100) + "..." : item.sections[0].description[locale]}
+
                                     </p>
                                 </div>
                                 <div className='mt-[16px] mdl:mt-[25px] 2xl:mt-[30px] mdl:absolute mdl:bottom-[40px]'>

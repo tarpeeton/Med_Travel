@@ -1,22 +1,18 @@
 import MainBlogWithSlug from '@/components/BlogItems/Main'
 import type { Metadata } from 'next'
 
-
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = params;
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `${slug}`,
-    description: `Eng yangi Xabarlar: ${slug}`,
-    keywords: `Med Travel, Songi Xabarlar ${slug}`,
+    title: `Последние новости и советы | Лечение за границей и медицинский туризм`,
+    description: `Узнайте последние новости и советы о медицинском туризме, лечении за рубежом, лучших клиниках мира, современных технологиях в медицине и реабилитации. Полезная информация для тех, кто ищет качественное лечение.`,
+    keywords: `медицинский туризм, лечение за границей, лучшие клиники, современные технологии, реабилитация, операции за рубежом, пластическая хирургия, стоматология, кардиология, онкология, восстановление после операций, Турция лечение, Южная Корея лечение, Индия медицина, клиники Таиланда, клиники Европы, доступное лечение за границей, медицинский тур`,
   };
 }
-
 
 export default function Index() {
   return (
     <div>
       <MainBlogWithSlug />
     </div>
-  )
+  );
 }

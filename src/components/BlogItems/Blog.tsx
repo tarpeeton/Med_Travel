@@ -87,6 +87,29 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
     }, [normalizedSlug, locale, setBlogID])
 
 
+    function formatBoldTextOnlyWithNewLine(text: string) {
+        // Matnni yulduzchali qismlar va qolgan matnga bo‘lish
+        const parts = text.split(/(\*[^*]+\*)/g); // Yulduzchali qismlarni bo‘lish
+    
+        return parts.map((part, index) => {
+            if (part.startsWith('*') && part.endsWith('*')) {
+                // Yulduzchali qismlarni qalin qilib, yangi qatordan boshlash
+                return (
+                    <p key={index} style={{ margin: '5px 0' }}>
+                        <strong>{part.slice(1, -1).trim()}</strong> {/* Yulduzchalarni olib tashlash */}
+                    </p>
+                );
+            }
+            // Qolgan matnni ham yangi qatordan boshlash
+            return (
+                <p key={index} style={{ margin: '5px 0' }}>
+                    {part.trim()}
+                </p>
+            );
+        });
+    }
+    
+    
 
 
     return (
@@ -131,7 +154,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                                 <div key={data._key}>
                                     <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold'>{data.title[locale]}</p>
                                     <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>
-                                        {data.description[locale]}
+                                        {formatBoldTextOnlyWithNewLine(data.description[locale])}
                                     </p>
                                 </div>
                             ))
@@ -150,6 +173,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                             <div className='border border-borderColor p-[30px] rounded-[20px]'>
                                 <p className='text-[18px] font-semibold font-raleway text-titleDark '>
                                     {similar.sections[0].title[locale]}
+                                    
                                 </p>
                                 <div className='mt-[20px]'>
                                     <Link href={`${similar._id}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
