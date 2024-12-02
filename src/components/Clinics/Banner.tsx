@@ -167,7 +167,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics, setFilteredData }) => {
                 }}
             ></div>
             <div className="py-[40px] 2xl:py-[80px] px-[16px] relative z-[99] mdl:mx-[20px] 2xl:mx-[200px]">
-                <TursTitle title="Клиники доступные в медицинских турах" />
+                <TursTitle title="Клиники Узбекистана" />
                 <p className="text-white text-[15px] mdl:text-[18px] 2xl:text-[20px] font-medium font-raleway mt-[8px] mdl:mt-[10px]">
                     Ваш путь к здоровью через медицинский туризм
                 </p>
@@ -175,7 +175,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics, setFilteredData }) => {
             <div className="mt-[-20px] bg-white mx-[16px] mdl:mx-[20px] rounded-[20px] py-[25px] px-[20px] relative z-[99] 2xl:mx-[200px] shadow-[0px_4px_15px_rgba(0,0,0,0.1)]">
                 <form className='2xl:flex 2xl:flex-row 2xl:items-center 2xl:justify-between'>
                     <input
-                        placeholder='Введите название санатория'
+                        placeholder='Введите название  клиники'
                         value={inputValue}
                         onChange={handleInputChange}
                         className='border 2xl:w-[42%] outline-none w-full focus:border-green100 border-borderColor rounded-[10px] py-[13.5px] px-[16px]'
@@ -185,7 +185,7 @@ const Banner: FC<BannerProps> = ({ clinics, setClinics, setFilteredData }) => {
                             onClick={toggleCategoryDropdown}
                             className={`border w-full outline-none flex flex-row items-center justify-between focus:border-green100 border-borderColor rounded-[10px] py-[13.5px] px-[16px] cursor-pointer ${selectedCategories.length === 0 ? 'text-[#A0AEC0]' : 'text-[#1AB2A6]'}`}
                         >
-                            {selectedCategories.length > 0 ? selectedCategories.map(cat => cat.name[locale]).join(', ') : 'Цель поездки'}
+                            {selectedCategories.length > 0 ? selectedCategories.map(cat => cat.name[locale]).join(', ') : 'консультации специалистов'}
                             <MdOutlineKeyboardArrowDown size={22} className='text-[#7C7C7C]' />
                         </div>
                         {isDropdownOpen && (

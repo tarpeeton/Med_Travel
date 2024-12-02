@@ -22,7 +22,9 @@ const AboutBanner: FC = () => {
 						<p className='text-[30px] font-bold font-raleway mdl:text-[45px] 2xl:text-[50px] text-titleDark'>ASSOCIATION</p>
 					</div>
 					<div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[25px]'>
-						<p className='text-[#505050] text-[15px] mdl:text-[17px] font-raleway font-medium'>Мы специализируемся на подборе лучших медицинских учреждений и предоставлении полного спектра услуг для пациентов, которые ищут качественное лечение</p>
+						<p className='text-[#505050] text-[15px] mdl:text-[17px] font-raleway font-medium'>
+						Мы специализируемся на подборе лучших туристических направлений и медицинских учреждений, предлагая полный спектр услуг для тех, кто ищет как отдых, так и качественное лечение за рубежом.
+						</p>
 					</div>
 					<div className='flex flex-row items-center mt-[30px] mdl:mt-[40px] 2xl:mt-[60px] mdl:w-[100%]'>
 						<button className='borderedButton font-bold mdl:w-[50%]'>Связаться с нами</button>

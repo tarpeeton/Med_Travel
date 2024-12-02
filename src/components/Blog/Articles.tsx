@@ -33,7 +33,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
             </div>
 
             {/* Mobile View */}
-            <div className='mdl:hidden mt-[16px]'>
+            {/* <div className='mdl:hidden mt-[16px]'>
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={2}
@@ -69,9 +69,9 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                     ))}
 
                 </Swiper>
-            </div>
+            </div> */}
             {/* Desktop View */}
-            <div className='hidden mdl:block'>
+            {/* <div className='hidden mdl:block'>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px] w-full'>
                     <button onClick={() => setTypeID('all')} className={`py-[12px] px-[20px] ${
                   typeID === "all"
@@ -91,7 +91,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
 
 
                 </div>
-            </div>
+            </div> */}
 
         </div>
     )
