@@ -1,15 +1,12 @@
 "use client"
-import Image from 'next/image'
 import { FC, useRef } from 'react'
-import { TbCurrencyDollar } from "react-icons/tb"
-import { PiAirplaneTiltLight } from "react-icons/pi"
-import { FaCalendarCheck, FaHotel } from 'react-icons/fa'
-import { MdSupportAgent } from 'react-icons/md'
-import { GrLinkNext, GrLinkPrevious } from 'react-icons/gr'
 import useLocale from '@/hooks/useLocale'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
+import { GrLinkNext, GrLinkPrevious } from 'react-icons/gr'
+import { FaFileAlt, FaHospital, FaCreditCard, FaPlane } from 'react-icons/fa'
+import { MdSupportAgent } from 'react-icons/md'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -27,7 +24,7 @@ interface HowWorkData {
         uz: string;
         en: string;
     };
-    icon?: JSX.Element;
+    icon: JSX.Element;
 }
 
 const DataHowWork: HowWorkData[] = [
@@ -35,75 +32,75 @@ const DataHowWork: HowWorkData[] = [
         id: 1,
         title: {
             ru: 'Собираем документы',
-            uz: 'Hujjatlarni yig\'ish',
+            uz: 'Hujjatlarni yig\'amiz',
             en: 'Collecting documents'
         },
         text: {
-            ru: 'Подготавливаем все необходимые документы для вашей поездки.',
-            uz: 'Sayohatingiz uchun barcha zarur hujjatlarni tayyorlaymiz.',
-            en: 'We prepare all necessary documents for your trip.'
+            ru: 'Мы подготавливаем все необходимые документы для вашей медицинской поездки: визы, медицинские справки и другие документы, чтобы ваше лечение прошло без задержек.',
+            uz: 'Biz sizning tibbiy sayohatingiz uchun barcha zarur hujjatlarni tayyorlaymiz: vizalar, tibbiy ma\'lumotnomalar va boshqa hujjatlar, davolanishingiz kechikmasdan o\'tishi uchun.',
+            en: 'We prepare all necessary documents for your medical trip: visas, medical certificates and other documents to ensure your treatment proceeds without delays.'
         },
-        icon: <Image src='https://ucarecdn.com/115af432-16d4-4ed1-97cd-ada3a1ec0c9b/-/preview/24x26/' width={30} height={40} quality={100} alt='logo' />
+        icon: <FaFileAlt className='text-green100' size={40} />
     },
     {
         id: 2,
         title: {
-            ru: 'Проводим оплату',
-            uz: 'To\'lovni amalga oshirish',
-            en: 'Processing payment'
+            ru: 'Бронируем и организуем поездку',
+            uz: 'Sayohatni bron qilish va tashkil qilish',
+            en: 'Booking and organizing the trip'
         },
         text: {
-            ru: 'После бронирования организуем безопасную оплату и предоставим подтверждение.',
-            uz: 'Bron qilgandan so\'ng xavfsiz to\'lovni tashkil etamiz va tasdiqlashni taqdim etamiz.',
-            en: 'After booking, we organize secure payment and provide confirmation.'
+            ru: 'Бронируем медицинские туры, клиники и гостиницы. Для организации комплексных медицинских услуг и индивидуальных поездок свяжитесь с нами — мы учтем все ваши пожелания.',
+            uz: 'Tibbiy turlar, klinikalar va mehmonxonalarni bron qilamiz. Kompleks tibbiy xizmatlar va individual sayohatlarni tashkil qilish uchun biz bilan bog\'laning - biz barcha istaklaringizni hisobga olamiz.',
+            en: 'We book medical tours, clinics and hotels. Contact us for organizing comprehensive medical services and individual trips - we will take all your wishes into account.'
         },
-        icon: <TbCurrencyDollar className='text-green100' size={40} />
+        icon: <FaHospital className='text-green100' size={40} />
     },
     {
         id: 3,
+        title: {
+            ru: 'Проводим оплату',
+            uz: 'To\'lovni amalga oshiramiz',
+            en: 'Processing payment'
+        },
+        text: {
+            ru: 'После подтверждения всех деталей и бронирования мы организуем безопасную оплату и предоставим вам все необходимые подтверждения.',
+            uz: 'Barcha tafsilotlar va bronni tasdiqlangandan so\'ng, biz xavfsiz to\'lovni tashkil etamiz va sizga barcha kerakli tasdiqlashlarni taqdim etamiz.',
+            en: 'After confirming all details and booking, we organize secure payment and provide you with all necessary confirmations.'
+        },
+        icon: <FaCreditCard className='text-green100' size={40} />
+    },
+    {
+        id: 4,
         title: {
             ru: 'Отправляем вас в путь',
             uz: 'Sizni yo\'lga jo\'natamiz',
             en: 'Sending you on your way'
         },
         text: {
-            ru: 'Бронируем билеты, трансферы и проверяем документы для комфортного путешествия.',
-            uz: 'Qulay sayohat uchun chiptalarni, transferlarni bron qilamiz va hujjatlarni tekshiramiz.',
-            en: 'We book tickets, transfers and check documents for a comfortable journey.'
+            ru: 'Мы забронируем билеты, обеспечим трансферы и проверим готовность всех документов, чтобы ваше путешествие и лечение прошли максимально комфортно.',
+            uz: 'Biz chiptalarni bron qilamiz, transferlarni ta\'minlaymiz va sayohatingiz va davolanishingiz maksimal darajada qulay bo\'lishi uchun barcha hujjatlarning tayyorligini tekshiramiz.',
+            en: 'We will book tickets, provide transfers and check the readiness of all documents to ensure your journey and treatment are as comfortable as possible.'
         },
-        icon: <PiAirplaneTiltLight className='text-green100' size={40} />
-    },
-    {
-        id: 4,
-        title: {
-            ru: 'Бронируем отель',
-            uz: 'Mehmonxonani bron qilish',
-            en: 'Hotel booking'
-        },
-        text: {
-            ru: 'Подбираем и бронируем лучшие отели по вашим предпочтениям и бюджету.',
-            uz: 'Sizning afzalliklaringiz va byudjetingizga ko\'ra eng yaxshi mehmonxonalarni tanlaymiz va bron qilamiz.',
-            en: 'We select and book the best hotels according to your preferences and budget.'
-        },
-        icon: <FaHotel className='text-green100' size={40} />
+        icon: <FaPlane className='text-green100' size={40} />
     },
     {
         id: 5,
         title: {
-            ru: 'Поддержка 24/7',
-            uz: '24/7 qo\'llab-quvvatlash',
-            en: '24/7 Support'
+            ru: 'Свяжитесь с нами',
+            uz: 'Biz bilan bog\'laning',
+            en: 'Contact us'
         },
         text: {
-            ru: 'Предоставляем круглосуточную поддержку на протяжении всего путешествия.',
-            uz: 'Butun sayohat davomida 24/7 qo\'llab-quvvatlashni ta\'minlaymiz.',
-            en: 'We provide round-the-clock support throughout your journey.'
+            ru: 'Для бронирования медицинских услуг или получения консультаций по вашей поездке, свяжитесь с нами — мы с радостью окажем вам помощь и предоставим всю необходимую информацию.',
+            uz: 'Tibbiy xizmatlarni bron qilish yoki sayohatingiz bo\'yicha maslahat olish uchun biz bilan bog\'laning - biz sizga yordam berishdan xursand bo\'lamiz va barcha kerakli ma\'lumotlarni taqdim etamiz.',
+            en: 'For booking medical services or getting consultations about your trip, contact us - we will be happy to help you and provide all necessary information.'
         },
         icon: <MdSupportAgent className='text-green100' size={40} />
     }
-]
+];
 
-const HowWork: FC = () => {
+const ClinickHowWork: FC = () => {
     const locale = useLocale()
     const swiperRef = useRef<SwiperType>();
 
@@ -122,8 +119,8 @@ const HowWork: FC = () => {
     return (
         <div>
             <div className='flex flex-col'>
-                <div className='flex justify-between items-center' >
-                    <p className='text-[25px] font-bold text-titleDark mdl:text-[35px]  2xl:text-[40px] '>
+                <div className='flex justify-between items-center'>
+                    <p className='text-[25px] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px]'>
                         {locale === 'ru' 
                             ? "Как мы работаем" 
                             : locale === 'uz' 
@@ -143,7 +140,7 @@ const HowWork: FC = () => {
                 {/* Mobile and Tablet View */}
                 <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:gap-[2%] 2xl:hidden'>
                     {DataHowWork.map((item) => (
-                        <div key={item.id} className='flex flex-col mt-[20px] mdl:w-[48%] 2xl:w-[50%] '>
+                        <div key={item.id} className='flex flex-col mt-[20px] mdl:w-[48%] 2xl:w-[50%]'>
                             <div className='rounded-[20px] border border-borderColor py-[35px] px-[25px] 2xl:h-[380px]'>
                                 <div className='rounded-full flex items-center bg-green20 w-[70px] h-[70px] justify-center'>
                                     {item.icon}
@@ -175,7 +172,6 @@ const HowWork: FC = () => {
                             delay: 2100,
                             disableOnInteraction: false,
                         }}
-                        effect="fade"
                     >
                         {DataHowWork.map((item) => (
                             <SwiperSlide key={item.id}>
@@ -201,4 +197,4 @@ const HowWork: FC = () => {
     )
 }
 
-export default HowWork
+export default ClinickHowWork

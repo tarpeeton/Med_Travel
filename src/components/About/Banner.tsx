@@ -12,7 +12,7 @@ const AboutBanner: FC = () => {
 						<Image src={BannerImage} className='object-contain w-full rounded-[20px] mdl:h-full mdl:object-cover 2xl:rounded-[0px] 2xl:object-cover' width={820} height={820} alt='IMAGE' quality={100} />
 					</div>
 					<div className='mt-[12px] h-[144px] mdl:absolute mdl:bottom-[20px] mdl:right-[40px] 2xl:left-[-80px] mdl:h-[375px] mdl:w-[320px] 2xl:border-[5px] border-white 2xl:rounded-[20px] 2xl:overflow-hidden'>
-						<Image src='https://ucarecdn.com/73776fae-6181-4804-9e43-a42ef60311cc/-/preview/1000x561/' className='object-cover w-full h-full rounded-[20px] mdl:object-cover mdl:h-full 2xl:rounded-[0px]' width={400} height={410} alt='IMAGE' quality={100} />
+						<Image src='https://ucarecdn.com/73776fae-6181-4804-9e43-a42ef60311cc/-/preview/1000x561/' className='object-cover w-full h-full rounded-[20px] mdl:object-cover mdl:h-full 2xl:rounded-[0px]' width={1000} height={610} alt='IMAGE' quality={100} />
 					</div>
 				</div>
 				{/* TEXT */}
