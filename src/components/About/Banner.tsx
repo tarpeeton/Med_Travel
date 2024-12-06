@@ -12,7 +12,7 @@ const AboutBanner: FC = () => {
 						<Image src={BannerImage} className='object-contain w-full rounded-[20px] mdl:h-full mdl:object-cover 2xl:rounded-[0px] 2xl:object-cover' width={820} height={820} alt='IMAGE' quality={100} />
 					</div>
 					<div className='mt-[12px] h-[144px] mdl:absolute mdl:bottom-[20px] mdl:right-[40px] 2xl:left-[-80px] mdl:h-[375px] mdl:w-[320px] 2xl:border-[5px] border-white 2xl:rounded-[20px] 2xl:overflow-hidden'>
-						<Image src='https://ucarecdn.com/73776fae-6181-4804-9e43-a42ef60311cc/-/preview/1000x561/' className='object-cover w-full h-full rounded-[20px] mdl:object-cover mdl:h-full 2xl:rounded-[0px]' width={400} height={410} alt='IMAGE' quality={100} />
+						<Image src='https://ucarecdn.com/73776fae-6181-4804-9e43-a42ef60311cc/-/preview/1000x561/' className='object-cover w-full h-full rounded-[20px] mdl:object-cover mdl:h-full 2xl:rounded-[0px]' width={1000} height={610} alt='IMAGE' quality={100} />
 					</div>
 				</div>
 				{/* TEXT */}
@@ -22,7 +22,9 @@ const AboutBanner: FC = () => {
 						<p className='text-[30px] font-bold font-raleway mdl:text-[45px] 2xl:text-[50px] text-titleDark'>ASSOCIATION</p>
 					</div>
 					<div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[25px]'>
-						<p className='text-[#505050] text-[15px] mdl:text-[17px] font-raleway font-medium'>Мы специализируемся на подборе лучших медицинских учреждений и предоставлении полного спектра услуг для пациентов, которые ищут качественное лечение</p>
+						<p className='text-[#505050] text-[15px] mdl:text-[17px] font-raleway font-medium'>
+						Мы специализируемся на подборе лучших туристических направлений и медицинских учреждений, предлагая полный спектр услуг для тех, кто ищет как отдых, так и качественное лечение за рубежом.
+						</p>
 					</div>
 					<div className='flex flex-row items-center mt-[30px] mdl:mt-[40px] 2xl:mt-[60px] mdl:w-[100%]'>
 						<button className='borderedButton font-bold mdl:w-[50%]'>Связаться с нами</button>

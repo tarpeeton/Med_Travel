@@ -22,7 +22,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
     const locale = useLocale()
 
     return (
-        <div className='flex flex-col  mt-[120px] mdl:w-[50%] 2xl:w-[45%]'>
+        <div className='flex flex-col  mt-[120px] mdl:w-[50%] 2xl:w-[60%]'>
             <div>
                 <Title text={{ru: 'Статьи' , uz: "" , en: ""}} />
             </div>
@@ -33,7 +33,7 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
             </div>
 
             {/* Mobile View */}
-            <div className='mdl:hidden mt-[16px]'>
+            {/* <div className='mdl:hidden mt-[16px]'>
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={2}
@@ -69,15 +69,15 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                     ))}
 
                 </Swiper>
-            </div>
+            </div> */}
             {/* Desktop View */}
-            <div className='hidden mdl:block'>
-                <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
+            {/* <div className='hidden mdl:block'>
+                <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px] w-full'>
                     <button onClick={() => setTypeID('all')} className={`py-[12px] px-[20px] ${
                   typeID === "all"
                     ? "bg-green100 text-white"
                     : "border border-borderColor"
-                } text-center flex items-center justify-center rounded-full font-raleway text-[17px] w-[170px]`}
+                } text-center flex items-center justify-center rounded-full font-raleway text-[17px] w-[170px] 2xl:w-[200px]`}
               >Все категории</button>
 
 
@@ -86,12 +86,12 @@ const Articles: FC<IArticlesBlogProps> = ({ setTypeID, types   , setSearch , sea
                             typeID === type._id
                               ? "bg-green100 text-white"
                               : "border border-borderColor"
-                          } text-center flex items-center justify-center rounded-full font-raleway text-[17px] w-[170px]`}>{type.title[locale]}</button>
+                          } text-center flex items-center justify-center rounded-full font-raleway text-[17px] 2xl:w-[200px] w-[170px]`}>{type.title[locale]}</button>
                     ))}
 
 
                 </div>
-            </div>
+            </div> */}
 
         </div>
     )

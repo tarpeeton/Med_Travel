@@ -23,7 +23,7 @@ const OtherBlogs: FC<IOtherBlog> = ({ otherBlogs }) => {
         <Title  text={{ru: 'Другие статьи' , uz: "" , en: ""}} />
       </div>
       <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:justify-between mt-[20px] mdl:mt-[30px] 2xl:mt-[40px]'>
-        {otherBlogs.map((item, index) => (
+        {otherBlogs.slice(0, 3).map((item, index) => (
           <div key={index} className='rounded-[20px] overflow-hidden border border-borderColor pb-[20px] mdl:w-[48%]  relative  mdl:pb-[80px] mb-[20px] 3xl:w-[31%]'>
             <div className=' mdl:order-[2]'>
             {item?.sections[0]?.image?.asset && (
@@ -34,13 +34,13 @@ const OtherBlogs: FC<IOtherBlog> = ({ otherBlogs }) => {
 
             <div className='px-[16px] mt-[20px] mdl:px-[20px] flex flex-col  mdl:justify-center'>
               <div>
-                <p className='text-[20px] mdl:text-[22px]  2xl:text-[25px] font-semibold text-titleDark'>
+                <p className='text-[20px] mdl:text-[22px]  2xl:text-[22px] font-semibold text-titleDark'>
                   {item.sections[0].title[locale]}
                 </p>
               </div>
               <div className='mt-[8px]'>
-                <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px]  font-medium text-[#7C7C7C]'>
-                  {item.sections[0].description[locale]}
+                <p className='text-[14px] mdl:text-[17px] 2xl:text-[17px]  font-medium text-[#7C7C7C]'>
+                  {item.sections[0].description[locale].length > 100 ? item.sections[0].description[locale].slice(0, 100) + "..." : item.sections[0].description[locale]}
                 </p>
               </div>
               <div className='mt-[16px] mdl:mt-[25px] 2xl:mt-[30px] mdl:absolute  mdl:bottom-[40px]'>

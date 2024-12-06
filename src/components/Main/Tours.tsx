@@ -65,7 +65,7 @@ const Tours: FC = () => {
         <div className='mt-[120px] mx-[16px] 2xl:ml-[200px]'>
             <div className='flex flex-col'>
                 <p className='text-titleDark font-bold font-raleway text-[25px] w-[70%] mdl:text-[35px] 2xl:text-[40px] slg:w-[50%] 2xl:w-[40%]'>
-                    Зарубежные туры и санатории
+                Клиники и санатории
                 </p>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
                     {mixedData.map((m) => (
@@ -157,12 +157,12 @@ const Tours: FC = () => {
                     )}
                 </div>
 
-                <div className='w-full flex items-center justify-center mt-[40px] 2xl:mt-[50px] 2xl:justify-around'>
+                {/* <div className='w-full flex items-center justify-center mt-[40px] 2xl:mt-[50px] 2xl:justify-around'>
                     <Link href='/tours' className='w-[70%] mdl:w-[40%] 2xl:w-[15%] bg-green100 text-white text-[14px] font-bold font-raleway text-center rounded-[10px] p-[16px] 2xl:ml-[80px]'>
                         Все туры
                     </Link>
                     <div />
-                </div>
+                </div> */}
             </div>
         </div>
     )

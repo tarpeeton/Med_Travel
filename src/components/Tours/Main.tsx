@@ -3,7 +3,7 @@ import { FC , useEffect  , useCallback} from 'react'
 import Banner from './Banner'
 import Available from './Available'
 import Gallery from './Gallery'
-import Map from './Maps'
+// import Map from './Maps' 
 import Faq from './Faq'
 import HowWork from '../Main/HowWork'
 import Form from '../Form/Form'
@@ -14,9 +14,9 @@ import { useTourState } from '@/hooks/useTourState'
 import { Tour } from '@/interface/Tour'
 
 
-interface IMianTours {
-    initialData: Tour[]
-}
+// interface IMianTours {
+//     initialData: Tour[]
+// }
 
 
 
@@ -133,8 +133,11 @@ const MainTours: FC = () => {
             />
             <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] relative mt-[420px] mdl:mt-[370px] 2xl:mt-[180px] flex flex-col gap-[120px] mdl:gap-[180px]'>
                 <Available tours={filteredData} locale={locale} types={types} setTypeID={setTypeID} />
-                <Gallery data={filteredData} />
-                <Map  coordinates={data} types={types}/>
+
+
+                
+                <Gallery  />
+                {/* <Map  coordinates={data} types={types}/> */}
                 <HowWork />
                 <Faq />
                 <Form />

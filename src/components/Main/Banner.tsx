@@ -7,7 +7,7 @@ import Script from "next/script"; // Script komponentini import qilish
  
 
 const MainBanner: FC = () => {
-  const clientId = "145832671cce98f22847de5fbecf6e9090dfc7";
+  const clientId = "145340d2c41ddb0af95a6a10d7be041cbc229a";
 
   return (
     <div className="relative">
@@ -17,8 +17,7 @@ const MainBanner: FC = () => {
         src={`//tourvisor.ru/module/init.js?clientId=${clientId}`}
         strategy="afterInteractive"
       />
-   <div className="tv-image-slider tv-moduleid-9975743"></div>
-     
+   <div className="tv-image-slider tv-moduleid-9975844"></div>
     </div>
   );
 };

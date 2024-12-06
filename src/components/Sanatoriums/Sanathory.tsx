@@ -33,9 +33,9 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
 
 
 
-  const handleButtonClick = (category: string) => {
-    setActiveButton(category) // Set the active button when clicked
-  }
+  // const handleButtonClick = (category: string) => {
+  //   setActiveButton(category) // Set the active button when clicked
+  // }
 
   useEffect(() => {
     setActiveButton(activeButtonDefault)
@@ -57,18 +57,18 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
 
 
 
-  const getButtonStyle = (category: string) => {
-    if (activeButton === category) {
-      return 'bg-green100 text-white' // Active button styles
-    } else {
-      return 'border border-[#E8E8E8] text-[#505050]' // Inactive button styles
-    }
-  }
+  // const getButtonStyle = (category: string) => {
+  //   if (activeButton === category) {
+  //     return 'bg-green100 text-white' // Active button styles
+  //   } else {
+  //     return 'border border-[#E8E8E8] text-[#505050]' // Inactive button styles
+  //   }
+  // }
   return (
     <div className='mt-[300px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] 2xl:mt-[165px]'>
       <div>
         <Title text={{ ru: 'Доступные санатории', uz: "", en: "" }} />
-        <div className='hidden mt-[30px] mdl:flex mdl:flex-row mdl:flex-wrap mdl:gap-[8px]'>
+        {/* <div className='hidden mt-[30px] mdl:flex mdl:flex-row mdl:flex-wrap mdl:gap-[8px]'>
           {cotegory.map((category, index) => (
             <button
               key={index}
@@ -78,9 +78,9 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
               {category.title[locale]}
             </button>
           ))}
-        </div>
+        </div> */}
 
-        <div className='mdl:hidden mt-[20px]'>
+        {/* <div className='mdl:hidden mt-[20px]'>
           <Swiper
             spaceBetween={10}
             slidesPerView={2.3}
@@ -103,7 +103,7 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
+        </div> */}
         <div ref={animation} className='mt-[16px] mdl:mt-[20px] 2xl:mt-[35px] flex flex-col gap-[20px] mdl:flex-row mdl:flex-wrap 2xl:gap-0 2xl:justify-between'>
           {
             filteredData && filteredData.length > 0 ? (

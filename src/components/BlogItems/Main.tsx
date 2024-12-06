@@ -4,7 +4,7 @@ import BlogWithSlug from './Blog'
 import Share from './Share'
 import Comments from './Comments'
 import OtherBlogs from './Other'
-import { AllBlogs } from '@/lib/api'
+// import { AllBlogs } from '@/lib/api'
 import useLocale from '@/hooks/useLocale'
 import { IBlog } from '@/interface/Blog'
 import { client } from "@/sanity/lib/client"

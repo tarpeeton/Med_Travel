@@ -32,7 +32,8 @@ export default defineType({
               options: {
                 hotspot: true,
               },
-              validation: (Rule) => Rule.required().error('Изображение обязательно'),
+              // Removed the required validation rule to make it optional
+              // validation: (Rule) => Rule.required().error('Изображение обязательно'),
             },
             {
               name: 'description',

@@ -55,14 +55,11 @@ const Footer: FC = () => {
 						<span className='text-[16px] font-semibold text-titleDark mdl:text-[18px]'>Мы в соц.сетях</span>
 						<div className='flex flex-row flex-wrap mt-[8px] gap-[40px]  mdl:flex-col mdl:gap-0'>
 							<div className='flex flex-col gap-[4px] mdl:gap-[6px]'>
-								<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Instagram</Link>
-								<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Telegram</Link>
+								<Link href='https://www.instagram.com/medtraveltreatment/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Instagram</Link>
+								<Link href='https://t.me/MedTravelAssociation' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Telegram</Link>
 							</div>
 
-							<div className='flex flex-col gap-[4px] mdl:gap-[6px] mdl:mt-[6px]'>
-								<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway hover:text-[#1AB2A6] duration-300'>Facebook</Link>
-								<Link href='/' className='text-[15px] font-medium text-titleDark font-raleway  hover:text-[#1AB2A6]'>E-mail</Link>
-							</div>
+							
 
 
 						</div>

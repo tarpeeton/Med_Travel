@@ -3,44 +3,41 @@ import { FC, useState  , useEffect} from 'react'
 import Title from '../ui/title'
 import Galler from './Images'
 import { client } from '@/sanity/lib/client'
+import { IGallery } from '@/interface/Gallery'
 
 
 
-
-export interface DataItem {
-    gallery: {
-        _type: "image";
-        _key: string;
-        asset: {
-            _type: "reference";
-            _ref: string;
-        };
-    }[];
-}
 
 
 const MainGalley: FC = () => {
     const [sliceNumber, setSliceNumber] = useState(10)
     const [size , setSize] = useState(10)
-    const [gallery, setGallery] = useState<DataItem[] | []>([])
     
 
 
+    const [gallery, setGallery] = useState<IGallery[]>([])
+
+
+
     useEffect(() => {
-        const fetchTours = async () => {
+        const fetchGallery = async () => {
             try {
-                const toursRes = await client.fetch(`*[_type == "tour"]{gallery}`)
-                setGallery(toursRes)
-            } catch (err) {
-                console.error('Error fetching tours:', err)
+                // Fetch data from Sanity using GROQ query
+                const data: IGallery[] = await client.fetch(`*[_type == "tourPhotos"]`)
+                setGallery(data)
+            } catch (error) {
+                console.error('Error fetching gallery:', error)
             }
         }
-
-        fetchTours()
+        fetchGallery()
     }, [])
 
 
 
+
+    if (gallery.length <= 0) {
+        return null;
+    }
 
 
 

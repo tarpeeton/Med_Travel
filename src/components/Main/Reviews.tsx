@@ -7,7 +7,7 @@ import { MdNavigateNext } from "react-icons/md"
 import FullReviewsModal from '../Modal/ReviewFull'
 import { ReviewProps } from '@/interface/Reviews'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+import { Autoplay, Navigation } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
 import { client } from "@/sanity/lib/client";
@@ -73,15 +73,18 @@ const Reviews: FC = () => {
         <div className='mt-[120px] bg-green100 2xl:pl-[200px]'>
             <div>
                 <div className='flex flex-col py-[40px] px-[20px]'>
-                    <p className='text-[#FFFFFF] text-[25px] font-bold font-raleway mdl:text-[35px] 2xl:text-[40px]'>Отзывы клиентов</p>
+                    <p className='text-[#FFFFFF] text-[24px] font-bold font-raleway mdl:text-[35px] 2xl:text-[35px]'>
+                    Отзывы людей, воспользовавшихся нашими услугами.
+                    </p>
 
                     <div className='2xl:mt-[40px]'>
                         <Swiper
-                            modules={[Navigation]}
+                            modules={[Navigation , Autoplay]}
                             navigation={false} // Disable default navigation
                             slidesPerView={1}
                             spaceBetween={20}
-                            speed={800}
+                            loop={true}
+                            speed={720}
                             breakpoints={{
                                 1024: {
                                     slidesPerView: 2,

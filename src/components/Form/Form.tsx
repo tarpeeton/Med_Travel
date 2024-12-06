@@ -4,6 +4,9 @@ import ConsultationModal from '../Modal/ConsultationSuccess'
 import { IFormProps } from "@/interface/IForm"
 import { consultation } from "@/lib/api" 
 
+
+
+
 const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange, pattern, inputMode, placeholder }) => {
   const [focused, setFocused] = useState(false)
   const [isInvalid, setIsInvalid] = useState(false)
@@ -88,7 +91,7 @@ const Form: FC = () => {
       <div
         className="rounded-[20px] py-[20px] px-[16px] flex flex-col bg-cover bg-center mdl:py-[40px] mdl:px-[30px] 2xl:flex-row 2xl:justify-between 2xl:py-[16px] 2xl:px-[16px]"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://ucarecdn.com/2a73c693-f972-4be5-b6ed-a952a2df6045/-/preview/1000x666/)`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://ucarecdn.com/6ed7fa5d-555c-481c-838f-962e2a898a1c/-/preview/1000x667/)`,
         }}
       >
         <div className="2xl:w-[40%] 2xl:mt-[44px] 2xl:ml-[40px]">
