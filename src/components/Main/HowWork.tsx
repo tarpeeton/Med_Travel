@@ -4,7 +4,7 @@ import { TbCurrencyDollar } from 'react-icons/tb'
 import { PiAirplaneTiltLight } from 'react-icons/pi'
 
 import React, { FC, useRef } from 'react'
-import { FaCalendarCheck, FaHotel } from 'react-icons/fa'
+import { FaHotel } from 'react-icons/fa'
 import { MdSupportAgent } from 'react-icons/md'
 import { GrLinkNext, GrLinkPrevious } from 'react-icons/gr'
 import useLocale from '@/hooks/useLocale'

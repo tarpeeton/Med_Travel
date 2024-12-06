@@ -65,7 +65,7 @@ const ClinickGallery: FC<IClinickGalleryProps> = ({ gallereya }) => {
           className="mySwiper"
         >
           {gallereya?.map((image) => (
-            <SwiperSlide key={image._key}>
+            <SwiperSlide key={image._type}>
               <div className='w-full overflow-hidden rounded-[20px] relative'>
               <Image
                 src={urlFor(image.asset._ref).url()}
