@@ -85,7 +85,7 @@ export interface Clinick {
 }
 
 // Address Interface
-interface Address {
+interface IAddress {
   title: {
     ru: string;
     uz: string;
@@ -108,9 +108,9 @@ interface Image {
 }
 
 // Doctor Interface
-interface Doctor {
+export interface Doctor {
   _key: string;
-  image: Image;
+  image: ImageType;
   occupation: {
     ru: string;
     uz: string;
@@ -165,7 +165,7 @@ export interface IServiceForLecheniye {
 
 // Specialized Clinic Interface
 export interface SpecializedClinic {
-  icon: Image;
+  icon: ImageType;
   name: {
     ru: string;
     uz: string;
@@ -180,7 +180,7 @@ export interface SpecializedClinic {
 }
 
 // Gallereya Interface
-export type GallereyaClinikc = Image[];
+export type GallereyaClinikc = ImageType[];
 
 // BannerImage Interface
 interface BannerImage {
