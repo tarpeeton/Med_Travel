@@ -8,6 +8,7 @@ import { useState , useEffect } from 'react'
 import {ClinicDataInterface , GallereyaClinikc} from '@/interface/clinicks.interface'
 import SpesialClinick from '@/components/Clinics/items/spesial'
 import SeriveAndLechenya from '@/components/Clinics/items/service'
+import Doctors from '@/components/Clinics/items/doctors'
 
 const MainClinicsItems = () => {
   const [data , setData] = useState<ClinicDataInterface[] | []>([])
@@ -35,7 +36,8 @@ const MainClinicsItems = () => {
       <AllInfoClinick />
       {data.length > 0 && <ClinickGallery gallereya={data[0].gallereya} />}
       {data.length > 0 && <SpesialClinick  specionizedclicnick={data[0].specionizedclicnick}/> }
-       <SeriveAndLechenya serviceForLecheniye={data[0]?.serviceForLecheniye}/>
+       <SeriveAndLechenya serviceForLecheniye={data[0]?.serviceForLecheniye}/>\
+       <Doctors doctors={data[0]?.doctors} />
     </div>
   )
 }
