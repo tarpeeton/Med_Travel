@@ -48,6 +48,7 @@ interface IDoctorsProps {
 const Doctors: FC<IDoctorsProps> = ({doctors}) => {
   const locale = useLocale();
   const swiperRef = useRef<SwiperType>();
+
   const handlePrev = () => {
     swiperRef.current?.slidePrev();
   };

@@ -137,7 +137,7 @@ interface PaketService {
 }
 
 // Paket Interface
-interface Paket {
+export interface Paket {
   yesOrNo: PaketService[];
   price: string;
   name: {
