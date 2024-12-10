@@ -1,4 +1,3 @@
-import { Rule } from '@sanity/types'
 
 export default {
   name: 'clinicks',
@@ -32,6 +31,12 @@ export default {
     {
       name: 'bannerImage',
       title: 'Баннер',
+      type: 'image',
+      options: { hotspot: true }
+    },
+    {
+      name: 'homeImage',
+      title: 'Главная фотография',
       type: 'image',
       options: { hotspot: true }
     },

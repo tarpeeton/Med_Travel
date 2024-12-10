@@ -14,6 +14,7 @@ import Reviews from '@/components/Main/Reviews'
 import Faq from '@/components/Tours/Faq'
 import ClinicsForm from './clinickForm'
 import ClinickItemMap from '@/components/Clinics/items/ClinickMap'
+import SmilarClinick from '@/components/Clinics/items/similar'
 
 
 const MainClinicsItems = () => {
@@ -60,6 +61,7 @@ const MainClinicsItems = () => {
       <div className='mx-[16px] slg:mx-[20px] 2xl:mx-[200px]'>
       <ClinickItemMap  locale={locale} address={data[0]?.address} phone={data[0]?.phone} telegram={data[0]?.telegram} instagram={data[0]?.instagram} />
       </div>
+      <SmilarClinick data={data} />
     </div>
   )
 }
