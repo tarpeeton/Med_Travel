@@ -9,7 +9,7 @@ import Image from 'next/image'
 
 
 interface Props {
-  specionizedclicnick: SpecializedClinic[]
+  specionizedclicnick: SpecializedClinic[] | null | undefined
 }
 
 
@@ -25,7 +25,7 @@ const SpesialClinick: FC<Props> = ({ specionizedclicnick }) => {
       </p>
       <div className='flex flex-col mt-[20px] mdl:mt-[40px]'>
         <div className='flex flex-col mdl:flex-row mdl:flex-wrap mdl:gap-[20px]'>
-          {specionizedclicnick.map((item, index) => (
+          {specionizedclicnick?.map((item, index) => (
             <div key={index} className='flex flex-col mt-[20px] mdl:w-[48%] 2xl:w-[48%] '>
               <div className='rounded-[20px] mdl:rounded-[30px] border border-borderColor py-[35px] px-[25px] '>
                 <div className='rounded-full flex items-center bg-green20 w-[70px] h-[70px] justify-center'>

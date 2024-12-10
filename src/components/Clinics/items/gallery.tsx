@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 interface IClinickGalleryProps {
-  gallereya: GallereyaClinikc
+  gallereya: GallereyaClinikc | null | undefined;
 }
 
 const ClinickGallery: FC<IClinickGalleryProps> = ({ gallereya }) => {

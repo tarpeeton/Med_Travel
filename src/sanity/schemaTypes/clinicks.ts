@@ -178,6 +178,12 @@ export default {
       }]
     },
     {
+      name: 'rating',
+      title: 'Рейтинг',
+      type: 'number',
+      description: 'Рейтинг клиники в диапазоне от 0 до 5 (например, 4.9)',
+    },
+    {
       name: 'pakets',
       title: 'Пакеты услуг',
       type: 'array',

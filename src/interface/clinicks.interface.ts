@@ -136,6 +136,11 @@ interface PaketService {
   isIncluded: boolean;
 }
 
+export interface Rating {
+  value: number; // Рейтинг в диапазоне от 0 до 5 (например, 4.9)
+  description?: string; // Дополнительное описание (например, "Высокий рейтинг по отзывам")
+}
+
 // Paket Interface
 export interface Paket {
   yesOrNo: PaketService[];
@@ -183,7 +188,11 @@ export interface SpecializedClinic {
 export type GallereyaClinikc = ImageType[];
 
 // BannerImage Interface
-interface BannerImage {
+export interface BannerImage {
+  asset: ImageReference;
+  _type: "image";
+}
+interface HomeImage {
   asset: ImageReference;
   _type: "image";
 }
@@ -205,6 +214,8 @@ export interface ClinicDataInterface {
   telegram: string;
   _updatedAt: string;
   bannerImage: BannerImage;
+  homeImage: HomeImage;
+  rating: number;
   phone: string;
   name: string;
   slug: {

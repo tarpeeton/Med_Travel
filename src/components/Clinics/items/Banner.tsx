@@ -4,9 +4,15 @@ import { urlFor } from '@/sanity/lib/image'
 import ImageForBaner from '@/public/gggggggggggggggggggg.jpg'
 import Image from 'next/image'
 import QuestionModal from '@/components/Modal/Question';
+import {BannerImage} from '@/interface/clinicks.interface'
+
+interface IBannerClinickPorps {
+    name: string | undefined | null;
+    bannerImage: BannerImage | undefined | null;
+}
 
 
-const BannerClinicsItems: FC = () => {
+const BannerClinicsItems: FC<IBannerClinickPorps> = ({name , bannerImage}) => {
   const [open , setOpen] = useState(false)
   const handleSwitch = () => setOpen(!open)
 
@@ -14,7 +20,7 @@ const BannerClinicsItems: FC = () => {
     <div  className='relative'>
          <div
             style={{
-                backgroundImage: `url(${ImageForBaner.src})`,
+                backgroundImage: `url(${bannerImage ? urlFor(bannerImage.asset).url() : ImageForBaner.src})`, // Используем запасное изображение
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 position: "relative",
@@ -35,7 +41,7 @@ const BannerClinicsItems: FC = () => {
             <div className="absolute inset-0 z-20 flex flex-col justify-center px-4 sm:px-6 lg:px-8 2xl:px-[200px]">
                 <div className="max-w-xl mdl:w-[80%] 2xl:max-w-[90%]">
                     <h1 className="text-[35px] mdl:text-[45px] 2xl:text-[50px] font-bold text-white">
-                        Медицинский центр XYZ
+                        {name}
                     </h1>
                     <p className="text-[16px] mdl:text-[18px] 2xl:text-[20px]  mt-[8px] mdl:mt-[10px]  text-white mb-6">
                         Передовая медицинская помощь с мировым именем

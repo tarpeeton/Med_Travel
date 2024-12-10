@@ -19,6 +19,7 @@
     "@nextui-org/react": "^2.4.8",
     "@preline/combobox": "^2.5.0",
     "@sanity/image-url": "^1.0.2",
+    "@sanity/types": "^3.66.1",
     "@sanity/vision": "^3.62.2",
     "@types/google.maps": "^3.58.1",
     "@types/react-input-mask": "^3.0.5",

@@ -40,7 +40,7 @@ const swiperSettings = {
 };
 
 interface IPaketsProps {
-  pakets: Paket[]
+  pakets: Paket[] | null | undefined
   locale: "ru" | "uz" | "en"
 }
 
@@ -58,7 +58,7 @@ const Pakets: FC<IPaketsProps> = ({ pakets, locale }) => {
       <h3 className='text-[25px] mdl:text-[35px] 2xl:text-[40px] font-bold text-titleDark'>Пакеты</h3>
       {/* Mobile */}
       <div className='flex flex-col gap-[16px] slg:hidden'>
-        {pakets.map((pak, index) => (
+        {pakets?.map((pak, index) => (
           <div key={index} className='border border-[#E8E8E8] rounded-[20px] p-[20px]'>
             <h4 className='font-bold text-[22px] text-titleDark font-raleway '>{pak.name[locale]}</h4>
             <p className='text-[#7C7C7C] text-[15px] font-medium mt-[11px]'>
@@ -96,7 +96,7 @@ const Pakets: FC<IPaketsProps> = ({ pakets, locale }) => {
         {/* DESKTOP */}
           <div className='hidden slg:block'>
           <Swiper {...swiperSettings}>
-          {pakets.map((pak, index) => (
+          {pakets?.map((pak, index) => (
           <SwiperSlide key={index} className='border border-[#E8E8E8] rounded-[20px] p-[20px] slg:p-[40px]'>
             <div className='2xl:min-h-[247px] 6xl:min-h-[100px]'>
             <h4 className='font-bold text-[22px] slg:text-[30px] text-titleDark font-raleway '>{pak.name[locale]}</h4>

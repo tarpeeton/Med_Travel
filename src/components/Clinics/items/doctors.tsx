@@ -42,7 +42,7 @@ const swiperSettings = {
 
 
 interface IDoctorsProps {
-  doctors: Doctor[]
+  doctors: Doctor[] | null | undefined
 }
 
 const Doctors: FC<IDoctorsProps> = ({doctors}) => {

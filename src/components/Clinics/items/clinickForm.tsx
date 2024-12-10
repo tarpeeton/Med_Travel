@@ -3,7 +3,6 @@ import { FC, useState } from "react"
 import ConsultationModal from '../../Modal/Question'
 import { IFormProps } from "@/interface/IForm"
 import { consultation } from "@/lib/api" 
-import ImageBG from '@/public/ClinickFormImageBg.jpg'
 
 
 

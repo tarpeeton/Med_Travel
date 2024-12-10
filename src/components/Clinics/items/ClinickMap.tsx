@@ -5,10 +5,10 @@ import { FaInstagram, FaTelegramPlane } from 'react-icons/fa'
 import Link from 'next/link'
 
 interface IClinickItemMap {
-  address: {coords: string[] , title:{ ru: string , uz:string , en: string}}
-  phone: string
-  telegram: string
-  instagram: string
+  address: {coords: string[] , title:{ ru: string , uz:string , en: string}} | null | undefined
+  phone: string | null | undefined
+  telegram: string | null | undefined
+  instagram: string | null | undefined
   locale: "ru" | "uz" | "en"
 }
 
@@ -42,37 +42,48 @@ const ClinickItemMap: FC<IClinickItemMap> = ({address, phone, telegram, instagra
     };
 
     const initializeMap = () => {
-      if (window.ymaps) {
-        // Parse coordinates from the string
-        const [latitude, longitude] = address?.coords[0]
-          ?.split(',')
+      if (window.ymaps && address?.coords?.[0]) {
+        // Проверяем, что координаты существуют
+        const coords = address.coords[0]
+          .split(',')
           .map(coord => parseFloat(coord.trim()));
-
-        const map = new window.ymaps.Map('map', {
-          center: [latitude, longitude],
-          zoom: 17,
-          controls: [],
-        });
-
-        const placemark = new window.ymaps.Placemark(
-          [latitude, longitude],
-          {
-            hintContent: address.title[locale],
-            balloonContent: address.title[locale],
-          },
-          {
-            iconColor: '#1AB2A6',
-          }
-        );
-
-        map.geoObjects.add(placemark);
-        setMapInstance(map); // Store the map instance
-        setMapLoaded(true);
+    
+        if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
+          const [latitude, longitude] = coords;
+    
+          // Создаём карту
+          const map = new window.ymaps.Map('map', {
+            center: [latitude, longitude],
+            zoom: 17,
+            controls: [],
+          });
+    
+          // Создаём метку
+          const placemark = new window.ymaps.Placemark(
+            [latitude, longitude],
+            {
+              hintContent: address?.title?.[locale] || 'No title available',
+              balloonContent: address?.title?.[locale] || 'No description available',
+            },
+            {
+              iconColor: '#1AB2A6',
+            }
+          );
+    
+          // Добавляем метку на карту
+          map.geoObjects.add(placemark);
+    
+          // Сохраняем состояние карты
+          setMapInstance(map); // Убедитесь, что setMapInstance определена
+          setMapLoaded(true); // Убедитесь, что setMapLoaded определена
+        } else {
+          console.error('Invalid coordinates:', address.coords[0]);
+        }
       } else {
-        console.error("Yandex Maps API is not available.");
+        console.error('Yandex Maps API is not loaded or address coordinates are missing');
       }
     };
-
+    
     if (!mapLoaded) {
       loadYandexMap();
     }

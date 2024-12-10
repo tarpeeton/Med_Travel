@@ -85,19 +85,10 @@ const SmilarClinick: FC<ISimilarclinickProps> = ({ data }) => {
             <SwiperSlide key={index || `doctor-${index}`}>
               <div className="relative ">
                 <div className='relative overflow-hidden rounded-tl-[20px]  rounded-tr-[20px]'>
-                  {/* <Image
-                    src={urlFor(item).url()}
-                    alt={item.name.en}
-                    width={200}
-                    height={200}
-                    quality={100}
-                    className='w-full h-full object-cover'
-
-                  /> */}
                   <div className='h-[200px] mdl:h-[235px]'>
-                  <Image
-                    src={'https://ucarecdn.com/0b78add8-7f04-4d6a-a58a-4592c86e20d2/-/preview/1000x666/'}
-                    alt={'sdfsdf'}
+                     <Image
+                    src={urlFor(item.homeImage.asset._ref).url()}
+                    alt={item.name}
                     width={1000}
                     height={900}
                     quality={100}
@@ -105,8 +96,8 @@ const SmilarClinick: FC<ISimilarclinickProps> = ({ data }) => {
 
                   />
                   </div>
-                  
-                  
+
+
                 </div>
                 <div className='mt-[20px] mdl:mt-[25px]  px-[16px] mdl:px-[20px]'>
                   <p className='text-[18px]  2xl:text-[20px] font-raleway font-bold'>
@@ -117,20 +108,16 @@ const SmilarClinick: FC<ISimilarclinickProps> = ({ data }) => {
                     {item.description[locale].length > 187 ? item.description[locale].slice(0, 187) + "..." : item.description[locale]}
                   </p>
                   <div className='flex mt-[12px] mdl:mt-[25px] 2xl:mt-[12px] flex-row items-center text-[#1AB2A6] gap-[2px]'>
-                      <Link  href={item.slug.current} className='text-[18px] font-semibold mdl:text-[18px]'>
-                          Подробнее
-                      </Link>
-                      <MdNavigateNext  className='w-[25px] h-[25px] mdl:mt-[3px]'/>
+                    <Link href={item.slug.current} className='text-[18px] font-semibold mdl:text-[18px]'>
+                      Подробнее
+                    </Link>
+                    <MdNavigateNext className='w-[25px] h-[25px] mdl:mt-[3px]' />
                   </div>
-                  
+
                 </div>
               </div>
             </SwiperSlide>
           ))}
-
-
-
-
         </Swiper>
       </div>
     </div>

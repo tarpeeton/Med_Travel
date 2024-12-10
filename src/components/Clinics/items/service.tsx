@@ -12,7 +12,7 @@ import ImageTwoCard from '@/public/slug/TwoCard.jpg'
 import ImageThreeCard from '@/public/slug/ThreeCard.jpg'
 
 interface IServiceAndLechenyaProps {
-  serviceForLecheniye : IServiceForLecheniye[] | []
+  serviceForLecheniye : IServiceForLecheniye[] |  null | undefined
 }
 
 const SeriveAndLechenya: FC<IServiceAndLechenyaProps> = ({serviceForLecheniye}) => {
