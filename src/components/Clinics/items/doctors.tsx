@@ -90,7 +90,7 @@ const Doctors: FC<IDoctorsProps> = ({doctors}) => {
 
                 />
                 <div className='absolute z-[99] bottom-[10px] left-[10px]'>
-                  <p className='text-white text-[20px] mdl:text-[20px] font-raleway font-semibold'>{item.name[locale]}</p>
+                  <p className='text-white text-[20px] mdl:font-semibold mdl:text-[20px] font-raleway font-semibold'>{item.name[locale]}</p>
                 </div>
                 <div className='w-full h-full absolute top-0 left-0 bg-[#0122481A]' />
               </div>

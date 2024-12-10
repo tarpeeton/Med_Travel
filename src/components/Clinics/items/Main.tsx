@@ -10,6 +10,11 @@ import SpesialClinick from '@/components/Clinics/items/spesial'
 import SeriveAndLechenya from '@/components/Clinics/items/service'
 import Doctors from '@/components/Clinics/items/doctors'
 import Pakets from '@/components/Clinics/items/pakets'
+import Reviews from '@/components/Main/Reviews'
+import Faq from '@/components/Tours/Faq'
+import ClinicsForm from './clinickForm'
+import ClinickItemMap from '@/components/Clinics/items/ClinickMap'
+
 
 const MainClinicsItems = () => {
   const [data, setData] = useState<ClinicDataInterface[] | []>([])
@@ -30,6 +35,7 @@ const MainClinicsItems = () => {
     }
     fetchClinics()
   }, [locale])
+  console.log(data, "RESPONSE DATA")
 
   return (
     <div className='flex flex-col gap-[120px] mdl:gap-[150px] xl:gap-[200px]'>
@@ -42,6 +48,18 @@ const MainClinicsItems = () => {
       {data.length > 0 && (
         <Pakets pakets={data[0]?.pakets} locale={locale} />
       )}
+      <Reviews />
+      <div className='mx-[16px] slg:mx-[20px] 2xl:mx-[200px]'>
+        <Faq />
+
+      </div>
+      <div className='mx-[16px] slg:mx-[20px] 2xl:mx-[200px]'>
+        <ClinicsForm />
+
+      </div>
+      <div className='mx-[16px] slg:mx-[20px] 2xl:mx-[200px]'>
+      <ClinickItemMap  locale={locale} address={data[0]?.address} phone={data[0]?.phone} telegram={data[0]?.telegram} instagram={data[0]?.instagram} />
+      </div>
     </div>
   )
 }
