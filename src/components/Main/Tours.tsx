@@ -135,21 +135,21 @@ const Tours: FC = () => {
                                     <div
                                         className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] mdl:pb-[25px]'
                                         style={{
-                                            backgroundImage: data.mainImage
-                                                ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${urlFor(data.mainImage.asset._ref)})`
+                                            backgroundImage: data.homeImage
+                                                ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${urlFor(data.homeImage.asset._ref)})`
                                                 : 'linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35))',
                                         }}
                                     >
                                         <div>
                                             <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-white rounded-full font-raleway text-[15px] text-white'>
-                                                {data.toAddress[locale]}
+                                                {/* {data.address[locale]} */}
                                             </button>
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <p className='text-white text-[22px] mdl:text-[25px] 2xl:text-[30px] font-bold'>
-                                                {data.price}$
+                                                {data.}$
                                             </p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </SwiperSlide>
                             ))}
