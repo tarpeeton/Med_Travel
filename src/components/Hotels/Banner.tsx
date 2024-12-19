@@ -7,13 +7,13 @@ import moment, { Moment } from "moment";
 const { Option } = Select;
 import sanathorybg from '@/public/sanathorybg.jpg'
 
-const handleOpenChange = (open: boolean, type: "from" | "to") => {
-  if (open) {
-    console.log(`Opening ${type} date picker`);
-  } else {
-    console.log(`Closing ${type} date picker`);
-  }
-};
+// const handleOpenChange = (open: boolean, type: "from" | "to") => {
+//   if (open) {
+//     console.log(`Opening ${type} date picker`);
+//   } else {
+//     console.log(`Closing ${type} date picker`);
+//   }
+// };
 
 
 

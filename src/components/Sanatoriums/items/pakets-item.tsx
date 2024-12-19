@@ -8,6 +8,8 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import useLocale from '@/hooks/useLocale';
+import { ISanatoriumPackage } from '@/interface/sanatorium.interface';
 
 
 const swiperSettings = {
@@ -39,15 +41,15 @@ const swiperSettings = {
   }
 };
 
+
 interface IPaketsProps {
-  pakets: Paket[] | null | undefined
-  locale: "ru" | "uz" | "en"
+  pakets: ISanatoriumPackage[] | null | undefined
 }
 
 
-const Pakets: FC<IPaketsProps> = ({ pakets, locale }) => {
+const PaketsSanathory: FC<IPaketsProps> = ({ pakets }) => {
   const [number , setSliceNumber ] = useState(4)
-
+  const locale = useLocale()
   const handleSliceNumber = () => {
     setSliceNumber(20); // Hamma datalarni ko'rsatish
   };
@@ -63,12 +65,19 @@ const Pakets: FC<IPaketsProps> = ({ pakets, locale }) => {
             <p className='text-[#7C7C7C] text-[15px] font-medium mt-[11px]'>
               {pak.description[locale]}
             </p>
-            <p className='text-titleDark font-raleway text-[30px] font-semibold mt-[20px]'>{pak.price} $</p>
+            <div className='flex flex-row'>
+            <p className='text-titleDark font-raleway text-[30px] font-semibold mt-[20px]'>{pak.price}$   </p> <p className='w-[3px]'></p>
+
+            <p className='text-[#505050]  font-semibold text-[22px] mdl:text-[25px] 2xl:text-[30px] mt-[23px]'>
+                   /   {pak.duration}  дней
+               </p>
+              </div>
+           
             <button onClick={handleSliceNumber} className='mt-[15px] w-full greenButton h-[40px] font-bold'>
               {locale === 'ru' ? "Смотреть все" : locale === 'uz' ? "Barchasini Korish" : "All"}
             </button>
             <div className='mt-[16px] flex flex-col gap-[12px]'>
-              {pak.yesOrNo.slice(0, number).map((item, index) => (
+              {pak.features.slice(0, number).map((item, index) => (
                 <div  key={index} className='flex flex-row gap-[10px] items-center'>
                   {item.isIncluded && (
                     <div className='flex flex-row gap-[10px] items-center'>
@@ -96,20 +105,29 @@ const Pakets: FC<IPaketsProps> = ({ pakets, locale }) => {
           <div className='hidden slg:block'>
           <Swiper {...swiperSettings}>
           {pakets?.map((pak, index) => (
-          <SwiperSlide key={index} className='border border-[#E8E8E8] rounded-[20px] p-[20px] slg:p-[40px]'>
+          <SwiperSlide key={index} className='border border-[#E8E8E8] rounded-[20px] p-[20px] slg:p-[30px] cursor-pointer'>
             <div className='2xl:min-h-[247px] 6xl:min-h-[100px]'>
             <h4 className='font-bold text-[22px] slg:text-[30px] text-titleDark font-raleway '>{pak.name[locale]}</h4>
             <p className='text-[#7C7C7C] text-[15px] slg:text-[17px] font-medium mt-[11px]'>
               {pak.description[locale]}
             </p>
-            <p className='text-titleDark font-raleway slg:text-[45px] 2xl:text-[50px] text-[30px] font-semibold mt-[20px]'>{pak.price} $</p>
+            <div className='flex flex-row items-center'>
+            <p className='text-titleDark font-raleway slg:text-[45px] 2xl:text-[50px] text-[30px] font-semibold mt-[20px]'>{pak.price}$   
+             
+             </p>
+             <p className='w-[3px]'></p>
+             <p className='text-[#505050]  font-semibold text-[22px] mdl:text-[25px] 2xl:text-[30px] mt-[15px]'>
+                   /{pak.duration}  дней
+               </p>
+            </div>
+            
             </div>
             
             <button onClick={handleSliceNumber} className='mt-[15px] w-full greenButton h-[40px] font-bold slg:mt-[40px] slg:h-[55px]' >
               {locale === 'ru' ? "Смотреть все" : locale === 'uz' ? "Barchasini Korish" : "All"}
             </button>
             <div className='mt-[16px] slg:mt-[40px] flex flex-col gap-[12px]'>
-              {pak.yesOrNo.slice(0, number).map((item, index) => (
+              {pak.features.slice(0, number).map((item, index) => (
                 <div  key={index} className='flex flex-row gap-[10px] items-center'>
                   {item.isIncluded && (
                     <div className='flex flex-row gap-[10px] items-center'>
@@ -144,4 +162,4 @@ const Pakets: FC<IPaketsProps> = ({ pakets, locale }) => {
 
 
 
-export default Pakets
+export default PaketsSanathory

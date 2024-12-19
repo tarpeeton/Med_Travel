@@ -58,7 +58,6 @@ const MainClinicsItems = () => {
   }, [locale])
 
 
-  console.log(slugData, 'slugData')
 
   return (
     <div className='flex flex-col gap-[120px] mdl:gap-[150px] xl:gap-[200px]'>
@@ -69,7 +68,7 @@ const MainClinicsItems = () => {
 
       {data.length > 0 && <ClinickGallery gallereya={slugData?.gallereya} />}
       {data.length > 0 && <SpesialClinick specionizedclicnick={slugData?.specionizedclicnick} />}
-      <SeriveAndLechenya serviceForLecheniye={slugData?.serviceForLecheniye} />\
+      <SeriveAndLechenya serviceForLecheniye={slugData?.serviceForLecheniye} />
       <Doctors doctors={slugData?.doctors} />
       {data.length > 0 && (
         <Pakets pakets={slugData?.pakets} locale={locale} />
@@ -87,6 +86,7 @@ const MainClinicsItems = () => {
       <ClinickItemMap  locale={locale} address={slugData?.address} phone={slugData?.phone} telegram={slugData?.telegram} instagram={slugData?.instagram} />
       </div>
       <SmilarClinick data={data} />
+      
     </div>
   )
 }

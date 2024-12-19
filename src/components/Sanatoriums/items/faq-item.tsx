@@ -2,7 +2,8 @@
 import { useState } from 'react'
 import { IoIosArrowUp } from "react-icons/io"
 import { IoIosArrowDown } from "react-icons/io"
-import Title from '../ui/title'
+import Title from '../../ui/title'
+
 import { faqData } from '@/constants/Faq'
 import useLocale from '@/hooks/useLocale'
 
@@ -21,7 +22,7 @@ const Arrow: React.FC<ArrowProps> = ({ isOpen }) => (
   </>
 )
 
-const Faq: React.FC = () => {
+const FaqItemSanathory: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const locale = useLocale()
   const toggleFAQ = (index: number) => {
@@ -29,7 +30,7 @@ const Faq: React.FC = () => {
   }
 
   return (
-    <div className="w-full ">
+    <div className="w-full px-[16px] mdl:px-[20px] 2xl:px-[200px] ">
       <Title  text={{ru: 'Часто задаваемые вопросы' , uz: "Ko‘p so‘raladigan savollar" , en: "Frequently Asked Questions"}} />
       <div className='mt-[30px] mdl:mt-[40px] 2xl:mt-[50px]'>
         {faqData.map((item, index) => (
@@ -55,4 +56,4 @@ const Faq: React.FC = () => {
   )
 }
 
-export default Faq
+export default FaqItemSanathory

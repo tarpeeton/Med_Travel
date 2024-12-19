@@ -14,21 +14,21 @@ import Title from '../ui/title'
 import { ICategory } from './Main'
 import useLocale from '@/hooks/useLocale'
 import { urlFor } from '@/sanity/lib/image'
+import { Link } from '@/i18n/routing'
 
 interface ISanathory {
   data: ISanathoryData[],
-  cotegory: ICategory[]
+  // cotegory: ICategory[]
   animation: RefObject<HTMLDivElement>
   activeButtonDefault: string
 }
 
 
-const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefault }) => {
+const Sanathory: FC<ISanathory> = ({ data, animation, activeButtonDefault }) => {
   const [activeButton, setActiveButton] = useState<string>(activeButtonDefault) // State to track the active button
   const { sliceNumber, handleSliceNumber } = useSlice(9)
   const [filteredData, setFilteredData] = useState(data)
   const locale = useLocale()
-
 
 
 
@@ -41,17 +41,17 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
     setActiveButton(activeButtonDefault)
   }, [activeButtonDefault])
 
-  useEffect(() => {
-    if (activeButton) {
-      setFilteredData(
-        data.filter(item =>
-          item.categories.some(category => category.title[locale] === activeButton)
-        )
-      )
-    } else {
-      setFilteredData(data)
-    }
-  }, [activeButton, data, locale])
+  // useEffect(() => {
+  //   if (activeButton) {
+  //     setFilteredData(
+  //       data.filter(item =>
+  //         item.categories.some(category => category.title[locale] === activeButton)
+  //       )
+  //     )
+  //   } else {
+  //     setFilteredData(data)
+  //   }
+  // }, [activeButton, data, locale])
 
 
 
@@ -106,13 +106,13 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
         </div> */}
         <div ref={animation} className='mt-[16px] mdl:mt-[20px] 2xl:mt-[35px] flex flex-col gap-[20px] mdl:flex-row mdl:flex-wrap 2xl:gap-0 2xl:justify-between'>
           {
-            filteredData && filteredData.length > 0 ? (
-              filteredData.slice(0, sliceNumber).map((t, index) => (
-                <div key={index} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group 2xl:mb-[50px]' >
+            data && data.length > 0 ? (
+              data.slice(0, sliceNumber).map((t, index) => (
+                <Link href={`/sanatoriums/${t.slug.current}`} key={index} className='mdl:w-[48%] 2xl:w-[32%] cursor-pointer group 2xl:mb-[50px]' >
                   <div className='h-[199px] w-full overflow-hidden rounded-[15px] relative 2xl:h-[307px]'>
 
                     <Image
-                      src={urlFor(t.mainImage.asset._ref).url() || ''}
+                      src={urlFor(t.homeImage.asset._ref).url() || ''}
                       alt='toursimage'
                       width={1000}
                       height={1000}
@@ -133,13 +133,13 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
                       <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-raleway font-bold text-titleDark'>{t.name[locale]}</p>
                     </div>
                     <div>
-                      <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium text-titleDark'>{t.fromAddress[locale]} - {t.toAddress[locale]}</p>
+                      <p className='text-[14px] mdl:text-[17px] 2xl:text-[18px] font-raleway font-medium text-titleDark'>{t.address.title[locale]}</p>
                     </div>
-                    <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]'>
+                    {/* <div className='mt-[12px] mdl:mt-[16px] 2xl:mt-[20px]'>
                       <p className='text-[18px] mdl:text-[22px] 2xl:text-[25px] font-bold text-green100 font-raleway'>{t.price}$</p>
-                    </div>
+                    </div> */}
                   </div>
-                </div>
+                </Link>
               ))
             ) : (
               <div className='mt-[16px] mdl:mt-[20px] '>
@@ -152,7 +152,7 @@ const Sanathory: FC<ISanathory> = ({ data, cotegory, animation, activeButtonDefa
 
         </div>
 
-        {sliceNumber < filteredData.length && (
+        {sliceNumber < data.length && (
           <LeanMoreButton sliceCounterUp={handleSliceNumber} />
         )}
       </div>

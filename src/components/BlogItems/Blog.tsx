@@ -72,7 +72,6 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                 const params = { _id: normalizedSlug }
                 const res = await client.fetch(query, params)
 
-                console.log(res, 'Fetched Blog Data')
 
                 if (res) {
                     setBlogWithSlug(res)

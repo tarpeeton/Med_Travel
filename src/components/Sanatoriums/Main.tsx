@@ -41,49 +41,40 @@ const MainSanathorium: FC = () => {
 
 
 
-  useEffect(() => {
-    const fetchCotegory = async () => {
-      try {
-        const sanathoryCotegoryRes = await client.fetch(`
-          *[_type == "sanatoriumcategory"]{_id , title}
-        `)
-        setCotegory(sanathoryCotegoryRes)
+  // useEffect(() => {
+  //   const fetchCotegory = async () => {
+  //     try {
+  //       const sanathoryCotegoryRes = await client.fetch(`
+  //         *[_type == "sanatoriumcategory"]{_id , title}
+  //       `)
+  //       setCotegory(sanathoryCotegoryRes)
 
-        // Set the default active button after categories are fetched
-        if (sanathoryCotegoryRes.length > 0) {
-          setActiveButtonDefault(sanathoryCotegoryRes[0].title[locale])
-        }
-      } catch (err) {
-        console.error('Error fetching categories:', err)
-      }
-    }
+  //       // Set the default active button after categories are fetched
+  //       if (sanathoryCotegoryRes.length > 0) {
+  //         setActiveButtonDefault(sanathoryCotegoryRes[0].title[locale])
+  //       }
+  //     } catch (err) {
+  //       console.error('Error fetching categories:', err)
+  //     }
+  //   }
 
-    fetchCotegory()
-  }, [locale])
+  //   fetchCotegory()
+  // }, [locale])
 
   useEffect(() => {
     setFilteredData(
       sanathoriums.filter((item) =>
         (!filters.name || item.name[locale].includes(filters.name)) &&
-        (!filters._id || item.categories.some(category => category._id === filters._id))
+        (!filters._id))
       )
-    )
+    
   }, [filters, sanathoriums, locale])
 
   useEffect(() => {
     const fetchTours = async () => {
       try {
         const sanathoryRes = await client.fetch(`
-          *[_type == "sanatoriums"]{ _id,name,
-fromAddress,
-toAddress,
- categories[]->{
-      _id,
-      title
-    },
-price,
-rating,
-mainImage,}`)
+          *[_type == "sanatoriums"]{rating , name , homeImage , slug , address}`)
 
         setSanathoriums(sanathoryRes)
         const names = sanathoryRes.map((item: { name: { ru: string, uz: string, en: string } }) => item.name[locale])
@@ -106,11 +97,14 @@ mainImage,}`)
     }
   }, [sanathoriums]) // Trigger animation when sanathoriums change
 
+    console.log(filteredData , 'filteredDatafilteredData')
   return (
     <div>
+
+
       <Banner Name={sanathoriumNames} cotegory={cotegory}  filters={filters} setFilters={setFilters} />
 
-      <Sanathory data={filteredData} cotegory={cotegory} animation={sanathoryRef} activeButtonDefault={activeButtonDefault} />
+      <Sanathory data={filteredData}  animation={sanathoryRef} activeButtonDefault={activeButtonDefault} />
 
 
       <div className='mx-[16px] mdl:mx-[20px] 2xl:mx-[200px] flex flex-col gap-[200px] mt-[200px]'>

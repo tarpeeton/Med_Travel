@@ -20,25 +20,17 @@ export interface IFilterProps {
 export interface ISanathoryData {
       _id: number
       name: {ru: string , uz: string , en:string}
-      fromAddress: {ru: string , uz: string , en:string}
-      toAddress: {ru: string , uz: string , en:string}
-      mainImage: {
+      address: {title: {ru: string , uz: string , en:string} , coords: [string]}
+      homeImage: {
         _type: 'image';
      asset: {
        _type: 'reference';
           _ref: string;
        };
       }
-     
-      price: number
+      slug: {current:string}
+      description: {ru: string , uz: string , en:string}
       rating: number
-      categories: {
-        _id: string;
-        title: {
-          ru: string;
-          uz: string;
-          en: string;
-        };
-      }[];
+      
   }
   

@@ -29,7 +29,7 @@ const Gallery: FC = () => {
             try {
                 // Fetch data from Sanity using GROQ query
                 const data: IGallery[] = await client.fetch(`*[_type == "tourPhotos"]`)
-                console.log(data)
+                // console.log(data)
                 setGallery(data)
             } catch (error) {
                 console.error('Error fetching gallery:', error)

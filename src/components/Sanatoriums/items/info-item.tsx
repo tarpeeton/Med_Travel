@@ -10,33 +10,51 @@ import { FaStar } from "react-icons/fa6";
 import One from '@/public/slug/one.jpg'
 import Two from '@/public/slug/two.jpg'
 import {Address } from '@/interface/clinicks.interface'
+import { ISanityImage } from '@/interface/sanatorium.interface';
+import { urlFor } from '@/sanity/lib/image';
 
 interface AllInfoClinickProps {
     name: string | undefined | null;
     description: { ru: string; uz: string; en: string } | undefined | null;
     adress: Address | undefined | null; // Изменяем тип на Address
     rating: number  | undefined | null; // Изменяем тип
+    images: ISanityImage[]
   }
   
 
-const AllInfoClinick: FC<AllInfoClinickProps> = ({ name, description, rating , adress  }) => {
+const AllInfoItems: FC<AllInfoClinickProps> = ({ name, description, rating , adress , images }) => {
     const locale = useLocale() 
     const [open, setOpen] = useState(false)
 
     const handleSwitch = () => setOpen(!open)
 
+    console.log(rating , 'HSHSHSDGHSGHYD')
     return (
         <div className='flex flex-col gap-[20px] mdl:gap-[40px] px-[16px] mdl:px-[20px] lg:px-[200px]'>
             <h1 className='text-[25px] mdl:text-[35px] lg:text-[40px] text-titleDark font-bold'>
-                {locale === 'ru' ? "Общая информация о клинике" : locale === 'uz' ? "Klinikada umumiy ma'lumotlari" : "General information about the clinic"}
+                {locale === 'ru' ? "Общая информация о клинике" : locale === 'uz' ? "Klinikaning umumiy ma'lumotlari" : "General information about the clinic"}
             </h1>
             <div className='flex flex-col xl:flex-row xl:justify-between'>
                 <div className='relative lg:w-[50%]'>
                     <div className='h-[292px] mdl:h-[535px] mdl:w-[90%]'>
-                        <Image src={One} alt='Image' width={1000} height={1000} quality={100} className='w-full h-full object-cover rounded-[20px] ' />
+                        <Image 
+                            src={images?.[0]?.asset?._ref ? urlFor(images[0].asset._ref).url() : One} 
+                            alt={name || 'Санаторий'} 
+                            width={1000} 
+                            height={1000} 
+                            quality={100} 
+                            className='w-full h-full object-cover rounded-[20px]'
+                        />
                     </div>
                     <div className='absolute bottom-[-40px] right-0 rounded-[20px] border-[4px] mdl:h-[394.5px] mdl:w-[394.5px] border-[#FFFFFF] h-[154px] xl:right-[-80px] 2xl:w-[320px] 4xl:w-[355px] 4xl:right-[-10px]'>
-                        <Image src={Two} alt='Image' width={1000} height={1000} quality={100} className='w-full h-full object-cover rounded-[20px] ' />
+                        <Image 
+                            src={images?.[1]?.asset?._ref ? urlFor(images[1].asset._ref).url() : Two} 
+                            alt={name || 'Санаторий'} 
+                            width={1000} 
+                            height={1000} 
+                            quality={100} 
+                            className='w-full h-full object-cover rounded-[20px]'
+                        />
                     </div>
                 </div>
                 <div className='mt-[60px] mdl:mt-[90px] 2xl:mt-[61px] 2xl:w-[40%] 2xl:justify-end'>
@@ -71,4 +89,4 @@ const AllInfoClinick: FC<AllInfoClinickProps> = ({ name, description, rating , a
 }
 
 
-export default AllInfoClinick
+export default AllInfoItems

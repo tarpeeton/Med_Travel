@@ -21,13 +21,13 @@ interface BannerProps {
 }
 
 
-const handleOpenChange = (open: boolean, type: "from" | "to") => {
-  if (open) {
-    console.log(`Opening ${type} date picker`)
-  } else {
-    console.log(`Closing ${type} date picker`)
-  }
-}
+// const handleOpenChange = (open: boolean, type: "from" | "to") => {
+//   if (open) {
+//     console.log(`Opening ${type} date picker`)
+//   } else {
+//     console.log(`Closing ${type} date picker`)
+//   }
+// }
 
 const Banner: FC<BannerProps> = ({ setFilters, filters, types  , locale }) => {
   const clientId = "145340d2c41ddb0af95a6a10d7be041cbc229a";

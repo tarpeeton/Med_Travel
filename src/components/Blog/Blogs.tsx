@@ -22,7 +22,6 @@ interface iBlogs {
 const Blogs: FC<iBlogs> = ({ typeID, blogs, search }) => {
     const [blogsName, setBlogsName] = useState<string[]>([])
     const locale = useLocale()
-    console.log(typeID , 'TYPE ID KELDI')
     useEffect(() => {
         const titles = blogs.map((e) => e.sections[0].title[locale])
         setBlogsName(titles)
