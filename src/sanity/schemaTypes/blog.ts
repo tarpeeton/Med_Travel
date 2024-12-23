@@ -50,13 +50,13 @@ export default defineType({
         },
       ],
     },
-    {
-      name: 'categories',
-      type: 'array',
-      title: 'Категории',
-      of: [{ type: 'reference', to: [{ type: 'category' }] }],
-      validation: (Rule) => Rule.required().error('Необходимо выбрать хотя бы одну категорию'),
-    },
+    // {
+    //   name: 'categories',
+    //   type: 'array',
+    //   title: 'Категории',
+    //   of: [{ type: 'reference', to: [{ type: 'category' }] }],
+    //   validation: (Rule) => Rule.required().error('Необходимо выбрать хотя бы одну категорию'),
+    // },
     {
       name: 'createdAt',
       type: 'datetime',

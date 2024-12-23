@@ -23,7 +23,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     banner,
     // history,
-    blogCotegory,
+    // blogCotegory,
     blog,
     comment,
     reviews,
