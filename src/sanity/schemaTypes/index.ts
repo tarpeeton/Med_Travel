@@ -2,7 +2,7 @@ import { type SchemaTypeDefinition } from 'sanity'
 import banner from './banner'
 // import history from './history'
 import blogCotegory from './blog-cotegory'
-import blog from './blog'
+import blog, { blockContent } from './blog'
 import comment from './comment'
 import reviews from './reviews'
 import team from './team'
@@ -25,6 +25,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     // history,
     // blogCotegory,
     blog,
+    blockContent,
     comment,
     reviews,
     team,

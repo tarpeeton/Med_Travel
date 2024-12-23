@@ -4,7 +4,25 @@ export default defineType({
   name: 'blog',
   type: 'document',
   title: 'Блог',
+  
   fields: [
+    {
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      options: {
+        source: 'sections.0.title.en',
+        maxLength: 96,
+        slugify: (input) =>
+          input
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .trim(),
+      },
+      validation: (Rule) => Rule.required().error('Slug обязателен'),
+    },
     {
       name: 'sections',
       type: 'array',
@@ -32,17 +50,27 @@ export default defineType({
               options: {
                 hotspot: true,
               },
-              // Removed the required validation rule to make it optional
-              // validation: (Rule) => Rule.required().error('Изображение обязательно'),
             },
             {
               name: 'description',
               type: 'object',
               title: 'Описание',
               fields: [
-                { name: 'ru', type: 'text', title: 'Описание на русском' },
-                { name: 'uz', type: 'text', title: 'Описание на узбекском' },
-                { name: 'en', type: 'text', title: 'Описание на английском' },
+                {
+                  name: 'ru',
+                  type: 'blockContent',
+                  title: 'Описание на русском',
+                },
+                {
+                  name: 'uz',
+                  type: 'blockContent',
+                  title: 'Описание на узбекском',
+                },
+                {
+                  name: 'en',
+                  type: 'blockContent',
+                  title: 'Описание на английском',
+                },
               ],
               validation: (Rule) => Rule.required().error('Описание обязательно'),
             },
@@ -50,13 +78,6 @@ export default defineType({
         },
       ],
     },
-    // {
-    //   name: 'categories',
-    //   type: 'array',
-    //   title: 'Категории',
-    //   of: [{ type: 'reference', to: [{ type: 'category' }] }],
-    //   validation: (Rule) => Rule.required().error('Необходимо выбрать хотя бы одну категорию'),
-    // },
     {
       name: 'createdAt',
       type: 'datetime',
@@ -66,3 +87,43 @@ export default defineType({
     },
   ],
 });
+
+// Дополнительно добавляем blockContent.js для форматируемого текста
+export const blockContent = {
+  title: 'Block Content',
+  name: 'blockContent',
+  type: 'array',
+  of: [
+    {
+      type: 'block',
+      styles: [
+        { title: 'Normal', value: 'normal' },
+        { title: 'Heading 1', value: 'h1' },
+        { title: 'Heading 2', value: 'h2' },
+        { title: 'Quote', value: 'blockquote' },
+      ],
+      lists: [{ title: 'Bullet', value: 'bullet' }],
+      marks: {
+        decorators: [
+          { title: 'Strong', value: 'strong' },
+          { title: 'Emphasis', value: 'em' },
+          { title: 'Underline', value: 'underline' },
+        ],
+        annotations: [
+          {
+            name: 'link',
+            type: 'object',
+            title: 'Link',
+            fields: [
+              { name: 'href', type: 'url', title: 'URL' },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      type: 'image',
+      options: { hotspot: true },
+    },
+  ],
+};
