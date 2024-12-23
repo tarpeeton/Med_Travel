@@ -1,10 +1,40 @@
 import { defineType } from 'sanity';
+import type { SanityDocument } from 'sanity';
+
+interface BlogSection {
+  title?: {
+    ru?: string;
+    uz?: string;
+    en?: string;
+  };
+}
+
+interface BlogDocument extends SanityDocument {
+  sections?: BlogSection[];
+}
 
 export default defineType({
   name: 'blog',
   type: 'document',
   title: 'Блог',
   fields: [
+    {
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      options: {
+        source: (doc: BlogDocument) => doc.sections?.[0]?.title?.en || '', // Explicitly typed doc
+        maxLength: 96,
+        slugify: (input) =>
+          input
+            .toLowerCase()
+            .replace(/\s+/g, '-') // Replace spaces with dashes
+            .replace(/[^\w\-]+/g, '') // Remove non-word characters
+            .replace(/\-\-+/g, '-') // Collapse multiple dashes
+            .trim(),
+      },
+      validation: (Rule) => Rule.required().error('Slug обязателен'),
+    },
     {
       name: 'sections',
       type: 'array',
@@ -24,23 +54,6 @@ export default defineType({
                 { name: 'en', type: 'string', title: 'Заголовок на английском' },
               ],
               validation: (Rule) => Rule.required().error('Заголовок обязателен'),
-            },
-            {
-              name: 'slug',
-              type: 'slug',
-              title: 'Slug',
-              options: {
-                source: 'title.en', 
-                maxLength: 96,
-                slugify: (input) =>
-                  input
-                    .toLowerCase()
-                    .replace(/\s+/g, '-') // Заменяем пробелы на дефисы
-                    .replace(/[^\w\-]+/g, '') // Удаляем не буквы и цифры
-                    .replace(/\-\-+/g, '-') // Убираем повторяющиеся дефисы
-                    .trim(),
-              },
-              validation: (Rule) => Rule.required().error('Slug обязателен'),
             },
             {
               name: 'image',
