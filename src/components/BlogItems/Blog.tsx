@@ -59,6 +59,15 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
 
     const normalizedSlug = Array.isArray(id) ? id[0] : id
 
+    const formatTextWithNewlines = (text: string): JSX.Element[] => {
+        return text.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+          </span>
+        ));
+      };
+
 
     useEffect(() => {
         const FetchBlogWithSlug = async () => {
@@ -153,7 +162,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                                 <div key={data._key}>
                                     <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold'>{data.title[locale]}</p>
                                     <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>
-                                        {formatBoldTextOnlyWithNewLine(data.description[locale])}
+                                        {formatTextWithNewlines(data?.description?.[locale])}
                                     </p>
                                 </div>
                             ))
