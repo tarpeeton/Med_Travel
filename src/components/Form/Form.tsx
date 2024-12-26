@@ -2,7 +2,8 @@
 import { FC, useState } from "react"
 import ConsultationModal from '../Modal/ConsultationSuccess'
 import { IFormProps } from "@/interface/IForm"
-import { consultation } from "@/lib/api" 
+import { consultation } from "@/lib/api"
+import useLocale from '@/hooks/useLocale'
 
 
 
@@ -50,6 +51,8 @@ const FloatingLabelInput: FC<IFormProps> = ({ label, type, id, value, onChange, 
 
 // Form component
 const Form: FC = () => {
+  const locale = useLocale()
+
   const [formValues, setFormValues] = useState({
     name: "",
     phone: "",
@@ -96,29 +99,57 @@ const Form: FC = () => {
       >
         <div className="2xl:w-[40%] 2xl:mt-[44px] 2xl:ml-[40px]">
           <p className="text-[25px] font-bold font-raleway text-white mdl:text-[45px] mdl:w-[70%] 2xl:w-[100%] 2xl:text-[40px] 4xl:w-[90%] 4xl:text-[50px]">
-            Заботьтесь о своем здоровье с нами!
+            {
+              locale === 'ru' ? "Заботьтесь о своем здоровье с нами!"
+                : locale === 'uz' ? "Salomatligingizni biz bilan asrang!"
+                  : "Take care of your health with us!"
+            }
+
           </p>
           <p className="text-[15px] text-white font-medium mt-[12px] mdl:text-[15px] mdl:mt-[15px] 2xl:text-[15px]">
-            Забронируйте свою консультацию уже сегодня!
+            {
+              locale === 'ru' ? "Забронируйте свою консультацию уже сегодня!"
+                : locale === 'uz' ? "Bugunoq konsultatsiyangizni bron qiling!"
+                  : "Book your consultation today!"
+            }
+
           </p>
         </div>
         <div className="bg-white mt-[20px] rounded-[20px] py-[24px] px-[20px] mdl:px-[30px] mdl:py-[40px] 2xl:w-[50%] 2xl:mt-0">
           <form className="flex flex-col w-full" onSubmit={handleSubmit}>
             <FloatingLabelInput
-              label="ФИО"
+              label={
+                locale === 'ru' ? "ФИО"
+                  : locale === 'uz' ? "FIO"
+                    : "FIO"
+              }
               type="text"
               id="name"
               value={formValues.name}
               onChange={handleChange}
-              placeholder='например: Rustam'
+              placeholder={
+                locale === 'ru' ? "например: Rustam"
+                  : locale === 'uz' ? "masalan: Rustam"
+                    : "for example: Rustam"
+              }
+
             />
             <FloatingLabelInput
-              label="Номер телефона"
+              label={
+                locale === 'ru' ? "Номер телефона"
+                  : locale === 'uz' ? "Telefon raqamingiz"
+                    : "Phone number"
+              }
+
               type="tel"
               id="phone"
               value={formValues.phone}
               onChange={handleChange}
-              placeholder='например: +99899 000-00-00'
+              placeholder={
+                locale === 'ru' ? "например: +99899 000-00-00"
+                  : locale === 'uz' ? "masalan: +99899 000-00-00"
+                    : "for example: +99899 000-00-00"
+              }
             />
 
             <FloatingLabelInput
@@ -127,12 +158,21 @@ const Form: FC = () => {
               id="email"
               value={formValues.email}
               onChange={handleChange}
-              placeholder='например: example@gmail.com'
+              placeholder={
+                locale === 'ru' ? "например: example@gmail.com"
+                  : locale === 'uz' ? "masalan: example@gmail.com"
+                    : "for example: example@gmail.com"
+              }
             />
 
             {!isFormValid && (
               <p className="text-red-500 mt-2">
-                Пожалуйста, заполните все обязательные поля
+                {
+                  locale === 'ru' ? "Пожалуйста, заполните все обязательные поля"
+                    : locale === 'uz' ? "Iltimos, barcha majburiy maydonlarni to'ldiring"
+                      : "Please fill in all required fields"
+                }
+
               </p>
             )}
             <ConsultationModal visible={modalVisible} close={handleCloseModalVisible} />
@@ -140,7 +180,12 @@ const Form: FC = () => {
               className="bg-green100 text-white rounded-[10px] mt-4 hover:bg-teal-600 p-[16px] text-[14px] font-bold font-raleway mdl:w-[30%] 2xl:w-[40%]"
               type="submit"
             >
-              Отправить заявку
+              {
+                locale === 'ru' ? "Отправить заявку"
+                  : locale === 'uz' ? "Ariza yuborish"
+                    : "Submit application"
+              }
+
             </button>
           </form>
         </div>

@@ -11,9 +11,9 @@ interface IMixedData {
     {
       id: 0,
       name: {
-        ru: "Туры",
-        uz: "Turlar",
-        en: "Tours",
+        ru: "Клиники",
+        uz: "Klinikalar",
+        en: "Clinics",
       },
     },
     {

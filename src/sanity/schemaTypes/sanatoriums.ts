@@ -13,7 +13,17 @@ export default defineType({
         { name: 'ru', type: 'string', title: 'Русский' },
         { name: 'uz', type: 'string', title: 'Узбекский' },
         { name: 'en', type: 'string', title: 'Английский' }
-      ]
+      ],
+      preview: {
+        select: {
+          title: 'name.ru',
+        },
+        prepare(selection: Record<string, any>) {
+          return {
+            title: `${selection.title || 'Без названия'} )`
+          }
+        }
+      }
     },
     {
       name: 'slug',
@@ -136,18 +146,7 @@ export default defineType({
               ]
             }
           ],
-          preview: {
-            select: {
-              title: 'name.ru',
-              price: 'price',
-              duration: 'duration'
-            },
-            prepare(selection: Record<string, any>) {
-              return {
-                title: `${selection.title || 'Без названия'} - ${selection.price || '0'} (${selection.duration || 0} дней)`
-              }
-            }
-          }
+       
         }
       ]
     },
@@ -178,19 +177,7 @@ export default defineType({
               ]
             }
           ],
-          preview: {
-            select: {
-              title: 'title.ru',
-              media: 'programImage'
-            },
-            prepare(selection: Record<string, any>) {
-              const { title, media } = selection;
-              return {
-                title: title || 'Без названия',
-                media: media
-              }
-            }
-          }
+         
         }
       ]
     },
@@ -239,19 +226,7 @@ export default defineType({
               validation: (Rule) => Rule.required().error('Описание номера обязательно')
             }
           ],
-          preview: {
-            select: {
-              title: 'title.ru',
-              media: 'images.0'
-            },
-            prepare(selection: Record<string, any>) {
-              const { title, media } = selection;
-              return {
-                title: title || 'Без названия',
-                media: media
-              }
-            }
-          }
+          
         }
       ]
     },
@@ -283,15 +258,16 @@ export default defineType({
       type: 'url'
     },
     {
-      name: 'instagram',
-      title: 'Instagram',
-      type: 'url'
-    },
-    {
       name: 'phone',
       title: 'Телефон',
       type: 'string'
     },
+    {
+      name: 'instagram',
+      title: 'Instagram',
+      type: 'url'
+    },
+   
     {
       name: 'mainServiceImage',
       title: 'Изображение для услуг и процедур',
@@ -320,16 +296,7 @@ export default defineType({
             validation: (Rule) => Rule.required().error('Название услуги обязательно')
           }
         ],
-        preview: {
-          select: {
-            title: 'title.ru'
-          },
-          prepare(selection: Record<string, any>) {
-            return {
-              title: selection.title || 'Без названия'
-            }
-          }
-        }
+      
       }]
     },
     {
@@ -351,16 +318,7 @@ export default defineType({
             validation: (Rule) => Rule.required().error('Название услуги обязательно')
           }
         ],
-        preview: {
-          select: {
-            title: 'title.ru'
-          },
-          prepare(selection: Record<string, any>) {
-            return {
-              title: selection.title || 'Без названия'
-            }
-          }
-        }
+      
       }]
     },
     {
@@ -406,22 +364,11 @@ export default defineType({
                   validation: (Rule) => Rule.required().error('Название программы обязательно')
                 }
               ],
-              preview: {
-                select: {
-                  title: 'title.ru',
-                  media: 'icon'
-                },
-                prepare(selection: Record<string, any>) {
-                  return {
-                    title: selection.title || 'Без названия',
-                    media: selection.media
-                  }
-                }
-              }
+             
             }
           ]
         }
       ]
     },
-  ]
+  ],
 })

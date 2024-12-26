@@ -4,13 +4,14 @@ import { FC, useEffect, useState } from "react"
 import { MdNavigateNext } from "react-icons/md"
 import { Location } from '@/interface/location'
 import { tours , clinics } from '@/constants/Main/Map'
+import useLocale from '@/hooks/useLocale'
 
 const Sanatoriums: FC = () => {
 	const [mapLoaded, setMapLoaded] = useState(false) 
 	const [mapInstance, setMapInstance] = useState<any>(null) 
 	const [activeTab, setActiveTab] = useState<"clinics" | "tours">("clinics") 
 	const [activeData, setActiveData] = useState<number | null>(null) 
-
+	const locale = useLocale()
 
 
 	useEffect(() => {
@@ -60,7 +61,7 @@ const Sanatoriums: FC = () => {
 			window.ymaps.ready(() => {
 				const map = new window.ymaps.Map("mapTUR", {
 					center: [41.3112, 69.2797],
-					zoom: 12,
+					zoom: 15,
 					controls: [],
 				})
 				setMapInstance(map)
@@ -121,7 +122,7 @@ const Sanatoriums: FC = () => {
 		setActiveData(id)
 		if (mapInstance) {
 			// Center the map on the clicked location's coordinates
-			mapInstance.setCenter(coords, 14, { duration: 300 })
+			mapInstance.setCenter(coords, 15, { duration: 300 })
 
 			// Iterate through geoObjects to find the correct placemark and open its balloon
 			mapInstance.geoObjects.each((geoObject: any) => {
@@ -150,12 +151,12 @@ const Sanatoriums: FC = () => {
 				<div className='mt-[5px] 2xl:min-h-[76.5px]'>
 					<p className='text-[15px] text-[#7C7C7C] font-raleway'>{location.address || location.description}</p>
 				</div>
-				<div className='mt-[5px]'>
+				{/* <div className='mt-[5px]'>
 					<Link href={location.url} className='flex items-center text-[#168CE6] font-semibold font-raleway'>
 						<p className='text-[16px]'>{location.link}</p>
 						<MdNavigateNext size={20} />
 					</Link>
-				</div>
+				</div> */}
 			</div>
 		))
 	}
@@ -164,7 +165,12 @@ const Sanatoriums: FC = () => {
 			<div className="flex flex-col">
 				<div className='mdl:w-[50%]'>
 					<p className="text-[25px] font-bold text-titleDark mdl:text-[35px] 2xl:text-[40px] font-raleway">
-						Туры и медицинские клиники Узбекистана
+					{
+  locale === 'ru' ? "Туры и медицинские клиники Узбекистана"
+  : locale === 'uz' ? "O'zbekistonning turlari va tibbiyot klinikalari"
+  : "Tours and medical clinics of Uzbekistan"
+}
+
 					</p>
 					<div className="flex flex-row justify-between mt-[20px] mdl:mt-[30px]  mdl:w-[80%] 2xl:w-[70%]">
 						<button
@@ -172,7 +178,12 @@ const Sanatoriums: FC = () => {
 								}`}
 							onClick={() => setActiveTab("clinics")}
 						>
-							Медицинские клиники
+							{
+  locale === 'ru' ? "Медицинские клиники"
+  : locale === 'uz' ? "Tibbiyot klinikalari"
+  : "Medical clinics"
+}
+
 						</button>
 						{/* <button
 							className={`font-semibold w-[40%] text-[14px] py-[12px] 2xl:text-[17px] px-[20px] rounded-full ${activeTab === "tours" ? "bg-green100 text-white" : "border border-[#505050] text-[#505050]"

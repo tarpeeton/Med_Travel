@@ -65,7 +65,12 @@ const Tours: FC = () => {
         <div className='mt-[120px] mx-[16px] 2xl:ml-[200px]'>
             <div className='flex flex-col'>
                 <p className='text-titleDark font-bold font-raleway text-[25px] w-[70%] mdl:text-[35px] 2xl:text-[40px] slg:w-[50%] 2xl:w-[40%]'>
-                Клиники и санатории
+                    {
+                        locale === 'ru' ? "Клиники и санатории"
+                            : locale === 'uz' ? "Klinikalar va sanatoriyalar"
+                                : "Clinics and sanatoriums"
+                    }
+
                 </p>
                 <div className='flex flex-row gap-[4px] mt-[20px] 2xl:mt-[30px]'>
                     {mixedData.map((m) => (
@@ -95,7 +100,7 @@ const Tours: FC = () => {
                             {data.map((data) => (
                                 <SwiperSlide key={data._id} >
                                     <div
-                                        className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] mdl:pb-[25px] 2xl:w-[100%]'
+                                        className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] 2xl:h-[300px] mdl:pb-[25px] 2xl:w-[100%]'
                                         style={{
                                             backgroundImage: data.mainPhoto
                                                 ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${urlFor(data.mainPhoto.asset._ref)})`
@@ -103,18 +108,18 @@ const Tours: FC = () => {
                                             backgroundSize: 'cover',
                                             backgroundPosition: 'center',
                                         }}
-                                        
+
                                     >
                                         <div>
                                             <button className='py-[12px] px-[20px] text-center flex items-center justify-center border border-white rounded-full font-raleway text-[15px] text-white'>
                                                 {data.fromAddress[locale]}
                                             </button>
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <p className='text-white text-[22px] mdl:text-[25px] 2xl:text-[30px] font-bold'>
                                                 {data.toAddress[locale]}
                                             </p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </SwiperSlide>
                             ))}
@@ -133,7 +138,7 @@ const Tours: FC = () => {
                             {sanathory.map((data) => (
                                 <SwiperSlide key={data._id}>
                                     <div
-                                        className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] mdl:pb-[25px]'
+                                        className='rounded-[20px] w-full flex flex-col justify-between bg-cover bg-center min-h-[240px] py-[20px] px-[16px] mdl:h-[350px] mdl:w-[98%] 2xl:h-[300px] mdl:pb-[25px]'
                                         style={{
                                             backgroundImage: data.homeImage
                                                 ? `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${urlFor(data.homeImage.asset._ref)})`

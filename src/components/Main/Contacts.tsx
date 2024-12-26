@@ -3,10 +3,12 @@
 import { FC, useEffect, useState } from 'react'
 import { FaInstagram, FaTelegramPlane } from 'react-icons/fa'
 import Link from 'next/link'
+import useLocale from '@/hooks/useLocale'
 
 const Contacts: FC = () => {
   const [mapLoaded, setMapLoaded] = useState(false) // State to ensure the map is loaded once
   const [mapInstance, setMapInstance] = useState<any>(null) // Store the map instance
+  const locale = useLocale()
 
   useEffect(() => {
     const loadYandexMap = () => {
@@ -76,23 +78,43 @@ const Contacts: FC = () => {
         <div className="flex flex-col">
           <div>
             <p className="text-[25px] mdl:text-[35px] 2xl:text-[40px] font-bold font-raleway text-titleDark">
-              Контакты
+             {
+  locale === 'ru' ? "Контакты"
+  : locale === 'uz' ? "Kontaktlar"
+  : "Contacts"
+}
+
             </p>
           </div>
           <div className="flex flex-col 2xl:flex 2xl:flex-row 2xl:justify-between 2xl:mt-[30px]">
             {/* Address */}
             <div className="py-[22px] border-b border-[#D3D3D3] 2xl:w-[40%] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold ">
-                Адрес
+              {
+  locale === 'ru' ? "Адрес"
+  : locale === 'uz' ? "Manzil"
+  : "Address"
+}
+
               </p>
               <p className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[4px]">
-                Ташкент, ул. Чинабад, 10А
+              {
+  locale === 'ru' ? "Ташкент, ул. Чинабад, 10А"
+  : locale === 'uz' ? "Toshkent, Chinobod ko'chasi, 10A"
+  : "Tashkent, Chinabad Street, 10A"
+}
+
               </p>
             </div>
             {/* Phone */}
             <div className="py-[22px] border-b border-[#D3D3D3] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold">
-                Телефон
+              {
+  locale === 'ru' ? "Телефон"
+  : locale === 'uz' ? "Telefon"
+  : "Phone"
+}
+
               </p>
               <Link href='tel:+998938019101' className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[4px]">
                 +998 (93) 801 91 01
@@ -101,7 +123,12 @@ const Contacts: FC = () => {
             {/* Social Links */}
             <div className="py-[22px] border-b border-[#D3D3D3] 2xl:pr-[20px] 2xl:border-b-0 2xl:border-r 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold cursor-pointer">
-                Соц.сети
+              {
+  locale === 'ru' ? "Соц.сети"
+  : locale === 'uz' ? "Ijtimoiy tarmoqlar"
+  : "Social networks"
+}
+
               </p>
               <Link target="_blank"
                 rel="noopener noreferrer" href="https://www.instagram.com/medtraveltreatment/" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">
@@ -113,7 +140,12 @@ const Contacts: FC = () => {
             </div>
             <div className="py-[22px] border-b border-[#D3D3D3] 2xl:border-b-0 2xl:py-[0]">
               <p className="text-[12px] mdl:text-[17px] text-titleDark40 font-raleway font-semibold cursor-pointer">
-                Соц.сети
+              {
+  locale === 'ru' ? "Соц.сети"
+  : locale === 'uz' ? "Ijtimoiy tarmoqlar"
+  : "Social networks"
+}
+
               </p>
               <Link target="_blank"
                 rel="noopener noreferrer" href="https://t.me/MedTravelAssociation" className="text-[18px] mdl:text-[22px] text-titleDark font-medium font-raleway mt-[8px] flex flex-row gap-[8px]">

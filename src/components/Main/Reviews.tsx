@@ -25,7 +25,7 @@ const Reviews: FC = () => {
     const [open, setOpen] = useState(false)
     const locale = useLocale()
     const [selectedReview, setSelectedReview] = useState<ReviewProps | null>(null)
-    const swiperRef = useRef<any>(null) 
+    const swiperRef = useRef<any>(null)
     const [reviews, setReviews] = useState<ReviewProps[] | []>([])
     const [loading, setLoading] = useState(true) // State for loading
 
@@ -45,7 +45,7 @@ const Reviews: FC = () => {
             setLoading(true) // Start loading
             try {
                 const res = await client.fetch(
-                        `*[_type == "review"]
+                    `*[_type == "review"]
                         {_id,createdAt,name,comment,image}`
                 ) // Change to your desired language
                 setReviews(res) // Ensure you set the data correctly
@@ -61,11 +61,11 @@ const Reviews: FC = () => {
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
         return date.toLocaleDateString('ru-RU', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
         })
-      }
+    }
 
 
 
@@ -74,12 +74,17 @@ const Reviews: FC = () => {
             <div>
                 <div className='flex flex-col py-[40px] px-[20px]'>
                     <p className='text-[#FFFFFF] text-[24px] font-bold font-raleway mdl:text-[35px] 2xl:text-[35px]'>
-                    Отзывы людей, воспользовавшихся нашими услугами.
+                        {
+                            locale === 'ru' ? "Отзывы людей, воспользовавшихся нашими услугами."
+                                : locale === 'uz' ? "Bizning xizmatlarimizdan foydalangan odamlarning fikrlari."
+                                    : "Reviews from people who used our services."
+                        }
+
                     </p>
 
                     <div className='2xl:mt-[40px]'>
                         <Swiper
-                            modules={[Navigation , Autoplay]}
+                            modules={[Navigation, Autoplay]}
                             navigation={false} // Disable default navigation
                             slidesPerView={1}
                             spaceBetween={20}
@@ -137,18 +142,18 @@ const Reviews: FC = () => {
                                             <div className='bg-white rounded-[20px] p-[20px] mt-[20px] mdl:w-[99%] 2xl:w-[99%] 2xl:h-[350px]'>
                                                 <div className='flex flex-col h-[320px]'>
                                                     <div className='flex flex-row gap-[8px]'>
-                                                        
-                                                         <Image
-                                                        src={
-                                                            review.image
-                                                                ? urlFor(review.image.asset._ref).width(50).height(50).url()
-                                                                : 'https://ucarecdn.com/30077089-1dac-4769-b282-fba533147b26/-/preview/65x65/'
-                                                        }
-                                                        width={50}
-                                                        height={50}
-                                                        alt='User logo'
-                                                        className='rounded-full'
-                                                    />
+
+                                                        <Image
+                                                            src={
+                                                                review.image
+                                                                    ? urlFor(review.image.asset._ref).width(50).height(50).url()
+                                                                    : 'https://ucarecdn.com/30077089-1dac-4769-b282-fba533147b26/-/preview/65x65/'
+                                                            }
+                                                            width={50}
+                                                            height={50}
+                                                            alt='User logo'
+                                                            className='rounded-full'
+                                                        />
                                                         <div className='flex flex-col'>
                                                             <p className='text-[16px] text-titleDark mdl:text-[20px] font-semibold'>{review.name}</p>
                                                             <p className='text-[14px] text-[#A7A7A7] font-medium mdl:text-[16px]'>{formatDate(review.createdAt)}</p>

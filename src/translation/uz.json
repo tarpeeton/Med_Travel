@@ -1,8 +1,14 @@
 {
 	"Header": {
-		"turs": "Turlar",
+		"turs": "Sayohatlar",
 		"clinick": "Klinikalar",
 		"sanathory": "Sanatoriyalar",
-		"hotel": "Mexmonhonalar"
+		"hotel": "Mexmonhonalar",
+		"about": "Kompaniya haqida",
+		"partners": "Tashkilotlar",
+		"ask": "Savol berish",
+		"blog": "Blog",
+		"contacts": "Aloqa",
+		"button": "Sayohatni boshlash"
 	}
 }

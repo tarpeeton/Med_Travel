@@ -83,6 +83,12 @@ export default async function LocaleLayout({
       <head>
         <meta name="yandex-verification" content="5cd5b7b85111a318" />
         {/* Google Analytics */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" sizes="180x180" />
+        <link rel="icon" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <meta name="theme-color" content="#ffffff" />
         <Script
           id="google-analytics"
           strategy="afterInteractive"

@@ -40,7 +40,14 @@ const Services: FC = () => {
 	return (
 		<div className='flex flex-col mt-[120px] mx-[16px] mdl:mx-[20px] 2xl:mx-[200px]'>
 			<div className='flex flex-col relative'>
-				<p className='text-[25px] text-black mdl:text-[35px] 2xl:text-[40px] font-bold '>Услуги</p>
+				<p className='text-[25px] text-black mdl:text-[35px] 2xl:text-[40px] font-bold '>
+					{
+						locale === 'ru' ? "Услуги"
+							: locale === 'uz' ? "Xizmatlarimiz"
+								: "Services"
+					}
+
+				</p>
 
 				<Slider {...settings} ref={sliderRef}>
 					{DataService.map((item, index) => (
@@ -62,15 +69,19 @@ const Services: FC = () => {
 											{item.title[locale]}
 										</p>
 
-										{item.options.map((option , index) => (
+										{item.options.map((option, index) => (
 											<p key={index} className='mdl:py-[25px] text-[15px] font-raleway font-medium text-[#242424] py-[20px] border-b border-[#E8E8E8] 2xl:py-[30px] mdl:text-[16px]'>
-											{option.item[locale]}
-										</p>
+												{option.item[locale]}
+											</p>
 										))}
-										
+
 										<div className="flex flex-row items-center justify-between mt-[30px]">
-											<Link href='tel:+998938019101' className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway flex flex-row  justify-center gap-[8px]">
-												Позвонить <GiCommercialAirplane />
+											<Link href='tel:+998938019101' className="w-[50%] mdl:w-[30%] bg-[#1AB2A6] text-white text-[16px] p-[16px] 2xl:w-[40%] rounded-[10px] font-bold font-raleway text-center">
+												{
+													locale === 'ru' ? "Позвонить"
+														: locale === 'uz' ? "Qo'ng'iroq qilish"
+															: "Call"
+												}
 											</Link>
 
 										</div>

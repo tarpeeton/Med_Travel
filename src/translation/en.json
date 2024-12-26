@@ -1,8 +1,15 @@
 {
 	"Header": {
-		"turs": "tours",
-		"clinick": "clicick",
-		"sanathory": "sanathory",
-		"hotel": "hotel"
+		"turs": "Tours",
+		"clinick": "Clinics",
+		"sanathory": "Sanatoriums",
+		"hotel": "Hotels",
+		"about": "About",
+		"partners": "Partners",
+		"ask": "Ask",
+		"blog": "Blog",
+		"contacts": "Contacts",
+		"button": "Start the journey"
+
 	}
 }

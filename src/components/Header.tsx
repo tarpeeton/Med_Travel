@@ -56,13 +56,13 @@ const Header = ({ locale }: { locale: string }) => {
             {t('turs')}
           </Link>
           <Link href='/clinics' className='flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-            Клиники
+            {t('clinick')}
           </Link>
           <Link href='/sanatoriums' className='flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-            Санатории
+            {t('sanathory')}
           </Link>
           <Link href='/hotels' className='flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium font-raleway'>
-          Страны и Отели
+            {t('hotel')}
           </Link>
         </div>
 
@@ -88,19 +88,19 @@ const Header = ({ locale }: { locale: string }) => {
         <div>
           <div className='flex flex-col z-[9999999]'>
             <Link href='/tours' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
-              Туры
+              {t('turs')}
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
             <Link href='/clinics' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
-              Клиники
+              {t('clinick')}
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
             <Link href='/sanatoriums' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
-              Санатории
+              {t('sanathory')}
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
             <Link href='/hotels' onClick={toggleMenuOpen} className='p-[20px] flex flex-row gap-[10px] text-[#242424] items-center border-t border-[#E8E8E8] text-[20px] font-medium hover:text-green100'>
-            Страны и Отели
+              {t('hotel')}
               <FaChevronRight className='text-[#242424] mt-[4px]' size={15} />
             </Link>
           </div>
@@ -126,38 +126,55 @@ const Header = ({ locale }: { locale: string }) => {
 
             <div className='flex flex-col px-[20px] mt-[25px]'>
               <button onClick={toggleMobileService} className='flex flex-row items-center gap-[4px] slg:hidden'>
-                <p className='text-[#1AB2A6] text-[18px] font-semibold'>Услуги</p>
+                <p className='text-[#1AB2A6] text-[18px] font-semibold'>{t('services')}</p>
                 <MdKeyboardArrowDown size={28} className={`text-[#1AB2A6] ${mobileService ? "rotate-[180deg]" : ''}`} />
               </button>
 
               {mobileService && (
                 <div className='flex flex-col gap-[20px] text-[18px] font-medium mt-[20px] slg:text-[22px]'>
                   <Link href='/about' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
-                    О компании
+                    {t('about')}
                   </Link>
                   <Link href='/partners' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
-                    Партнеры
+                    {t('partners')}
                   </Link>
-                  <button  onClick={toggleOpenQuestion} className='text-left hover:text-green100 duration-300'>
-                    Задать вопрос
+                  <button onClick={toggleOpenQuestion} className='text-left hover:text-green100 duration-300'>
+                    {t('ask')}
                   </button>
                   <Link href='/blog' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
-                    Блог
+                    {t('blog')}
                   </Link>
                   <Link href='/contacts' onClick={toggleMenuOpen} className='hover:text-green100 duration-300'>
-                    Контакты
+                    {t('contacts')}
                   </Link>
                 </div>
               )}
             </div>
             <div className='flex flex-col gap-[16px] md:gap-[20px] absolute bottom-[40px] z-[9999] left-[20px]'>
               <div className='flex flex-col text-[22px] font-bold slg:text-[28px] slg:font-semibold'>
-                <p>Здоровье и отдых в </p>
-                <p>одном путешествии!</p>
+                {
+                  locale === 'ru' ? (
+                    <>
+                      <p>Здоровье и отдых в</p>
+                      <p>одном путешествии!</p>
+                    </>
+                  ) : locale === 'uz' ? (
+                    <>
+                      <p>Salomatlik va dam olishni</p>
+                      <p>bitta sayohatda oling!</p>
+                    </>
+                  ) : (
+                    <>
+                      <p>Health and relaxation in</p>
+                      <p>one trip!</p>
+                    </>
+                  )
+                }
+
               </div>
               <div className='w-full mt-[16px]'>
                 <Link onClick={toggleMenuOpen} href='/tours' className="bg-greenButton py-[16px] px-[20px] rounded-[10px] text-[14px] font-bold w-full  mdl:text-[16px] text-white">
-                  Начать путешествие
+                  {t('button')}
                 </Link>
               </div>
             </div>
