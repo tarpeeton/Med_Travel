@@ -11,13 +11,6 @@ import { urlFor } from '@/sanity/lib/image'
 
 
 
-
-
-interface IBlogWithSlug {
-    setBlogID: Dispatch<SetStateAction<string>>
-    allBlogs: IBlog[]
-}
-
 export interface IBlogSlugData {
     _id: string
     createdAt: string
@@ -43,7 +36,7 @@ export interface IBlogSlugData {
     }>
 }
 
-const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
+const BlogWithSlug: FC<{ setBlogID: Dispatch<SetStateAction<string>>, allBlogs: IBlog[] }> = ({ setBlogID, allBlogs }) => {
     const locale = useLocale()
     const { id } = useParams()
     const [blogWithSlug, setBlogWithSlug] = useState<IBlogSlugData | null>(null)
@@ -51,22 +44,15 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
         return date.toLocaleDateString('ru-RU', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
         })
-      }
+    }
 
     const normalizedSlug = Array.isArray(id) ? id[0] : id
 
-    const formatTextWithNewlines = (text: string): JSX.Element[] => {
-        return text.split('\n').map((line, index) => (
-          <span key={index}>
-            {line}
-            <br />
-          </span>
-        ));
-      };
+  
 
 
     useEffect(() => {
@@ -95,43 +81,18 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
     }, [normalizedSlug, locale, setBlogID])
 
 
-    function formatBoldTextOnlyWithNewLine(text: string) {
-        // Matnni yulduzchali qismlar va qolgan matnga bo‘lish
-        const parts = text.split(/(\*[^*]+\*)/g); // Yulduzchali qismlarni bo‘lish
-    
-        return parts.map((part, index) => {
-            if (part.startsWith('*') && part.endsWith('*')) {
-                // Yulduzchali qismlarni qalin qilib, yangi qatordan boshlash
-                return (
-                    <p key={index} style={{ margin: '5px 0' }}>
-                        <strong>{part.slice(1, -1).trim()}</strong> {/* Yulduzchalarni olib tashlash */}
-                    </p>
-                );
-            }
-            // Qolgan matnni ham yangi qatordan boshlash
-            return (
-                <p key={index} style={{ margin: '5px 0' }}>
-                    {part.trim()}
-                </p>
-            );
-        });
-    }
-    
-    
-
-
     return (
         <div className='flex flex-col mt-[20px]'>
             <div className='flex flex-col 2xl:flex-row 2xl:justify-between'>
                 {/* BLOG */}
-                <div className='flex flex-col 2xl:w-[68%]'>
+                <div className='flex flex-col 2xl:w-[68%]' >
                     <div className='flex flex-col gap-[10px]'>
                         <p className='text-[#7C7C7C] text-[15px] mdl:text-[17px] font-raleway'>
-                        {blogWithSlug?.createdAt ? formatDate(blogWithSlug.createdAt) : 'Дата неизвестна'}
+                            {blogWithSlug?.createdAt ? formatDate(blogWithSlug.createdAt) : 'Дата неизвестна'}
                         </p>
                         <h1 className='text-[25px] mdl:text-[35px] 2xl:text-[32px] 4xl:text-[40px] text-titleDark font-bold  font-raleway'>{blogWithSlug?.sections[0]?.title[locale]}</h1>
                     </div>
-                    <div className='mt-[20px] mdl:mt-[25px]  rounded-[20px] overflow-hidden h-[220px] mdl:h-[420px] 2xl:h-[510px]'>
+                    <div className='mt-[20px] mdl:mt-[25px]  rounded-[20px] overflow-hidden h-[220px] mdl:h-[420px] 2xl:h-[510px]' >
                         {blogWithSlug?.sections[0]?.image?.asset && (
                             <Image
                                 quality={100}
@@ -145,34 +106,28 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
 
                     </div>
                     <div className='mt-[30px] mdl:mt-[40px] '>
-                        <p className='text-[15px] font-raleway  mdl:text-[17px]'>
+                        <p className='text-[15px] font-raleway whitespace-pre-wrap  mdl:text-[17px]'>
                             {blogWithSlug?.sections?.[0].description[locale]}
                         </p>
                     </div>
 
 
-
-
-                    <div className='mt-[40px] mdl:mt-[50px] 2xl:mt-[60px] flex flex-col gap-[12px] 2xl:gap-[12px]'>
-
-
-
-                        {blogWithSlug?.sections && blogWithSlug.sections.length > 0 ? (
-                            blogWithSlug.sections.map((data) => (
-                                <div key={data._key}>
-                                    <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold'>{data.title[locale]}</p>
-                                    <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark '>
-                                        {formatTextWithNewlines(data?.description?.[locale])}
-                                    </p>
-                                </div>
-                            ))
-                        ) : (
-                            null // Fallback if no options are available
-                        )}
-
-
-
-                    </div>
+                    {blogWithSlug?.sections && blogWithSlug.sections.length > 1 ? (
+                        <div className='mt-[40px] mdl:mt-[50px] 2xl:mt-[60px] flex flex-col gap-[12px] 2xl:gap-[12px]'>
+                            {blogWithSlug?.sections && blogWithSlug.sections.length > 1 ? (
+                                blogWithSlug.sections.map((data) => (
+                                    <div key={data._key}>
+                                        <p className='text-[22px] mdl:text-[25px] text-titleDark font-semibold font-raleway'>{data.title[locale]}</p>
+                                        <p className='text-[15px] mdl:text-[17px] 2xl:text-[18px] text-titleDark whitespace-pre-wrap  font-raleway'>
+                                            {data?.description?.[locale]}
+                                        </p>
+                                    </div>
+                                ))
+                            ) : (
+                                null // Fallback if no options are available
+                            )}
+                        </div>
+                    ) : null}
                 </div>
                 {/* SIMILAR NEWS */}
                 <div className='hidden 2xl:flex 2xl:flex-col 2xl:gap-[12px] 2xl:w-[30%] mt-[158px]'>
@@ -181,7 +136,7 @@ const BlogWithSlug: FC<IBlogWithSlug> = ({ setBlogID, allBlogs }) => {
                             <div className='border border-borderColor p-[30px] rounded-[20px]'>
                                 <p className='text-[18px] font-semibold font-raleway text-titleDark '>
                                     {similar.sections[0].title[locale]}
-                                    
+
                                 </p>
                                 <div className='mt-[20px]'>
                                     <Link href={`${similar._id}`} className='flex flex-row items-center font-bold text-green100 text-[16px]'>Подробнее <MdNavigateNext className='ml-[2px] mt-[2px]' size={25} /></Link>
